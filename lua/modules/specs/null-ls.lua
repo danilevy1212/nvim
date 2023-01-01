@@ -18,6 +18,9 @@ return {
                 null_ls.builtins.formatting.eslint_d,
                 -- Eslint diagnostics
                 null_ls.builtins.diagnostics.eslint_d,
+
+                -- Nix
+                null_ls.builtins.formatting.alejandra
             },
         }
     end,

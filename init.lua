@@ -1,3 +1,11 @@
+local sysname = vim.loop.os_uname().sysname
+
+-- Global constants, useful for configuration
+_G.CONSTANTS = {
+    IS_LINUX = sysname == 'Linux',
+    IS_MACOS = sysname == 'Darwin',
+}
+
 -- Load builtin options and other no-depedency customization
 require 'config'
 

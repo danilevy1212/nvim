@@ -11,9 +11,12 @@ return {
         local package_names = {
             -- For JS / TS
             'eslint_d',
-            -- For Lua
-            'stylua',
         }
+
+        -- For lua (on MacOS)
+        if CONSTANTS.IS_MACOS then
+            package_names[#package_names + 1] = 'stylua'
+        end
 
         -- Install packages if not present
         for _, package_name in ipairs(package_names) do
@@ -29,19 +32,24 @@ return {
             'williamboman/mason-lspconfig.nvim',
             after = 'mason.nvim',
             config = function()
+                local ensure_installed = {
+                    -- For JSON
+                    'jsonls',
+                    -- For JS / TS
+                    'tsserver',
+                    -- For VimL (Yikes!)
+                    'vimls',
+                    -- For nix
+                    'rnix',
+                }
+
+                -- For lua (on MacOS)
+                if CONSTANTS.IS_MACOS then
+                    ensure_installed[#ensure_installed + 1] = 'sumneko_lua'
+                end
+
                 require('mason-lspconfig').setup {
-                    ensure_installed = {
-                        -- For lua
-                        'sumneko_lua',
-                        -- For JSON
-                        'jsonls',
-                        -- For JS / TS
-                        'tsserver',
-                        -- For VimL (Yikes!)
-                        'vimls',
-                        -- For nix
-                        'rnix',
-                    },
+                    ensure_installed = ensure_installed,
                 }
             end,
         },
