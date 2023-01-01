@@ -3,6 +3,7 @@
 return {
     'nvim-telescope/telescope.nvim',
     module = 'telescope',
+    cmd = { 'Telescope' },
     -- Set the keymaps to setup lazy loading
     setup = function()
         vim.keymap.set('n', '<leader><leader>', function()
@@ -41,7 +42,11 @@ return {
             after = 'telescope.nvim',
             config = function()
                 require('telescope').load_extension 'fzf'
-            end,
+            end
         },
     },
+    config = function()
+        -- Setup is required
+        require('telescope').setup {}
+    end,
 }
