@@ -12,7 +12,9 @@ return {
     end,
     config = function()
         require('project_nvim').setup {
-            silent_chdir = false,
+            -- Don't announce change in directory
+            silent_chdir = true,
+            -- Chang directory for window only
             scope_chdir = 'win',
             -- Prevent 'null-ls' from setting the CWD
             ignore_lsp = { 'null-ls' },
