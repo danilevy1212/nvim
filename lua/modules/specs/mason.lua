@@ -38,7 +38,7 @@ return {
                     -- For VimL (Yikes!)
                     'vimls',
                     -- For nix
-                    'rnix',
+                    'nil_ls',
                 }
 
                 -- For lua (on MacOS)
