@@ -63,4 +63,4 @@ seto('list', true)
 seto('listchars', { eol = '↲', tab = '▸ ', space = '·' })
 
 -- Set the language to american english
-vim.cmd [[language en_US.utf8]]
+vim.cmd [[language en_US.UTF-8]]
