@@ -20,12 +20,10 @@ local function load(spec_path)
 end
 
 return packer.startup {
+    -- The loading order is bottom up
     function()
         -- The package manager
         load 'packer'
-
-        -- Nvim utility functions
-        load 'plenary'
 
         -- Cold, nice, cozy
         load 'nord'
@@ -68,6 +66,12 @@ return packer.startup {
 
         -- Integration with editorconfig
         load 'editorconfig'
+
+        -- Nvim utility functions
+        load 'plenary'
+
+        -- Keymap helper
+        load 'which-key'
 
         -- Automatically set up your configuration after cloning packer.nvim
         -- Put this at the end after all plugins

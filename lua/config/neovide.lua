@@ -2,10 +2,10 @@
 vim.g.neovide_transparency = 0.8
 
 -- Default font
-vim.opt.guifont = CONSTANTS.IS_MACOS and 'Sarasa Mono J:h18' or 'Sarasa Mono J:h10'
+seto('guifont', CONSTANTS.IS_MACOS and 'Sarasa Mono J:h18' or 'Sarasa Mono J:h10')
 
 -- Double width font
-vim.opt.guifontwide = CONSTANTS.IS_MACOS and 'Sarasa UI J:h18' or 'Sarasa UI J:h10'
+seto('guifontwide', CONSTANTS.IS_MACOS and 'Sarasa UI J:h18' or 'Sarasa UI J:h10')
 
 -- Make floating windows have a blur
 vim.g.neovide_floating_blur_amount_x = 2.0

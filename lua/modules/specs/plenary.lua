@@ -5,9 +5,20 @@ _G.R = function(name)
     require('plenary.reload').reload_module(name)
 end
 
--- Easy keybind to reload the configuration
-vim.keymap.set('n', '<leader>hr', function()
-    vim.cmd { cmd = 'PackerSync' }
-end, { desc = 'Sync packages configuration', silent = true })
-
-return { 'nvim-lua/plenary.nvim', module_name = '^plenary.*' }
+return {
+    'nvim-lua/plenary.nvim',
+    module_name = '^plenary.*',
+    setup = function()
+        -- Easy keybind to reload the configuration
+        require('which-key').register({
+            r = {
+                function()
+                    vim.cmd 'PackerSync'
+                end,
+                'Sync packages configuration',
+            },
+        }, {
+            prefix = '<leader>h',
+        })
+    end,
+}

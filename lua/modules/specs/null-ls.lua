@@ -20,7 +20,7 @@ return {
                 null_ls.builtins.diagnostics.eslint_d,
 
                 -- Nix
-                null_ls.builtins.formatting.alejandra
+                null_ls.builtins.formatting.alejandra,
             },
         }
     end,

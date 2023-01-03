@@ -6,33 +6,86 @@ return {
     cmd = { 'Telescope' },
     -- Set the keymaps to setup lazy loading
     setup = function()
-        vim.keymap.set('n', '<leader><leader>', function()
-            require('telescope.builtin').find_files()
-        end, { desc = 'Find a file in CWD' })
+        local get_buffer_dir = function()
+            return vim.fn.expand '%:p:h'
+        end
 
-        vim.keymap.set('n', '<leader>/', function()
-            require('telescope.builtin').live_grep()
-        end, { desc = 'Find a instance of string in CWD' })
-
-        vim.keymap.set('n', '<leader>ss', function()
-            require('telescope.builtin').current_buffer_fuzzy_find()
-        end, { desc = 'Search in buffer' })
-
-        vim.keymap.set('n', '<leader>bb', function()
-            require('telescope.builtin').buffers()
-        end, { desc = 'Find live buffers' })
-
-        vim.keymap.set('n', '<leader>ht', function()
-            require('telescope.builtin').help_tags()
-        end, { desc = 'Find tag help' })
-
-        vim.keymap.set('n', '<leader>ho', function()
-            require('telescope.builtin').vim_options()
-        end, { desc = 'Find neovim option' })
-
-        vim.keymap.set('n', '<leader>fr', function()
-            require('telescope.builtin').oldfiles()
-        end, { desc = 'Find a previously opened file' })
+        require('which-key').register({
+            ['<leader>'] = {
+                function()
+                    require('telescope.builtin').find_files()
+                end,
+                'Find a file in CWD',
+            },
+            ['/'] = {
+                function()
+                    require('telescope.builtin').live_grep()
+                end,
+                'Find a string in CWD',
+            },
+            s = {
+                s = {
+                    function()
+                        require('telescope.builtin').current_buffer_fuzzy_find()
+                    end,
+                    'Find string in buffer',
+                },
+                ['/'] = {
+                    function()
+                        require('telescope.builtin').live_grep {
+                            cwd = get_buffer_dir(),
+                        }
+                    end,
+                    'Find a string in directory',
+                },
+                d = {
+                    function()
+                        require('telescope.builtin').find_files {
+                            cwd = get_buffer_dir(),
+                        }
+                    end,
+                    'Find file in buffer directory',
+                },
+            },
+            b = {
+                b = {
+                    function()
+                        require('telescope.builtin').buffers()
+                    end,
+                    'Find live buffers',
+                },
+            },
+            f = {
+                r = {
+                    function()
+                        require('telescope.builtin').oldfiles()
+                    end,
+                    'Find in previously open files',
+                },
+            },
+            h = {
+                t = {
+                    function()
+                        require('telescope.builtin').help_tags()
+                    end,
+                    'Help Tags',
+                },
+                o = {
+                    function()
+                        require('telescope.builtin').vim_options()
+                    end,
+                    'Options (vim.opt)',
+                },
+                k = {
+                    function()
+                        require('telescope.builtin').keymaps()
+                    end,
+                    'Find Keybinding',
+                },
+            },
+        }, {
+            prefix = '<leader>',
+        })
     end,
     requires = {
         -- Use fzf algorithm for sorting
@@ -42,7 +95,7 @@ return {
             after = 'telescope.nvim',
             config = function()
                 require('telescope').load_extension 'fzf'
-            end
+            end,
         },
     },
     config = function()

@@ -26,26 +26,43 @@ return {
             vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
             -- Mappings.
-            -- See `:help vim.lsp.*` for documentation on any of the below functions
-            local bufopts = { noremap = true, silent = true, buffer = bufnr }
-            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-            vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-            vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-            vim.keymap.set('n', '<leader>wl', function()
-                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            end, bufopts)
-            vim.keymap.set('n', '<leader>cd', vim.lsp.buf.definition, bufopts)
-            vim.keymap.set('n', '<leader>cD', vim.lsp.buf.type_definition, bufopts)
-            vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, bufopts)
-            vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-            vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-            vim.keymap.set('n', '<leader>cf', function()
-                vim.lsp.buf.format { async = true }
-            end, bufopts)
+            require('which-key').register({
+                g = {
+                    d = { vim.lsp.buf.definition, 'Go to definition' },
+                    D = { vim.lsp.buf.declaration, 'Go to declaration' },
+                    i = { vim.lsp.buf.implementation, 'Go to implementation' },
+                    R = { vim.lsp.buf.references, 'Find references' },
+                },
+                K = { vim.lsp.buf.hover, 'Hover' },
+                ['C-k'] = { vim.lsp.buf.signature_help, 'Signature Help' },
+                ['<leader>'] = {
+                    c = {
+                        name = 'Code',
+                        d = { vim.lsp.buf.definition, 'Go to definition' },
+                        f = {
+                            function()
+                                vim.lsp.buf.format { async = true }
+                            end,
+                            'Format',
+                        },
+                        t = { vim.lsp.buf.type_definition, 'Go to type definition' },
+                        r = { vim.lsp.buf.rename, 'Rename at point' },
+                        R = { vim.lsp.buf.references, 'Find references' },
+                        a = { vim.lsp.buf.code_action, 'Code action' },
+                        w = {
+                            name = 'Workspace',
+                            a = { vim.lsp.buf.add_workspace_folder, 'Add workspace' },
+                            r = { vim.lsp.buf.remove_workspace_folder, 'Remove workspace' },
+                            l = {
+                                function()
+                                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                                end,
+                                'List workspaces',
+                            },
+                        },
+                    },
+                },
+            }, { buffer = bufnr })
         end
 
         -- Set up nvim-cmp

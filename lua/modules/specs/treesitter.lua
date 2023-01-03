@@ -8,8 +8,10 @@ return {
     config = function()
         require('nvim-treesitter').setup()
 
-        -- Force C++ compiler
-        require 'nvim-treesitter.install'.compilers = { 'clang++' }
+        -- Force zig compiler
+        require('nvim-treesitter.install').compilers = { 'zig' }
+        -- Try C++ compiler in case of trouble
+        -- require('nvim-treesitter.install').compilers = { 'clang++' }
 
         require('nvim-treesitter.configs').setup {
             -- A list of parser names, or "all"

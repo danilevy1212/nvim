@@ -1,7 +1,7 @@
 --- Helper function to set an opt globally
 --- @param option string
 --- @param val any
-local function seto(option, val)
+_G.seto = function(option, val)
     vim.opt[option] = val
 end
 

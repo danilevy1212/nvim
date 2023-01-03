@@ -6,9 +6,14 @@ return {
     event = 'DirChangedPre',
     after = 'telescope.nvim',
     setup = function()
-        vim.keymap.set('n', '<leader>pp', function()
-            require('telescope').extensions.projects.projects()
-        end, { desc = 'Switch to another project' })
+        require('which-key').register({
+            p = {
+                function()
+                    require('telescope').extensions.projects.projects()
+                end,
+                'Switch project',
+            },
+        }, { prefix = '<leader>p' })
     end,
     config = function()
         require('project_nvim').setup {

@@ -2,5 +2,5 @@
 
 return {
     'gpanders/editorconfig.nvim',
-    event = 'BufRead'
+    event = 'BufRead',
 }
