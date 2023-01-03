@@ -99,6 +99,14 @@ return {
             on_attach = on_attach,
             capabilities = capabilities,
         }
+        lspconfig.eslint.setup {
+            settings = {
+                -- Make it easier to work with monorepos
+                workingDirectory = {
+                    mode = 'auto',
+                },
+            },
+        }
 
         -- VimL (Yikes!)
         lspconfig.vimls.setup {

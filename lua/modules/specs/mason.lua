@@ -8,10 +8,7 @@ return {
         require('mason').setup()
 
         -- Packages to install
-        local package_names = {
-            -- For JS / TS
-            'eslint_d',
-        }
+        local package_names = {}
 
         -- For lua (on MacOS)
         if CONSTANTS.IS_MACOS then
@@ -37,6 +34,7 @@ return {
                     'jsonls',
                     -- For JS / TS
                     'tsserver',
+                    'eslint',
                     -- For VimL (Yikes!)
                     'vimls',
                     -- For nix
