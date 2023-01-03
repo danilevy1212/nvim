@@ -1,4 +1,4 @@
--- Category: configuration
+-- Category: core
 
 -- Small window before the popup apears
 seto('timeoutlen', 200)

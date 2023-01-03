@@ -1,3 +1,3 @@
---- Category: configuration
+--- Category: core
 
 return 'wbthomason/packer.nvim'

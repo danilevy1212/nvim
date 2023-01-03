@@ -22,8 +22,6 @@ end
 return packer.startup {
     -- The loading order is bottom up
     function()
-        -- The package manager
-        load 'packer'
 
         -- Cold, nice, cozy
         load 'nord'
@@ -72,6 +70,9 @@ return packer.startup {
 
         -- Keymap helper
         load 'which-key'
+
+        -- The package manager
+        load 'packer'
 
         -- Automatically set up your configuration after cloning packer.nvim
         -- Put this at the end after all plugins

@@ -6,9 +6,13 @@ Module that declares all the plugins pulled from third parties. Powered by [Pack
 
 Plugin specs are separated into the following distinct categories
 
+- Core:
+
+    Foundational and impossible to modularize or lazy load. These plugins set a pattern through-out the codebase and are extensibily used.
+
 - Configuration:
     
-    Plugins that offer utility functions or assist in any way with the configuration of neovim.
+    Plugins that offer utility functions or assist with the configuration of neovim.
 
 - Organization:
 
@@ -16,7 +20,7 @@ Plugin specs are separated into the following distinct categories
 
 - Tools:
     
-    Plugins that offer an interface to an external program or interact with external systems in some way.
+    Plugins that offer an interface to an external program or interact with external systems outside neovim.
 
 - Editor
 

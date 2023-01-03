@@ -7,6 +7,7 @@ end
 
 return {
     'nvim-lua/plenary.nvim',
+    -- Lazily loaded so other plugins can call it on demand
     module_name = '^plenary.*',
     setup = function()
         -- Easy keybind to reload the configuration
