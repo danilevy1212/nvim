@@ -82,7 +82,8 @@ return {
                     },
                     -- Setup snippets
                     completion = {
-                        callSnippet = 'Replace',
+                        -- Show both the snippet and completion
+                        callSnippet = 'Both',
                     },
                 },
             },
