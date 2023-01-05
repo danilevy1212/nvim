@@ -104,7 +104,7 @@ return {
             settings = {
                 -- Make it easier to work with monorepos
                 workingDirectory = {
-                    mode = 'auto',
+                    mode = 'location',
                 },
             },
         }
