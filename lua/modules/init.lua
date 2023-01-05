@@ -22,6 +22,8 @@ end
 return packer.startup {
     -- The loading order is bottom up
     function()
+        -- Magit lesser brother
+        load 'fugitive'
 
         -- Cold, nice, cozy
         load 'nord'
