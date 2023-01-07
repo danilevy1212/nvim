@@ -16,13 +16,18 @@ return {
         }, { prefix = '<leader>p' })
     end,
     config = function()
+        -- See https://github.com/ahmedkhalf/project.nvim#%EF%B8%8F-configuration
         require('project_nvim').setup {
             -- Don't announce change in directory
             silent_chdir = true,
-            -- Chang directory for window only
+            -- Change directory for window only
             scope_chdir = 'win',
-            -- Prevent 'null-ls' from setting the CWD
-            ignore_lsp = { 'null-ls' },
+            -- Only use patterns to detect projects
+            detection_methods = { 'pattern' },
+            -- Use VSC and other custom patterns for detection
+            patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn', '.project' },
+            -- Show hidden files
+            show_hidden = false,
         }
 
         -- Telescope integration
