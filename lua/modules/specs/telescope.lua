@@ -13,7 +13,17 @@ return {
         require('which-key').register({
             ['<leader>'] = {
                 function()
-                    require('telescope.builtin').find_files()
+                    local git_dir = vim.fn.getcwd() .. '/.git'
+
+                    if vim.fn.isdirectory(git_dir) then
+                        require('telescope.builtin').git_files({
+                            show_untracked = true
+                        })
+                    else
+                        require('telescope.builtin').find_files({
+                            hidden = true
+                        })
+                    end
                 end,
                 'Find a file in CWD',
             },
