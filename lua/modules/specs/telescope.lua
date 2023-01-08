@@ -13,9 +13,7 @@ return {
         require('which-key').register({
             ['<leader>'] = {
                 function()
-                    local git_dir = vim.fn.getcwd() .. '/.git'
-
-                    if vim.fn.isdirectory(git_dir) then
+                    if vim.fn.isdirectory(vim.fn.getcwd() .. '/.git') == 1 then
                         require('telescope.builtin').git_files({
                             show_untracked = true
                         })
