@@ -3,7 +3,7 @@
 -- Magit lesser brother
 return {
     'tpope/vim-fugitive',
-    cmd = { 'G' },
+    cmd = { 'Git', 'G' },
     setup = function()
         require('which-key').register({
             g = {
