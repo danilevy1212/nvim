@@ -25,6 +25,9 @@ return packer.startup {
         -- Magit lesser brother
         load 'fugitive'
 
+        -- Git buffer integration
+        load 'gitsigns'
+
         -- Cold, nice, cozy
         load 'nord'
 
