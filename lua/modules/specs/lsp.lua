@@ -63,6 +63,20 @@ return {
                     },
                 },
             }, { buffer = bufnr })
+
+            local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP, {
+                clear = false,
+            })
+
+            --- Create autocmd to keep location list and quickfix list sync with diagnostics
+            vim.api.nvim_create_autocmd('DiagnosticChanged', {
+                group = group,
+                buffer = bufnr,
+                desc = 'Keep location list in sync with LSP diagnostics',
+                callback = function()
+                    vim.diagnostic.setloclist { open = false }
+                end,
+            })
         end
 
         -- Set up nvim-cmp
