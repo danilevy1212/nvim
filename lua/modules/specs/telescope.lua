@@ -108,6 +108,11 @@ return {
     },
     config = function()
         -- Setup is required
-        require('telescope').setup {}
+        require('telescope').setup {
+            defaults = {
+                -- When running in a GUI, give some transparency to telescope window
+                winblend = 30
+            }
+        }
     end,
 }

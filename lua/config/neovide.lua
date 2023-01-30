@@ -7,6 +7,12 @@ seto('guifont', CONSTANTS.IS_MACOS and 'Sarasa Mono J:h18' or 'Sarasa Mono J:h10
 -- Double width font
 seto('guifontwide', CONSTANTS.IS_MACOS and 'Sarasa UI J:h18' or 'Sarasa UI J:h10')
 
+-- Activate floating window blend
+seto('winblend', 15)
+
+-- Activate pop-up menus blend
+seto('pumblend', 15)
+
 -- Make floating windows have a blur
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
