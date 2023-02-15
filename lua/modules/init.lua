@@ -22,6 +22,9 @@ end
 return packer.startup {
     -- The loading order is bottom up
     function()
+        -- Togglable terminal
+        load 'toogleterm'
+
         -- Magit lesser brother
         load 'fugitive'
 
