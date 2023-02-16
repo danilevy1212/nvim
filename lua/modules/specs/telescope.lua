@@ -14,35 +14,37 @@ return {
             ['<leader>'] = {
                 function()
                     if vim.fn.isdirectory(vim.fn.getcwd() .. '/.git') == 1 then
-                        require('telescope.builtin').git_files({
-                            show_untracked = true
-                        })
+                        require('telescope.builtin').git_files {
+                            show_untracked = true,
+                        }
                     else
-                        require('telescope.builtin').find_files({
-                            hidden = true
-                        })
+                        require('telescope.builtin').find_files {
+                            hidden = true,
+                        }
                     end
                 end,
                 'Find a file in CWD',
             },
             ['/'] = {
                 function()
-                    require('telescope.builtin').live_grep()
+                    require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())
                 end,
                 'Find a string in CWD',
             },
             s = {
                 s = {
                     function()
-                        require('telescope.builtin').current_buffer_fuzzy_find()
+                        require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_ivy {
+                            previewer = false,
+                        })
                     end,
                     'Find string in buffer',
                 },
                 ['/'] = {
                     function()
-                        require('telescope.builtin').live_grep {
-                            cwd = get_buffer_dir(),
-                        }
+                        require('telescope.builtin').live_grep(
+                            require('telescope.themes').get_ivy { cwd = get_buffer_dir() }
+                        )
                     end,
                     'Find a string in directory',
                 },
@@ -111,8 +113,8 @@ return {
         require('telescope').setup {
             defaults = {
                 -- When running in a GUI, give some transparency to telescope window
-                winblend = 30
-            }
+                winblend = 30,
+            },
         }
     end,
 }
