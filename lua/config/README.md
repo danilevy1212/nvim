@@ -8,3 +8,4 @@ This module configures Neovim's built-in options, meaning, it should have zero d
 - [Keybindings](./remap.lua)
 - [Sanitized Defaults](./options.lua)
 - [Neovide Defaults](./neovide.lua)
+- [Filetype specific additional configuration](./filetype)
