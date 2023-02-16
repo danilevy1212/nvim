@@ -30,6 +30,7 @@ return {
                 'commonlisp',
                 'toml',
                 'nix',
+                'dockerfile',
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
