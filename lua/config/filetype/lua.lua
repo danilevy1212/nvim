@@ -29,7 +29,6 @@ lspconfig.lua_ls.setup {
     },
 }
 
-
 -- Setup stylua for neovim config
 null_ls.setup {
     sources = {
@@ -39,7 +38,7 @@ null_ls.setup {
 
 --- We restart the client to force it to connect if we aren't connected already
 if #vim.lsp.get_active_clients {
-        name = 'lua_ls',
-    } == 0 then
+    name = 'lua_ls',
+} == 0 then
     lspconfig.lua_ls.launch()
 end

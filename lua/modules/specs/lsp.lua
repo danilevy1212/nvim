@@ -53,6 +53,13 @@ return {
         lspconfig.nil_ls.setup {
             on_attach = on_attach,
             capabilities = capabilities,
+            settings = {
+                ['nil'] = {
+                    formatting = {
+                        command = { 'alejandra' },
+                    },
+                },
+            },
         }
     end,
 }
