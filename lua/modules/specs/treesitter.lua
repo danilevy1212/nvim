@@ -8,10 +8,11 @@ return {
     config = function()
         require('nvim-treesitter').setup()
 
+        -- NOTE  In case of failure, rotate these around, the first will get used
         require('nvim-treesitter.install').compilers = {
+            'cc',
             'clang++',
             'zig',
-            'cc',
         }
 
         require('nvim-treesitter.configs').setup {
