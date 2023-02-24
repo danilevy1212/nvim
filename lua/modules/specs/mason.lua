@@ -39,6 +39,8 @@ return {
                     'vimls',
                     -- For nix
                     'nil_ls',
+                    -- For rust
+                    'rust_analyzer',
                 }
 
                 -- For lua (on MacOS)

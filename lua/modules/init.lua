@@ -22,6 +22,9 @@ end
 return packer.startup {
     -- The loading order is bottom up
     function()
+        -- rust + lsp
+        load 'rust-tools'
+
         -- Togglable terminal
         load 'toogleterm'
 

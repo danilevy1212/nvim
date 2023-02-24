@@ -20,11 +20,16 @@ Plugin specs are separated into the following distinct categories
 
 - Tools:
     
-    Plugins that offer an interface to an external program or interact with external systems outside neovim.
+    Plugins that offer an interface to an external programs or interact with external systems outside neovim.
 
 - Editor
 
     Plugins that facilitate editing text.
+
+- Filetype
+
+    Plugins that target a specific [Filetype](https://neovim.io/doc/user/filetype.html). Further customizations
+    can be done in the `after/ftplugin/<filetype>.lua` directory.
 
 ## Settings
 
