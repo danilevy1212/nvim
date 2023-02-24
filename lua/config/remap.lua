@@ -12,8 +12,6 @@ vim.g.mapleader = ' '
 
 setk('n', '<leader>o-', vim.cmd.Ex, { desc = 'Open file directory' })
 
-setk('n', '<leader>ot', vim.cmd.terminal, { desc = 'Open a terminal' })
-
 setk('n', '<leader>bd', vim.cmd.bdelete, { desc = 'Close current buffer' })
 
 setk('n', '<leader>br', vim.cmd.edit, { desc = 'Reload buffer' })
