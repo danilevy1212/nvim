@@ -4,6 +4,7 @@
 return {
     'hrsh7th/nvim-cmp',
     event = { 'InsertEnter', 'CmdlineEnter' },
+    module = 'cmp',
     requires = {
         -- Snippets
         { 'L3MON4D3/LuaSnip', module_pattern = '^luasnip.*' },
