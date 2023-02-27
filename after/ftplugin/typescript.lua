@@ -1,1 +1,1 @@
-require('config.utils').require_with_warn 'config.filetype.js_ts'
+require('config.utils').prequire 'config.filetype.js_ts'

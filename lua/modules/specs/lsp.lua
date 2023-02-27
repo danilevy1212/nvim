@@ -11,5 +11,5 @@ return {
         },
         -- LSP Completion
         { 'hrsh7th/cmp-nvim-lsp', module = 'cmp_nvim_lsp' },
-    }
+    },
 }

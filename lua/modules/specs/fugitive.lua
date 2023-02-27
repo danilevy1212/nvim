@@ -27,11 +27,11 @@ return {
                     'status',
                 },
                 b = {
-                    function ()
+                    function()
                         vim.cmd [[GBrowse]]
                     end,
-                    'open remote in browser'
-                }
+                    'open remote in browser',
+                },
             },
         }, {
             prefix = '<leader>',

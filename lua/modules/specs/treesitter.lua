@@ -32,7 +32,7 @@ return {
                 'toml',
                 'nix',
                 'dockerfile',
-                'sql'
+                'sql',
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
