@@ -3,7 +3,7 @@
 -- Magit lesser brother
 return {
     'tpope/vim-fugitive',
-    cmd = { 'Git', 'G' },
+    cmd = { 'Git', 'G', 'GBrowse' },
     requires = {
         -- Make GBrowse work on gitlab
         {
