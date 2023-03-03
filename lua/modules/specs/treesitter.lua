@@ -10,6 +10,7 @@ return {
 
         -- NOTE  In case of failure, rotate these around, the first will get used
         require('nvim-treesitter.install').compilers = {
+            'gcc',
             'cc',
             'clang++',
             'zig',
