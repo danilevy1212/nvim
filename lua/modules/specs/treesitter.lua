@@ -1,10 +1,25 @@
 -- Category: editor
 
+---Disable criteria. None for now
+---@param lang string -- Filetype
+---@param bufnr number -- Buffer number
+---@return boolean
+---@diagnostic disable-next-line: unused-local
+local disable = function(lang, bufnr)
+    return false
+end
+
 -- Treesitter support
 return {
     'nvim-treesitter/nvim-treesitter',
     event = 'BufRead',
     run = ':TSUpdate',
+    requires = {
+        {
+            'HiPhish/nvim-ts-rainbow2',
+            module = 'ts-rainbow',
+        },
+    },
     config = function()
         require('nvim-treesitter').setup()
 
@@ -25,7 +40,8 @@ return {
                 'markdown_inline',
                 'javascript',
                 'typescript',
-                'c',
+                'json',
+                'jsonc',
                 'lua',
                 'rust',
                 'vim',
@@ -46,8 +62,48 @@ return {
                 -- Higlight by default
                 enable = true,
 
+                -- Disable when is too large
+                disable = disable,
+
                 -- Don't relay on regex highlight
                 additional_vim_regex_highlighting = false,
+            },
+
+            -- Enable incremental selection
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = 'gnn',
+                    node_incremental = 'grn',
+                    scope_incremental = 'grc',
+                    node_decremental = 'grm',
+                },
+            },
+
+            -- Indentation based on treesitter for the = operator.
+            indent = {
+                enable = true,
+            },
+
+            -- Rainbow parens
+            rainbow = {
+                enable = true,
+                -- list of languages you want to disable the plugin for
+                disable = {},
+                -- Which query to use for finding delimiters
+                query = 'rainbow-parens',
+                -- Highlight the entire buffer all at once
+                strategy = require 'ts-rainbow.strategy.global',
+                -- Default highlight groups
+                hlgroups = {
+                    'TSRainbowCyan',
+                    'TSRainbowViolet',
+                    'TSRainbowGreen',
+                    'TSRainbowBlue',
+                    'TSRainbowOrange',
+                    'TSRainbowRed',
+                    'TSRainbowYellow',
+                },
             },
         }
 
