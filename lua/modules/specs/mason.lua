@@ -5,7 +5,9 @@ return {
     after = 'nvim-lspconfig',
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall' },
     config = function()
-        require('mason').setup()
+        require('mason').setup({
+            PATH = 'prepend'
+        })
 
         -- Packages to install
         local package_names = {
