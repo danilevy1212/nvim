@@ -2,12 +2,12 @@
 
 return {
     'williamboman/mason.nvim',
-    after = 'nvim-lspconfig',
+    module = {'mason', 'mason-registry'},
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall' },
     config = function()
-        require('mason').setup({
-            PATH = 'prepend'
-        })
+        require('mason').setup {
+            PATH = 'prepend',
+        }
 
         -- Packages to install
         local package_names = {
