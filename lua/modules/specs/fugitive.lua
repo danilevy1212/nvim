@@ -32,9 +32,16 @@ return {
                     end,
                     'open remote in browser',
                 },
+                B = {
+                    function()
+                        vim.cmd [[GBrowse!]]
+                    end,
+                    'copy browser link to clipboard',
+                },
             },
         }, {
             prefix = '<leader>',
+            mode = {'n', 'v'}
         })
     end,
 }
