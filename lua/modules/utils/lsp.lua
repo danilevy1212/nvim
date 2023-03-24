@@ -54,7 +54,28 @@ M.on_attach = function(client, bufnr)
         buffer = bufnr,
         desc = 'Keep location list in sync with LSP diagnostics',
         callback = function()
-            vim.diagnostic.setloclist { open = false }
+            -- Find the window of the buffer whose diagnostics changed
+            local winnr = (function()
+                local windows = vim.api.nvim_list_wins()
+                local win = nil
+
+                for _, winnr in ipairs(windows) do
+                    local win_bufnr = vim.api.nvim_win_get_buf(winnr)
+                    if win_bufnr == bufnr then
+                        win = winnr
+                    end
+                end
+
+                return win
+            end)()
+
+            -- setloclist for the window
+            if winnr then
+                vim.diagnostic.setloclist {
+                    open = false,
+                    winnr = winnr,
+                }
+            end
         end,
     })
 end
