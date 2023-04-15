@@ -39,7 +39,7 @@ null_ls.setup {
 --- We restart the client to force it to connect if we aren't connected already
 if #vim.lsp.get_active_clients {
     name = 'lua_ls',
-    bufnr = vim.api.nvim_get_current_buf()
+    bufnr = vim.api.nvim_get_current_buf(),
 } == 0 then
     lspconfig.lua_ls.launch()
 end

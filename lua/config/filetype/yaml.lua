@@ -17,7 +17,7 @@ lspconfig.yamlls.setup {
 
 if #vim.lsp.get_active_clients {
     name = 'yamlls',
-    bufnr = vim.api.nvim_get_current_buf()
+    bufnr = vim.api.nvim_get_current_buf(),
 } == 0 then
     lspconfig.yamlls.launch()
 end

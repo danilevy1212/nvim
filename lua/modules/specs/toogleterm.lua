@@ -49,6 +49,7 @@ return {
                     return vim.o.columns * 0.33
                 end
             end,
+            auto_scroll = false,
             persist_size = false,
             persist_mode = false,
             shade_terminals = false,

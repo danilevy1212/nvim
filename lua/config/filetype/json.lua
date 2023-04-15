@@ -10,7 +10,7 @@ lspconfig.jsonls.setup {
 
 if #vim.lsp.get_active_clients {
     name = 'jsonls',
-    bufnr = vim.api.nvim_get_current_buf()
+    bufnr = vim.api.nvim_get_current_buf(),
 } == 0 then
     lspconfig.jsonls.launch()
 end

@@ -41,7 +41,7 @@ return {
             },
         }, {
             prefix = '<leader>',
-            mode = {'n', 'v'}
+            mode = { 'n', 'v' },
         })
     end,
 }

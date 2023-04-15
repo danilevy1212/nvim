@@ -21,10 +21,12 @@ local clients = {
 }
 --- We restart the client to force it to connect if we aren't connected already
 for _, name in ipairs(clients) do
-    if #vim.lsp.get_active_clients {
-        name = name,
-        bufnr = vim.api.nvim_get_current_buf()
-    } == 0 then
+    if
+        #vim.lsp.get_active_clients {
+            name = name,
+            bufnr = vim.api.nvim_get_current_buf(),
+        } == 0
+    then
         lspconfig[name].launch()
     end
 end

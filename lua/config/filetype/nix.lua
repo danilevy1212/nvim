@@ -18,7 +18,7 @@ lspconfig[server_name].setup {
 --- We restart the client to force it to connect if we aren't connected already
 if #vim.lsp.get_active_clients {
     name = server_name,
-    bufnr = vim.api.nvim_get_current_buf()
+    bufnr = vim.api.nvim_get_current_buf(),
 } == 0 then
     lspconfig[server_name].launch()
 end

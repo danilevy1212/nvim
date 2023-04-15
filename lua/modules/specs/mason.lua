@@ -2,7 +2,7 @@
 
 return {
     'williamboman/mason.nvim',
-    module = {'mason', 'mason-registry'},
+    module = { 'mason', 'mason-registry' },
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall' },
     config = function()
         require('mason').setup {
