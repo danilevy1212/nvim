@@ -62,5 +62,15 @@ seto('list', true)
 -- Chars to show for
 seto('listchars', { eol = '↲', tab = '▸ ', space = '·' })
 
+-- Default diffing options
+seto('diffopt', { 'internal', 'filler', 'closeoff', 'linematch:60' })
+
+-- Allow .nvim.lua files to be loaded if in a directory, if added to ':trust' list.
+-- Trusted files are in "$XDG_STATE_HOME/nvim/trust"
+seto('exrc', true)
+
 -- Set the language to american english
 vim.cmd [[language en_US.UTF-8]]
+
+-- editorconfig integration
+vim.g.editorconfig = true

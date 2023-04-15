@@ -1,3 +1,6 @@
+-- Activate lua bytecode loader
+vim.loader.enable()
+
 local sysname = vim.loop.os_uname().sysname
 
 -- Global constants, useful for configuration

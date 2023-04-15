@@ -73,9 +73,6 @@ return packer.startup {
         -- Search todo comments
         load 'todo-comments'
 
-        -- Integration with editorconfig
-        load 'editorconfig'
-
         -- Nvim utility functions
         load 'plenary'
 
