@@ -106,11 +106,5 @@ return {
                 },
             },
         }
-
-        -- Reuse parser for specific filetypes
-        local ft_to_parser = require('nvim-treesitter.parsers').filetype_to_parsername
-
-        -- Use 'bash' parser for 'direnv' filetype
-        ft_to_parser.direnv = 'bash'
     end,
 }
