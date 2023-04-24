@@ -3,19 +3,99 @@ local M = {}
 --- Require without throwing an error, but notify in case of an error.
 --- Meant to be used to run 'one-shot' configuration scripts.
 --- See https://www.lua.org/manual/5.1/manual.html#pdf-require
---- @param module_path string
+--- @param modname string
 --- @return boolean, unknown|nil
-function M.prequire(module_path)
-    local ok, package_maybe = pcall(require, module_path)
+function M.prequire(modname)
+    local ok, package_maybe = pcall(require, modname)
 
     if not ok then
         vim.notify(
-            'Module ' .. module_path .. ' fail to load, please check it:\n\n' .. tostring(package_maybe),
+            'Module ' .. modname .. ' fail to load, please check it:\n\n' .. tostring(package_maybe),
             vim.log.levels.ERROR
         )
     end
 
     return ok, package_maybe
+end
+
+--- Default attach function for most servers See `:h lsp_config`, on_attach
+---@param client any
+---@param bufnr number
+M.on_attach = function(client, bufnr)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- Mappings.
+    require('which-key').register({
+        g = {
+            i = { vim.lsp.buf.implementation, 'Go to implementation' },
+            R = { vim.lsp.buf.references, 'Find references' },
+        },
+        K = { vim.lsp.buf.hover, 'Hover' },
+        ['C-k'] = { vim.lsp.buf.signature_help, 'Signature Help' },
+        ['<leader>'] = {
+            c = {
+                name = 'Code',
+                d = { vim.lsp.buf.definition, 'Go to definition' },
+                f = {
+                    function()
+                        vim.lsp.buf.format { async = true }
+                    end,
+                    'Format',
+                },
+                t = { vim.lsp.buf.type_definition, 'Go to type definition' },
+                r = { vim.lsp.buf.rename, 'Rename at point' },
+                R = { vim.lsp.buf.references, 'Find references' },
+                a = { vim.lsp.buf.code_action, 'Code action' },
+                w = {
+                    name = 'Workspace',
+                    a = { vim.lsp.buf.add_workspace_folder, 'Add workspace' },
+                    r = { vim.lsp.buf.remove_workspace_folder, 'Remove workspace' },
+                    l = {
+                        function()
+                            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                        end,
+                        'List workspaces',
+                    },
+                },
+            },
+        },
+    }, { buffer = bufnr })
+
+    local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP, {
+        clear = false,
+    })
+
+    --- Create autocmd to keep location list and quickfix list sync with diagnostics
+    vim.api.nvim_create_autocmd('DiagnosticChanged', {
+        group = group,
+        buffer = bufnr,
+        desc = 'Keep location list in sync with LSP diagnostics',
+        callback = function()
+            -- Find the window of the buffer whose diagnostics changed
+            local winnr = (function()
+                local windows = vim.api.nvim_list_wins()
+                local win = nil
+
+                for _, winnr in ipairs(windows) do
+                    local win_bufnr = vim.api.nvim_win_get_buf(winnr)
+                    if win_bufnr == bufnr then
+                        win = winnr
+                    end
+                end
+
+                return win
+            end)()
+
+            -- setloclist for the window
+            if winnr then
+                vim.diagnostic.setloclist {
+                    open = false,
+                    winnr = winnr,
+                }
+            end
+        end,
+    })
 end
 
 return M

@@ -4,7 +4,7 @@ require('neodev').setup {
     lspconfig = false,
 }
 
-local on_attach = require('modules.utils.lsp').on_attach
+local on_attach = require('config.utils').on_attach
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require 'lspconfig'
 local null_ls = require 'null-ls'
@@ -42,4 +42,23 @@ if #vim.lsp.get_active_clients {
     bufnr = vim.api.nvim_get_current_buf(),
 } == 0 then
     lspconfig.lua_ls.launch()
+end
+
+-- Setup DAP
+local dap = require 'dap'
+dap.configurations.lua = {
+    {
+        type = 'nlua',
+        request = 'attach',
+        name = 'Attach to running Neovim instance',
+    },
+}
+
+--- @param config {host: string?, port: number?}
+dap.adapters.nlua = function(callback, config)
+    callback {
+        type = 'server',
+        host = config.host or '127.0.0.1',
+        port = config.port or 36703,
+    }
 end

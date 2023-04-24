@@ -29,7 +29,7 @@ return {
 
         rt.setup {
             server = {
-                on_attach = require('modules.utils.lsp').on_attach,
+                on_attach = require('config.utils').on_attach,
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
                 settings = {
                     ['rust-analyzer'] = {
