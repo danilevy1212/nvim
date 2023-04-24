@@ -11,7 +11,7 @@ end
 return {
     'nvim-treesitter/nvim-treesitter',
     event = { 'BufRead' },
-    build = ':TSUpdate',
+    build = '<Cmd>TSUpdate',
     dependencies = {
         {
             'HiPhish/nvim-ts-rainbow2',

@@ -18,7 +18,7 @@ return {
                 vim.keymap.set(
                     { 'n', 'v' },
                     '<leader>gr',
-                    ':Gitsigns reset_hunk<CR>',
+                    '<Cmd>Gitsigns reset_hunk<CR>',
                     { desc = 'Reset hunk', buffer = bufnr }
                 )
 
@@ -62,7 +62,7 @@ return {
                 vim.keymap.set(
                     { 'o', 'x' },
                     'ih',
-                    ':<C-U>Gitsigns select_hunk<CR>',
+                    '<Cmd><C-U>Gitsigns select_hunk<CR>',
                     { desc = 'Inner hunk', buffer = bufnr }
                 )
             end,
