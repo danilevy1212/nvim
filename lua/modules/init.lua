@@ -1,96 +1,55 @@
---- Pulled from https://github.com/wbthomason/packer.nvim#bootstrapping
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-        vim.cmd 'packadd packer.nvim'
-        return true
-    end
-    return false
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system {
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable', -- latest stable release
+        lazypath,
+    }
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-local packer = require 'packer'
+-- Make sure to set `mapleader` before lazy so your mappings are correct
+vim.g.mapleader = ' '
 
---- Wrapper around `packer.use` that sets the spec from the 'modules/settings' directory.
---- @param spec_path string
-local function load(spec_path)
-    packer.use(require(string.format('modules.specs.%s', spec_path)))
-end
-
-return packer.startup {
-    -- The loading order is bottom up
-    function()
-        -- rust + lsp
-        load 'rust-tools'
-
-        -- Togglable terminal
-        load 'toogleterm'
-
-        -- Magit lesser brother
-        load 'fugitive'
-
-        -- Git buffer integration
-        load 'gitsigns'
-
-        -- Cold, nice, cozy
-        load 'nord'
-
-        -- Fuzzy-search framework
-        load 'telescope'
-
-        -- `Project` detection
-        load 'project'
-
-        -- Tresitter integration
-        load 'treesitter'
-
-        -- Direnv support
-        load 'direnv'
-
-        -- Dependency manager in NVIM
-        load 'mason'
-
-        -- LSP settings
-        load 'lsp'
-
-        -- null-ls
-        load 'null-ls'
-
-        -- Autocompletion popup framework
-        load 'nvim-cmp'
-
-        -- Surround operator
-        load 'surround'
-
-        -- Comment operator
-        load 'comment'
-
-        -- Autopairs
-        load 'autopairs'
-
-        -- Search todo comments
-        load 'todo-comments'
-
-        -- Nvim utility functions
-        load 'plenary'
-
-        -- Keymap helper
-        load 'which-key'
-
-        -- The package manager
-        load 'packer'
-
-        -- Automatically set up your configuration after cloning packer.nvim
-        -- Put this at the end after all plugins
-        if packer_bootstrap then
-            require('packer').sync()
-        end
-    end,
-    config = {
-        display = {
-            open_fn = require('packer.util').float,
+-- Setup lazy
+require('lazy').setup {
+    --- Defaults
+    defaults = {
+        lazy = true,
+    },
+    -- Load plugins by category
+    spec = vim.tbl_map(function(spec_category)
+        return {
+            import = 'modules.' .. spec_category,
+        }
+    end, {
+        'core',
+        'configuration',
+        'organization',
+        'ui',
+        'editor',
+        'tools',
+        'filetype',
+    }),
+    -- I don't use nerd fonts, so I need to configure each symbol
+    ui = {
+        icons = {
+            cmd = '⌘',
+            config = '🛠',
+            event = '📅',
+            ft = '📂',
+            init = '⚙',
+            keys = '🗝',
+            plugin = '🔌',
+            runtime = '💻',
+            source = '📄',
+            start = '🚀',
+            task = '📌',
+            lazy = '💤 ',
         },
     },
 }

@@ -1,5 +1,3 @@
--- Category: editor
-
 ---Disable criteria. None for now
 ---@param lang string -- Filetype
 ---@param bufnr number -- Buffer number
@@ -12,9 +10,9 @@ end
 -- Treesitter support
 return {
     'nvim-treesitter/nvim-treesitter',
-    event = 'BufRead',
-    run = ':TSUpdate',
-    requires = {
+    event = { 'BufRead' },
+    build = ':TSUpdate',
+    dependencies = {
         {
             'HiPhish/nvim-ts-rainbow2',
             module = 'ts-rainbow',
@@ -34,7 +32,7 @@ return {
         require('nvim-treesitter.configs').setup {
             -- A list of parser names, or "all"
             ensure_installed = {
-                'help',
+                'vimdoc',
                 'bash',
                 'markdown',
                 'markdown_inline',
@@ -61,10 +59,8 @@ return {
             highlight = {
                 -- Higlight by default
                 enable = true,
-
                 -- Disable when is too large
                 disable = disable,
-
                 -- Don't relay on regex highlight
                 additional_vim_regex_highlighting = false,
             },

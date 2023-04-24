@@ -1,9 +1,9 @@
--- Category: configuration
+-- A neovim package manager
 
 return {
     'williamboman/mason.nvim',
-    module = { 'mason', 'mason-registry' },
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall' },
+    module = 'mason',
     config = function()
         require('mason').setup {
             PATH = 'prepend',
@@ -21,8 +21,10 @@ return {
             -- For JS / TS
             'typescript-language-server',
             'eslint-lsp',
+            'js-debug-adapter',
             -- For rust
             'rust-analyzer',
+            'codelldb',
             -- For docker
             'dockerfile-language-server',
         }

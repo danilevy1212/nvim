@@ -1,11 +1,10 @@
--- Category: organization
--- Search for To-Dos in project commets easily
+-- Search for To-Dos in project comments
 
 return {
     'folke/todo-comments.nvim',
-    event = 'BufRead',
     cmd = { 'TodoTelescope', 'TodoQuickFix' },
-    setup = function()
+    event = { 'BufRead' },
+    init = function()
         -- Setup keybindings
         require('which-key').register({
             t = {

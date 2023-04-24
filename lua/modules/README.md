@@ -31,6 +31,10 @@ Plugin specs are separated into the following distinct categories
     Plugins that target a specific [Filetype](https://neovim.io/doc/user/filetype.html). Further customizations
     can be done in the `after/ftplugin/<filetype>.lua` directory.
 
+- UI
+
+    User interface related plugins. These tend to override the default UI methods shipped with neovim.
+
 ## Settings
 
 The settings for each plugin is loaded from the [specs](./specs/) directory.

@@ -1,5 +1,4 @@
--- Configuration: tools
-
+-- Make buffers 'git' aware
 return {
     'lewis6991/gitsigns.nvim',
     event = { 'BufRead' },

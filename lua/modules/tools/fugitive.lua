@@ -1,22 +1,18 @@
--- Category: tools
-
 -- Magit lesser brother
 return {
     'tpope/vim-fugitive',
     cmd = { 'Git', 'G', 'GBrowse' },
-    requires = {
+    dependencies = {
         -- Make GBrowse work on gitlab
         {
             'shumphrey/fugitive-gitlab.vim',
-            after = 'vim-fugitive',
         },
         --  and github
         {
             'tpope/vim-rhubarb',
-            after = 'vim-fugitive',
         },
     },
-    setup = function()
+    init = function()
         require('which-key').register({
             g = {
                 name = 'git',

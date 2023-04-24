@@ -1,11 +1,9 @@
---- Category: organization
+-- Automatically set CWD to project directory.
 
--- Automatically set CWD to project directory
 return {
     'ahmedkhalf/project.nvim',
     event = 'DirChangedPre',
-    after = 'telescope.nvim',
-    setup = function()
+    init = function()
         require('which-key').register({
             p = {
                 function()

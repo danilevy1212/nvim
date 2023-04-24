@@ -1,9 +1,8 @@
--- Category: tools
-
+-- Easier LSP configuration
 return {
     'neovim/nvim-lspconfig',
     module = 'lspconfig',
-    requires = {
+    dependencies = {
         -- Additional type definitions for nvim. Must be configured before lspconfig
         {
             'folke/neodev.nvim',

@@ -1,10 +1,10 @@
---- Category: Organization
+-- A friendly toggleable terminal
 
 return {
     'akinsho/toggleterm.nvim',
-    tag = '*',
+    version = '*',
     cmd = { 'ToggleTerm', 'TermExec', 'ToggleTermToggleAll' },
-    setup = function()
+    init = function()
         require('which-key').register({
             t = {
                 function()

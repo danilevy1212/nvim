@@ -1,10 +1,11 @@
--- Category: core
-
--- Small window before the popup apears
-seto('timeoutlen', 200)
-
+-- Main keymap engine
 return {
     'folke/which-key.nvim',
+    lazy = false,
+    init = function()
+        -- Small window before the popup apears
+        seto('timeoutlen', 200)
+    end,
     config = function()
         -- Make which-key helper available to all other modules
         local wk = require 'which-key'
