@@ -16,10 +16,6 @@ lspconfig.lua_ls.setup {
     capabilities = capabilities,
     settings = {
         Lua = {
-            -- Remove request action pop up https://github.com/folke/neodev.nvim/issues/88#issuecomment-1314449905
-            workspace = {
-                checkThirdParty = false,
-            },
             -- Setup snippets
             completion = {
                 -- Show both the snippet and completion
