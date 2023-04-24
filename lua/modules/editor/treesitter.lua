@@ -15,7 +15,6 @@ return {
     dependencies = {
         {
             'HiPhish/nvim-ts-rainbow2',
-            module = 'ts-rainbow',
         },
     },
     config = function()

@@ -3,7 +3,6 @@
 return {
     'williamboman/mason.nvim',
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall' },
-    module = 'mason',
     config = function()
         require('mason').setup {
             PATH = 'prepend',
