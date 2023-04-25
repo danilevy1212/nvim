@@ -3,7 +3,6 @@
 return {
     'simrat39/rust-tools.nvim',
     -- TODO Move `config.filetype`
-    module = 'rust-tools',
     ft = { 'rust' },
     config = function()
         local rt = require 'rust-tools'
