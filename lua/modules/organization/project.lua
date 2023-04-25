@@ -7,6 +7,14 @@ return {
         require('which-key').register({
             p = {
                 function()
+                    -- HACK Load project_nvim if it hasn't already, so all the projects appear
+                    if not package.loaded['project_nvim'] then
+                        -- Wait until the cache is hot
+                        vim.fn.wait(1000, function ()
+                            return require('project_nvim.utils.history').recent_projects ~= nil
+                        end)
+                    end
+
                     require('telescope').extensions.projects.projects()
                 end,
                 'Switch project',
