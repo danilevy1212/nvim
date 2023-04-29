@@ -62,6 +62,12 @@ seto('list', true)
 -- Chars to show for
 seto('listchars', { eol = '↲', tab = '▸ ', space = '·' })
 
+-- Abbreviate commandline messages
+seto('shortmess', 'filnxtToOFsS')
+
+-- Abbreviate commandline messages
+seto('showmode', false)
+
 -- Default diffing options
 seto('diffopt', { 'internal', 'filler', 'closeoff', 'linematch:60' })
 

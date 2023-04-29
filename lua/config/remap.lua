@@ -16,7 +16,12 @@ setk('n', '<leader>bd', vim.cmd.bdelete, { desc = 'Close current buffer' })
 
 setk('n', '<leader>br', vim.cmd.edit, { desc = 'Reload buffer' })
 
-setk('n', '<C-l>', vim.cmd.nohlsearch, { desc = 'Clear current highlight' })
+setk('n', '<C-l>', function()
+    -- Stop highlight
+    vim.cmd.nohlsearch()
+    -- Redraw cmdline
+    vim.cmd('echon ""')
+end, { desc = 'Clear current highlight' })
 
 setk('n', '<leader>cx', vim.diagnostic.setloclist, { desc = 'Preview diagnostics for file' })
 
