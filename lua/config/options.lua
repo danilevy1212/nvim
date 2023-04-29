@@ -68,6 +68,9 @@ seto('shortmess', 'filnxtToOFsS')
 -- Abbreviate commandline messages
 seto('showmode', false)
 
+-- Show the statusline always
+seto('laststatus', 2)
+
 -- Default diffing options
 seto('diffopt', { 'internal', 'filler', 'closeoff', 'linematch:60' })
 
