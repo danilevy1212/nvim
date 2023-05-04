@@ -18,6 +18,25 @@ function M.prequire(modname)
     return ok, package_maybe
 end
 
+--- Toggle a buffer modifiability
+--- @return nil
+function M.toggle_buffer_modifiable()
+    vim.opt_local.modifiable = not vim.opt_local.modifiable:get()
+
+    vim.notify(
+        --- @diagnostic disable-next-line:param-type-mismatch
+        'Toggled buffer: ' .. (vim.opt_local.modifiable:get() and 'modifiable' or 'read-only'),
+        vim.log.levels.INFO
+    )
+end
+
+--- Sets clipboard to a string value, announcing it on the echo line.
+--- @param value string
+function M.set_clipboard(value)
+    vim.fn.setreg('+', value)
+    vim.cmd { cmd = 'echo', args = { '\'Copied to clipboard: "' .. value .. '"\'' } }
+end
+
 --- Default attach function for most servers See `:h lsp_config`, on_attach
 ---@param client any
 ---@param bufnr number
