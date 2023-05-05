@@ -15,21 +15,109 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 })
 
 vim.api.nvim_create_autocmd('BufReadPre', {
-    desc = 'Add source and code information to the vim.diagnostics virtual text. Format: message :: source :: code',
+    desc = 'Add source and code information to the vim.diagnostics virtual text and quickfix list. Format: message :: source :: code',
     group = group,
     callback = function()
+        --- @param diagnostic Diagnostic
+        --- @return string
+        local function format_diagnostic(diagnostic)
+            local extra_info = vim.tbl_filter(function(value)
+                return value ~= nil
+            end, { diagnostic.message, diagnostic.source, diagnostic.code })
+
+            return table.concat(extra_info, ' :: ')
+        end
+
+        --- Format virtual text
         vim.diagnostic.config {
             virtual_text = {
-                --- @param diagnostic Diagnostic
-                format = function(diagnostic)
-                    local extra_info = vim.tbl_filter(function(value)
-                        return value ~= nil
-                    end, { diagnostic.message, diagnostic.source, diagnostic.code })
-
-                    return table.concat(extra_info, ' :: ')
-                end,
+                format = format_diagnostic,
             },
         }
+
+        --- Override `vim.diagnostic.toqflist` to display `source` and `code` information
+        --- @see vim.diagnostic.toqflist
+        --- @diagnostic disable-next-line:duplicate-set-field
+        vim.diagnostic.toqflist = function(diagnostics)
+            local errlist_type_map = {
+                [vim.diagnostic.severity.ERROR] = 'E',
+                [vim.diagnostic.severity.WARN] = 'W',
+                [vim.diagnostic.severity.INFO] = 'I',
+                [vim.diagnostic.severity.HINT] = 'N',
+            }
+
+            vim.validate {
+                diagnostics = {
+                    diagnostics,
+                    vim.tbl_islist,
+                    'a list of diagnostics',
+                },
+            }
+
+            local list = {}
+            for _, v in ipairs(diagnostics) do
+                local item = {
+                    bufnr = v.bufnr,
+                    lnum = v.lnum + 1,
+                    col = v.col and (v.col + 1) or nil,
+                    end_lnum = v.end_lnum and (v.end_lnum + 1) or nil,
+                    end_col = v.end_col and (v.end_col + 1) or nil,
+                    text = format_diagnostic(v),
+                    type = errlist_type_map[v.severity] or 'E',
+                }
+                table.insert(list, item)
+            end
+            table.sort(list, function(a, b)
+                if a.bufnr == b.bufnr then
+                    if a.lnum == b.lnum then
+                        return a.col < b.col
+                    else
+                        return a.lnum < b.lnum
+                    end
+                else
+                    return a.bufnr < b.bufnr
+                end
+            end)
+            return list
+        end
     end,
     once = true,
+})
+
+--- Create autocmd to keep location list and quickfix list sync with diagnostics
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+    group = group,
+    desc = 'Keep location list in sync with LSP diagnostics',
+    --- @param event { buf: number }
+    --- @see vim.api.nvim_create_autocmd
+    callback = function(event)
+        local bufnr = event.buf
+        local curr_window = vim.api.nvim_get_current_win()
+
+        -- Find the window of the buffer whose diagnostics changed
+        --- @type number[]
+        local windows = vim.fn.win_findbuf(bufnr)
+
+        for _, winnr in ipairs(windows) do
+            -- Set location-list for the window
+            vim.diagnostic.setloclist {
+                open = false,
+                winnr = winnr,
+            }
+
+            -- If the location list is empty, close it
+            if winnr ~= curr_window then
+                vim.api.nvim_set_current_win(winnr)
+            end
+
+            if #vim.diagnostic.get(bufnr, {}) == 0 then
+                vim.cmd 'lclose'
+            end
+        end
+
+        -- Restore to current window
+        if not vim.tbl_isempty(windows) and #windows > 1 then
+            vim.api.nvim_set_current_win(curr_window)
+        end
+    end,
 })

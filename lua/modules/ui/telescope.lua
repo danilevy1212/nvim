@@ -4,6 +4,12 @@ return {
     {
         'nvim-telescope/telescope.nvim',
         cmd = { 'Telescope' },
+        -- Load quickfix customizations in case we `send_to_quickfix` from telescope
+        dependencies = {
+            {
+                'ten3roberts/qf.nvim',
+            },
+        },
         -- Set the keymaps to setup lazy loading
         init = function()
             local get_buffer_dir = function()
