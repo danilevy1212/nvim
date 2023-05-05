@@ -1,8 +1,4 @@
--- TODO Replace with Lazy variant, I may not even need it
--- Reload packages starting by `name`, circunventing the cache
-_G.R = function(name)
-    require('plenary.reload').reload_module(name)
-end
+--- Functions that make configuration easier
 
 return {
     'nvim-lua/plenary.nvim',
