@@ -79,7 +79,7 @@ M.on_attach = function(_, bufnr)
                 },
             },
         },
-    }, { buffer = bufnr })
+    }, { buffer = bufnr, mode = { 'n', 'v' } })
 end
 
 return M

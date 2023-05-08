@@ -7,6 +7,11 @@ lspconfig.tsserver.setup {
     capabilities = capabilities,
 }
 lspconfig.eslint.setup {
+    ---@param client lsp.Client
+    on_attach = function(client)
+        -- Use eslint as documentFormattingProvider
+        client.server_capabilities.documentFormattingProvider = true
+    end,
     settings = {
         -- Make it easier to work with monorepos
         workingDirectory = {
