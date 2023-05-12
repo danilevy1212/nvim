@@ -22,6 +22,7 @@ return {
                     -- Automatically populated. Open without focusing on it.
                     require('qf').toggle('l', true)
                 end,
+                'n',
                 { desc = 'Preview diagnostics for file' },
             },
             {
@@ -33,6 +34,7 @@ return {
                     -- Open without focusing on it.
                     require('qf').toggle('c', true)
                 end,
+                'n',
                 { desc = 'Preview diagnostics for workspace' },
             },
             { ']q', '<Cmd>Qnext<CR>', { desc = 'Next quickfix list item, wraps' } },

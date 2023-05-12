@@ -92,9 +92,7 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
     --- @see vim.api.nvim_create_autocmd
     callback = function(event)
         local bufnr = event.buf
-        local curr_window = vim.api.nvim_get_current_win()
-
-        -- Find the window of the buffer whose diagnostics changed
+        -- Windows of the buffer whose diagnostics changed
         --- @type number[]
         local windows = vim.fn.win_findbuf(bufnr)
 
@@ -105,19 +103,21 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
                 winnr = winnr,
             }
 
-            -- If the location list is empty, close it
-            if winnr ~= curr_window then
-                vim.api.nvim_set_current_win(winnr)
+            -- Check if the location list is empty
+            local loc_list = vim.fn.getloclist(winnr)
+
+            -- Location list is not empty, continue
+            if #loc_list > 0 then
+                return
             end
 
-            if #vim.diagnostic.get(bufnr, {}) == 0 then
-                vim.cmd 'lclose'
-            end
-        end
+            --- @type number
+            local loc_winnr = vim.fn.getloclist(winnr, { winid = 0 }).winid
 
-        -- Restore to current window
-        if not vim.tbl_isempty(windows) and #windows > 1 then
-            vim.api.nvim_set_current_win(curr_window)
+            --- Close the location list window when it's visible
+            if loc_winnr ~= 0 then
+                vim.api.nvim_win_close(loc_winnr, true)
+            end
         end
     end,
 })
