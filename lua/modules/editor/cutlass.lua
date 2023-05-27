@@ -4,6 +4,7 @@ return {
     'gbprod/cutlass.nvim',
     event = { 'BufReadPost' },
     opts = {
-        --- Use defaults
+        --- Delete in visual mode 'cuts'
+        exclude = { 'xd', 'xD'}
     },
 }
