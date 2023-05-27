@@ -1,5 +1,5 @@
 {
-  "LuaSnip": { "branch": "master", "commit": "2fc3ad4cba48ecbe15503d894d30d8f7e6d0d393" },
+  "LuaSnip": { "branch": "master", "commit": "a83e4b1ba7edc6fecdad09e39753a7d5eee1d01c" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-cmdline": { "branch": "main", "commit": "5af1bb7d722ef8a96658f01d6eb219c4cf746b32" },
   "cmp-dap": { "branch": "master", "commit": "d16f14a210cd28988b97ca8339d504533b7e09a4" },
@@ -10,6 +10,7 @@
   "direnv.vim": { "branch": "master", "commit": "4c858b8cd8cbfac998534096e6ffb710d7a07358" },
   "fugitive-gitlab.vim": { "branch": "master", "commit": "55fed481c0309b3405dd3d72921d687bf36873a8" },
   "gitsigns.nvim": { "branch": "main", "commit": "f868d82a36f7f7f5e110eb0a9659993984f59875" },
+  "indent-blankline.nvim": { "branch": "master", "commit": "ceaf730b13e332cd76600d9795722413c236c684" },
   "jester": { "branch": "main", "commit": "afb4d94d17356313732eb866450e7fb6e8a68062" },
   "lazy.nvim": { "branch": "main", "commit": "67ae8bbbe3985e380b98abeaf6c567c422b29746" },
   "lualine.nvim": { "branch": "master", "commit": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9" },
