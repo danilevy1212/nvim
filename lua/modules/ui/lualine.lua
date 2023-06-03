@@ -2,7 +2,10 @@
 
 return {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons', 'shaunsingh/nord.nvim' },
+    dependencies = {
+        'nvim-tree/nvim-web-devicons',
+        'shaunsingh/nord.nvim',
+    },
     event = { 'UIEnter' },
     config = function()
         local filename_component = {
@@ -33,11 +36,18 @@ return {
                 },
             },
             sections = {
-                lualine_a = { 'mode' },
-                lualine_b = { 'branch', 'diff', { 'diagnostics', sources = { 'nvim_diagnostic' } } },
-                lualine_c = {
-                    filename_component,
+                lualine_a = {
+                    {
+                        'mode',
+                        ---@param str string
+                        ---@return string
+                        fmt = function(str)
+                            return str:sub(1, 1)
+                        end,
+                    },
                 },
+                lualine_b = { filename_component },
+                lualine_c = { { 'diagnostics', sources = { 'nvim_diagnostic' } } },
                 lualine_x = { 'searchcount', 'encoding', 'fileformat', 'filetype' },
                 lualine_y = { 'progress' },
                 lualine_z = { 'location' },
@@ -51,11 +61,15 @@ return {
                 lualine_z = {},
             },
             tabline = {},
-            winbar = {},
+            winbar = {
+                lualine_a = { { 'aerial', color = 'normal' } },
+                lualine_z = { 'branch', 'diff' },
+            },
             inactive_winbar = {},
             extensions = {
                 'toggleterm',
                 'fugitive',
+                'aerial',
             },
         }
 

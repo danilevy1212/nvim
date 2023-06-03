@@ -109,6 +109,22 @@ return {
                 defaults = {
                     -- When running in a GUI, give some transparency to telescope window
                     winblend = 30,
+                    mappings = {
+                        i = {
+                            ['<A-p>'] = require('telescope.actions.layout').toggle_preview,
+                        },
+                        n = {
+                            P = require('telescope.actions.layout').toggle_preview,
+                        }
+                    },
+                },
+                extensions = {
+                    aerial = {
+                        -- Display symbols as <root>.<parent>.<symbol>
+                        show_nesting = {
+                            ['_'] = true,
+                        },
+                    },
                 },
             }
         end,
