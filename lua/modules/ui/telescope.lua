@@ -109,13 +109,16 @@ return {
                 defaults = {
                     -- When running in a GUI, give some transparency to telescope window
                     winblend = 30,
+                    preview = {
+                        hide_on_startup = true,
+                    },
                     mappings = {
                         i = {
                             ['<A-p>'] = require('telescope.actions.layout').toggle_preview,
                         },
                         n = {
                             P = require('telescope.actions.layout').toggle_preview,
-                        }
+                        },
                     },
                 },
                 extensions = {
