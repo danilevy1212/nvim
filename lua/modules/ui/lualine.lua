@@ -62,10 +62,12 @@ return {
             },
             tabline = {},
             winbar = {
-                lualine_a = { { 'aerial', color = 'normal' } },
-                lualine_z = { 'branch', 'diff' },
+                lualine_b = { 'aerial' },
+                lualine_y = { 'branch', 'diff' },
             },
-            inactive_winbar = {},
+            inactive_winbar = {
+                lualine_y = { 'branch', 'diff' },
+            },
             extensions = {
                 'toggleterm',
                 'fugitive',
