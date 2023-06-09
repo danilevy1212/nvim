@@ -31,22 +31,23 @@ return {
         require('nvim-treesitter.configs').setup {
             -- A list of parser names, or "all"
             ensure_installed = {
-                'vimdoc',
                 'bash',
-                'markdown',
-                'markdown_inline',
+                'commonlisp',
+                'dockerfile',
                 'javascript',
-                'typescript',
                 'json',
                 'jsonc',
                 'lua',
-                'rust',
-                'vim',
-                'commonlisp',
-                'toml',
+                'markdown',
+                'markdown_inline',
                 'nix',
-                'dockerfile',
+                'org',
+                'rust',
                 'sql',
+                'toml',
+                'typescript',
+                'vim',
+                'vimdoc',
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
