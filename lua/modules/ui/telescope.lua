@@ -115,6 +115,7 @@ return {
                     mappings = {
                         i = {
                             ['<A-p>'] = require('telescope.actions.layout').toggle_preview,
+                            ['<C-space>'] = require('telescope.actions').to_fuzzy_refine,
                         },
                         n = {
                             P = require('telescope.actions.layout').toggle_preview,
