@@ -51,7 +51,7 @@ M.on_attach = function(_, bufnr)
             R = { vim.lsp.buf.references, 'Find references' },
         },
         K = { vim.lsp.buf.hover, 'Hover' },
-        ['C-k'] = { vim.lsp.buf.signature_help, 'Signature Help' },
+        ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature Help' },
         ['<leader>'] = {
             c = {
                 name = 'Code',
