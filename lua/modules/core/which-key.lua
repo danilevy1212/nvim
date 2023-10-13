@@ -10,8 +10,13 @@ return {
         -- Make which-key helper available to all other modules
         local wk = require 'which-key'
 
-        -- Use defaults
-        wk.setup()
+        -- Don't overshadow cutlass.nvim keybidings
+        wk.setup {
+            triggers_blacklist = {
+                v = { 'c', 'C', 'd', 'D' },
+                n = { 'c', 'C', 'd', 'D' },
+            },
+        }
 
         -- Setup basic labels
         wk.register({

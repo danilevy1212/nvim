@@ -5,6 +5,6 @@ return {
     event = { 'BufReadPost' },
     opts = {
         --- Delete in visual mode 'cuts'
-        exclude = { 'xd', 'xD'}
+        exclude = { 'xd', 'xD' },
     },
 }
