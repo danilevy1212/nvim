@@ -76,6 +76,7 @@ seto('diffopt', { 'internal', 'filler', 'closeoff', 'linematch:60' })
 
 -- Allow .nvim.lua files to be loaded if in a directory, if added to ':trust' list.
 -- Trusted files are in "$XDG_STATE_HOME/nvim/trust"
+-- Unlike emacs, it does not check every time CWD changes!
 seto('exrc', true)
 
 -- Set the language to american english
