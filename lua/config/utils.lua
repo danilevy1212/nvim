@@ -12,6 +12,9 @@ function M.prequire(modname)
         vim.notify(
             'Module ' .. modname .. ' fail to load, please check it:\n\n' .. tostring(package_maybe),
             vim.log.levels.ERROR
+            {
+                title = 'Module ' .. modname .. ' failed to load'
+            }
         )
     end
 
@@ -26,7 +29,10 @@ function M.toggle_buffer_modifiable()
     vim.notify(
         --- @diagnostic disable-next-line:param-type-mismatch
         'Toggled buffer: ' .. (vim.opt_local.modifiable:get() and 'modifiable' or 'read-only'),
-        vim.log.levels.INFO
+        vim.log.levels.INFO,
+        {
+            title = 'Modifiability toggled',
+        }
     )
 end
 

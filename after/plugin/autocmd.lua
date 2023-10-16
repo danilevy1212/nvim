@@ -15,8 +15,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 })
 
 vim.api.nvim_create_autocmd('BufReadPre', {
-    desc =
-    'Add source and code information to the vim.diagnostics virtual text and quickfix list. Format: message :: source :: code',
+    desc = 'Add source and code information to the vim.diagnostics virtual text and quickfix list. Format: message :: source :: code',
     group = group,
     callback = function()
         --- @param diagnostic Diagnostic

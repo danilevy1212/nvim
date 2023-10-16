@@ -33,11 +33,9 @@ return {
             local is_ok, package = pcall(require('mason-registry').get_package, package_name)
 
             if not is_ok then
-                vim.notify(
-                    'Mason package ' .. package_name .. ' was not found in the registry',
-                    vim.log.levels.WARN,
-                    {}
-                )
+                vim.notify('Mason package ' .. package_name .. ' was not found in the registry', vim.log.levels.WARN, {
+                    title = 'Mason could not download ' .. package_name,
+                })
             else
                 if not package:is_installed() then
                     package:install()

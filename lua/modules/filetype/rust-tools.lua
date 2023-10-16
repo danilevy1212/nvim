@@ -21,8 +21,14 @@ return {
             liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
         else
             vim.notify(
-                'Debugger package ' .. codelldb_package_name .. ' could not be found. Debugging will not work',
-                vim.log.levels.ERROR
+                'Debugger package '
+                    .. codelldb_package_name
+                    .. ' could not be found in path '
+                    .. codelldb_path
+                    .. '. Debugging will not work',
+                vim.log.levels.ERROR {
+                    title = 'Unknown package ' .. codelldb_package_name,
+                }
             )
         end
 

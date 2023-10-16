@@ -1,6 +1,7 @@
 local on_attach = require('config.utils').on_attach
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require 'lspconfig'
+local current_bufnr = vim.api.nvim_get_current_buf()
 
 lspconfig.tsserver.setup {
     on_attach = on_attach,
@@ -26,12 +27,10 @@ local clients = {
 }
 --- We restart the client to force it to connect if we aren't connected already
 for _, name in ipairs(clients) do
-    if
-        #vim.lsp.get_active_clients {
-            name = name,
-            bufnr = vim.api.nvim_get_current_buf(),
-        } == 0
-    then
+    if #vim.lsp.get_active_clients {
+        name = name,
+        bufnr = current_bufnr,
+    } == 0 then
         lspconfig[name].launch()
     end
 end
