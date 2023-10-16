@@ -1,4 +1,4 @@
-local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP, {
+local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'Terminal', {
     clear = false,
 })
 

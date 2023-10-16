@@ -21,7 +21,7 @@ return {
         -- Setup basic labels
         wk.register({
             b = { 'Buffer' },
-            c = { 'Code ' },
+            c = { name = 'Code', T = { 'Test' } },
             f = { 'File' },
             h = {
                 name = 'Help',
