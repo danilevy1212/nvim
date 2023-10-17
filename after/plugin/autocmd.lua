@@ -1,4 +1,4 @@
-local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX, {
+local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'misc', {
     clear = false,
 })
 
@@ -132,4 +132,30 @@ vim.api.nvim_create_autocmd('BufReadPre', {
         }
     end,
     once = true,
+})
+
+--- Try to read.nvimrc, .nvim.lua or .exrc whenever CWD changes, like in emacs.
+vim.api.nvim_create_autocmd('DirChanged', {
+    pattern = 'window',
+    group = group,
+    callback = function()
+        -- Using the current window cwd because of `project.nvim` settings.
+        local cwd = vim.fn.getcwd(0)
+        local nvimrc_file_names = {
+            '.nvim.lua',
+            '.nvimrc',
+            '.exrc',
+        }
+
+        for _, file_name in ipairs(nvimrc_file_names) do
+            local full_file_path = cwd .. '/' .. file_name
+            if vim.fn.filereadable(full_file_path) == 1 then
+                local is_valid = vim.secure.read(full_file_path)
+                if is_valid then
+                    vim.cmd.source(full_file_path)
+                end
+                break
+            end
+        end
+    end,
 })

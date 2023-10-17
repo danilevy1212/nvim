@@ -74,10 +74,10 @@ seto('laststatus', 2)
 -- Default diffing options
 seto('diffopt', { 'internal', 'filler', 'closeoff', 'linematch:60' })
 
--- Allow .nvim.lua files to be loaded if in a directory, if added to ':trust' list.
+-- We disallow .nvim.lua files to be loaded if in a directory, if added to ':trust' list.
 -- Trusted files are in "$XDG_STATE_HOME/nvim/trust"
--- Unlike emacs, it does not check every time CWD changes!
-seto('exrc', true)
+-- We do this manually in `after/plugin/autocmd.lua`
+seto('exrc', false)
 
 -- Set the language to american english
 vim.cmd [[language en_US.UTF-8]]
