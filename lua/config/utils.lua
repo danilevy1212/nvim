@@ -11,7 +11,8 @@ function M.prequire(modname)
     if not ok then
         vim.notify(
             'Module ' .. modname .. ' fail to load, please check it:\n\n' .. tostring(package_maybe),
-            vim.log.levels.ERROR {
+            vim.log.levels.ERROR,
+            {
                 title = 'Module ' .. modname .. ' failed to load',
             }
         )

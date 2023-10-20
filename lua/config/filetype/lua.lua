@@ -40,21 +40,25 @@ if #vim.lsp.get_active_clients {
     lspconfig.lua_ls.launch()
 end
 
+--- TODO When I have installed dap, remove the pcall guard
 -- Setup DAP
-local dap = require 'dap'
-dap.configurations.lua = {
-    {
-        type = 'nlua',
-        request = 'attach',
-        name = 'Attach to running Neovim instance',
-    },
-}
+local dap_is_available, dap = pcall(require, 'dap')
 
---- @param config {host: string?, port: number?}
-dap.adapters.nlua = function(callback, config)
-    callback {
-        type = 'server',
-        host = config.host or '127.0.0.1',
-        port = config.port or 36703,
+if dap_is_available then
+    dap.configurations.lua = {
+        {
+            type = 'nlua',
+            request = 'attach',
+            name = 'Attach to running Neovim instance',
+        },
     }
+
+    --- @param config {host: string?, port: number?}
+    dap.adapters.nlua = function(callback, config)
+        callback {
+            type = 'server',
+            host = config.host or '127.0.0.1',
+            port = config.port or 36703,
+        }
+    end
 end
