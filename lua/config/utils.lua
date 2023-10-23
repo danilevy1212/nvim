@@ -1,5 +1,8 @@
 local M = {}
 
+--- Default lsp capabilities
+M.capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 --- Require without throwing an error, but notify in case of an error.
 --- Meant to be used to run 'one-shot' configuration scripts.
 --- See https://www.lua.org/manual/5.1/manual.html#pdf-require

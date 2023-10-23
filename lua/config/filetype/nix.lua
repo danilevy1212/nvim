@@ -1,6 +1,6 @@
 local lspconfig = require 'lspconfig'
 local on_attach = require('config.utils').on_attach
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require('config.utils').capabilities
 local server_name = 'nil_ls'
 
 lspconfig[server_name].setup {

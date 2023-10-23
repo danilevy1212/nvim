@@ -12,7 +12,7 @@ return {
         local server_setup = {
             server = {
                 on_attach = require('config.utils').on_attach,
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = require('config.utils').capabilities,
                 settings = {
                     ['rust-analyzer'] = {
                         checkOnSave = {
