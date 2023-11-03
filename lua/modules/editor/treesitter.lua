@@ -43,6 +43,7 @@ return {
                 'nix',
                 'org',
                 'rust',
+                'ssh_config',
                 'sql',
                 'toml',
                 'typescript',
