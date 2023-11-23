@@ -34,6 +34,8 @@ return {
                 'bash',
                 'commonlisp',
                 'dockerfile',
+                'go',
+                'gomod',
                 'javascript',
                 'json',
                 'jsonc',
