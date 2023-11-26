@@ -1,36 +1,38 @@
 local on_attach = require('config.utils').on_attach
-local capabilities = require('config.utils').capabilities
-local lspconfig = require 'lspconfig'
-local current_bufnr = vim.api.nvim_get_current_buf()
+local capabilities = require('config.utils').get_default_capabilities()
 
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-lspconfig.eslint.setup {
-    ---@param client lsp.Client
-    on_attach = function(client)
-        -- Use eslint as documentFormattingProvider
-        client.server_capabilities.documentFormattingProvider = true
-    end,
-    settings = {
-        -- Make it easier to work with monorepos
-        workingDirectory = {
-            mode = 'location',
+---@class ServerSetup
+---@field server_name string
+---@field opts table
+
+---@type ServerSetup[]
+local setups = {
+    {
+        server_name = 'tsserver',
+        opts = {
+            on_attach = on_attach,
+            capabilities = capabilities,
+        },
+    },
+    {
+        server_name = 'eslint',
+        opts = {
+            ---@param client lsp.Client
+            on_attach = function(client)
+                -- Use eslint as documentFormattingProvider
+                client.server_capabilities.documentFormattingProvider = true
+            end,
+            capabilities = capabilities,
+            settings = {
+                -- Make it easier to work with monorepos
+                workingDirectory = {
+                    mode = 'location',
+                },
+            },
         },
     },
 }
 
-local clients = {
-    'tsserver',
-    'eslint',
-}
---- We restart the client to force it to connect if we aren't connected already
-for _, name in ipairs(clients) do
-    if #vim.lsp.get_active_clients {
-        name = name,
-        bufnr = current_bufnr,
-    } == 0 then
-        lspconfig[name].launch()
-    end
+for _, server_configuration in ipairs(setups) do
+    require('config.utils').setup_lsp_server(server_configuration.server_name, server_configuration.opts)
 end

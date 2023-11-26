@@ -4,16 +4,11 @@ require('neodev').setup {
     lspconfig = false,
 }
 
-local on_attach = require('config.utils').on_attach
-local capabilities = require('config.utils').capabilities
-local lspconfig = require 'lspconfig'
-local null_ls = require 'null-ls'
-
 -- Lua config
-lspconfig.lua_ls.setup {
+require('config.utils').setup_lsp_server('lua_ls', {
     before_init = require('neodev.lsp').before_init,
-    on_attach = on_attach,
-    capabilities = capabilities,
+    on_attach = require('config.utils').on_attach,
+    capabilities = require('config.utils').get_default_capabilities(),
     settings = {
         Lua = {
             -- Setup snippets
@@ -23,22 +18,16 @@ lspconfig.lua_ls.setup {
             },
         },
     },
-}
+})
+
 
 -- Setup stylua for neovim config
+local null_ls = require 'null-ls'
 null_ls.setup {
     sources = {
         null_ls.builtins.formatting.stylua,
     },
 }
-
---- We restart the client to force it to connect if we aren't connected already
-if #vim.lsp.get_active_clients {
-    name = 'lua_ls',
-    bufnr = vim.api.nvim_get_current_buf(),
-} == 0 then
-    lspconfig.lua_ls.launch()
-end
 
 --- TODO When I have installed dap, remove the pcall guard
 -- Setup DAP

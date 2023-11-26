@@ -1,7 +1,9 @@
 local M = {}
 
 --- Default lsp capabilities
-M.capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+function M.get_default_capabilities()
+    return require('cmp_nvim_lsp').default_capabilities()
+end
 
 --- Require without throwing an error, but notify in case of an error.
 --- Meant to be used to run 'one-shot' configuration scripts.
@@ -89,6 +91,32 @@ M.on_attach = function(_, bufnr)
             },
         },
     }, { buffer = bufnr, mode = { 'n', 'v' } })
+end
+
+--- Sets up a specified Language Server Protocol (LSP) server using `nvim-lspconfig`, optionally starting it for a given buffer.
+---@param server_name string The name of the LSP server to set up.
+---@param setup_opts table Configuration options for the LSP server.
+---@param start boolean? Whether to start the LSP server if it's not already active; defaults to true.
+---@param bufnr number? Buffer number to associate with the LSP server; defaults to current buffer.
+function M.setup_lsp_server(server_name, setup_opts, start, bufnr)
+    local lspconfig = require 'lspconfig'
+
+    if bufnr == nil then
+        bufnr = vim.api.nvim_get_current_buf()
+    end
+
+    if start == nil then
+        start = true
+    end
+
+    lspconfig[server_name].setup(setup_opts)
+
+    if start and #vim.lsp.get_active_clients {
+        name = server_name,
+        bufnr = bufnr,
+    } == 0 then
+        lspconfig[server_name].launch()
+    end
 end
 
 return M

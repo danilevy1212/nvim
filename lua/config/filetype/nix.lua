@@ -1,11 +1,6 @@
-local lspconfig = require 'lspconfig'
-local on_attach = require('config.utils').on_attach
-local capabilities = require('config.utils').capabilities
-local server_name = 'nil_ls'
-
-lspconfig[server_name].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
+require('config.utils').setup_lsp_server('nil_ls', {
+    on_attach = require('config.utils').on_attach,
+    capabilities = require('config.utils').get_default_capabilities(),
     settings = {
         ['nil'] = {
             formatting = {
@@ -13,12 +8,4 @@ lspconfig[server_name].setup {
             },
         },
     },
-}
-
---- We restart the client to force it to connect if we aren't connected already
-if #vim.lsp.get_active_clients {
-    name = server_name,
-    bufnr = vim.api.nvim_get_current_buf(),
-} == 0 then
-    lspconfig[server_name].launch()
-end
+})

@@ -12,7 +12,7 @@ return {
         local server_setup = {
             server = {
                 on_attach = require('config.utils').on_attach,
-                capabilities = require('config.utils').capabilities,
+                capabilities = require('config.utils').get_default_capabilities(),
                 settings = {
                     ['rust-analyzer'] = {
                         checkOnSave = {

@@ -26,6 +26,8 @@ return {
             'codelldb',
             -- For docker
             'dockerfile-language-server',
+            -- For python
+            'pyright'
         }
 
         -- Install packages if not present
