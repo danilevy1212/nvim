@@ -27,7 +27,7 @@ return {
             -- For docker
             'dockerfile-language-server',
             -- For python
-            'pyright'
+            'pyright',
         }
 
         -- Install packages if not present

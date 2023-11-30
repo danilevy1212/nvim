@@ -9,7 +9,7 @@ local M = {
         vim.api.nvim_set_var('VM_maps', {
             ['Find Under'] = '<M-d>',
             ['Find Subword Under'] = '<M-d>',
-            ['I Next'] = ''
+            ['I Next'] = '',
         })
 
         g.VM_quit_after_leaving_insert_mode = 1

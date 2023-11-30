@@ -21,7 +21,7 @@ local M = {
                         'RainbowDelimiterYellow',
                     },
                 }
-            end
+            end,
         },
     },
     config = function()
