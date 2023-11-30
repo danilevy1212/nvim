@@ -11,15 +11,18 @@ require('config.utils').setup_lsp_server('lua_ls', {
     capabilities = require('config.utils').get_default_capabilities(),
     settings = {
         Lua = {
-            -- Setup snippets
+            --- Assume we are inside neovim config, which uses LuaJIT
+            runtime = {
+                version = 'LuaJIT',
+            },
+            --- Setup snippets
             completion = {
-                -- Show both the snippet and completion
+                --- Show both the snippet and completion
                 callSnippet = 'Both',
             },
         },
     },
 })
-
 
 -- Setup stylua for neovim config
 local null_ls = require 'null-ls'
