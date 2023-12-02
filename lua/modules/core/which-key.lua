@@ -1,22 +1,18 @@
 -- Main keymap engine
-return {
+
+---@type LazyPluginSpec
+local M = {
     'folke/which-key.nvim',
-    lazy = false,
     init = function()
         -- Small window before the popup apears
         seto('timeoutlen', 200)
     end,
+    dependencies = {
+        --- Load this before which-key.nvim to prevent collisions
+        'gbprod/cutlass.nvim',
+    },
     config = function()
-        -- Make which-key helper available to all other modules
         local wk = require 'which-key'
-
-        -- Don't overshadow cutlass.nvim keybidings
-        wk.setup {
-            triggers_blacklist = {
-                v = { 'c', 'C', 'd', 'D' },
-                n = { 'c', 'C', 'd', 'D' },
-            },
-        }
 
         -- Setup basic labels
         wk.register({
@@ -73,3 +69,5 @@ return {
         })
     end,
 }
+
+return M
