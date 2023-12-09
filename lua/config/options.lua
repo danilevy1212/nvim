@@ -74,6 +74,9 @@ opt.diffopt = { 'internal', 'filler', 'closeoff', 'linematch:60' }
 -- We do this manually in `after/plugin/autocmd.lua`
 opt.exrc = false
 
+-- Open vertical splits to the right
+opt.splitright = true
+
 -- Set the language to american english
 vim.cmd [[language en_US.UTF-8]]
 
