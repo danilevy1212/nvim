@@ -21,7 +21,7 @@ opt.expandtab = true
 -- Auto indent when possible
 opt.autoindent = true
 
--- Keep indentation of existing lines when autoindenting
+-- Keep indentation of existing lines when auto indenting
 opt.copyindent = true
 
 -- Preserve indentation between changes
@@ -39,7 +39,7 @@ opt.scrolloff = 8
 -- Draw the sign column always
 opt.signcolumn = 'yes'
 
--- Keep the swap file updated every 50 milis of inactivity
+-- Keep the swap file updated every 50 milliseconds of inactivity
 opt.updatetime = 50
 
 -- Use the system clipboard by default
@@ -51,19 +51,19 @@ opt.wildignorecase = true
 -- Set completeopt to have a better completion experience
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
--- Show whitespaces
+-- Show white spaces
 opt.list = true
 
 -- Chars to show for
 opt.listchars = { eol = '↲', tab = '▸ ', space = '·' }
 
--- Abbreviate commandline messages
+-- Abbreviate command line messages
 opt.shortmess = 'filnxtToOFsS'
 
--- Abbreviate commandline messages
+-- Abbreviate command line messages
 opt.showmode = false
 
--- Show the statusline always
+-- Show the status line always
 opt.laststatus = 2
 
 -- Default diffing options
@@ -77,8 +77,11 @@ opt.exrc = false
 -- Open vertical splits to the right
 opt.splitright = true
 
--- Set the language to american english
+-- Set the language to American English
 vim.cmd [[language en_US.UTF-8]]
+
+-- Turn on spell check
+opt.spell = true
 
 -- editorconfig integration
 vim.g.editorconfig = true
