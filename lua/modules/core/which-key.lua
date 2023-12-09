@@ -5,7 +5,7 @@ local M = {
     'folke/which-key.nvim',
     init = function()
         -- Small window before the popup apears
-        seto('timeoutlen', 200)
+        vim.opt.timeoutlen = 200
     end,
     dependencies = {
         --- Load this before which-key.nvim to prevent collisions

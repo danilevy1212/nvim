@@ -4,9 +4,8 @@ vim.loader.enable()
 local sysname = vim.loop.os_uname().sysname
 
 -- Global constants, useful for configuration
-_G.CONSTANTS = {
+CONSTANTS = {
     IS_LINUX = sysname == 'Linux',
-    IS_MACOS = sysname == 'Darwin',
     AUGROUP_PREFIX = 'custom_daniel_commands:',
 }
 

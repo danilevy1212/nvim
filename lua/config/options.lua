@@ -1,83 +1,78 @@
---- Helper function to set an opt globally
---- @param option string
---- @param val any
-_G.seto = function(option, val)
-    vim.opt[option] = val
-end
+local opt = vim.opt
 
 -- Print the line number in the left fridge
-seto('number', true)
+opt.number = true
 
 -- Use relative line numbers
-seto('relativenumber', true)
+opt.relativenumber = true
 
 -- Tabs displays as four spaces
-seto('tabstop', 4)
+opt.tabstop = 4
 
 -- Tabs represent four spaces in all other modes
-seto('softtabstop', 4)
+opt.softtabstop = 4
 
 -- Shift indent by four spaces (with '<' or '>')
-seto('shiftwidth', 4)
+opt.shiftwidth = 4
 
 -- Tabs is expanded to into spaces in insert mode
-seto('expandtab', true)
+opt.expandtab = true
 
 -- Auto indent when possible
-seto('autoindent', true)
+opt.autoindent = true
 
 -- Keep indentation of existing lines when autoindenting
-seto('copyindent', true)
+opt.copyindent = true
 
 -- Preserve indentation between changes
-seto('preserveindent', true)
+opt.preserveindent = true
 
 -- Keep an 'undo' file persisted across sessions
-seto('undofile', true)
+opt.undofile = true
 
 -- Enable 24-bit RGB colors in the TUI
-seto('termguicolors', true)
+opt.termguicolors = true
 
 -- Keep some space between the cursor and the end of the page
-seto('scrolloff', 8)
+opt.scrolloff = 8
 
 -- Draw the sign column always
-seto('signcolumn', 'yes')
+opt.signcolumn = 'yes'
 
 -- Keep the swap file updated every 50 milis of inactivity
-seto('updatetime', 50)
+opt.updatetime = 50
 
 -- Use the system clipboard by default
-seto('clipboard', 'unnamedplus')
+opt.clipboard = 'unnamedplus'
 
 -- Ignore casing when searching a file
-seto('wildignorecase', true)
+opt.wildignorecase = true
 
 -- Set completeopt to have a better completion experience
-seto('completeopt', { 'menu', 'menuone', 'noselect' })
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- Show whitespaces
-seto('list', true)
+opt.list = true
 
 -- Chars to show for
-seto('listchars', { eol = '↲', tab = '▸ ', space = '·' })
+opt.listchars = { eol = '↲', tab = '▸ ', space = '·' }
 
 -- Abbreviate commandline messages
-seto('shortmess', 'filnxtToOFsS')
+opt.shortmess = 'filnxtToOFsS'
 
 -- Abbreviate commandline messages
-seto('showmode', false)
+opt.showmode = false
 
 -- Show the statusline always
-seto('laststatus', 2)
+opt.laststatus = 2
 
 -- Default diffing options
-seto('diffopt', { 'internal', 'filler', 'closeoff', 'linematch:60' })
+opt.diffopt = { 'internal', 'filler', 'closeoff', 'linematch:60' }
 
--- We disallow .nvim.lua files to be loaded if in a directory, if added to ':trust' list.
+-- We disallow .nlua files to be loaded if in a directory, if added to ':trust' list.
 -- Trusted files are in "$XDG_STATE_HOME/nvim/trust"
 -- We do this manually in `after/plugin/autocmd.lua`
-seto('exrc', false)
+opt.exrc = false
 
 -- Set the language to american english
 vim.cmd [[language en_US.UTF-8]]
