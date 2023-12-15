@@ -1,13 +1,11 @@
---- Category: FileType
-
 return {
     'simrat39/rust-tools.nvim',
     ft = { 'rust' },
     config = function()
-        -- TODO Move `config.filetype`
+        -- TODO Move to `config.filetype`
         local rt = require 'rust-tools'
 
-        --- TODO When I have installed dap, remove the pcall guard
+        --- TODO When I have installed `dap`, remove the `pcall` guard
         local dap_is_available, _ = pcall(require, 'dap')
         local server_setup = {
             server = {

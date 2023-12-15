@@ -1,4 +1,4 @@
--- Automatically set CWD to project directory.
+-- Automatically set current working directory to project directory.
 
 return {
     'ahmedkhalf/project.nvim',
@@ -7,7 +7,7 @@ return {
         require('which-key').register({
             p = {
                 function()
-                    -- HACK Load project_nvim if it hasn't already, so all the projects appear
+                    --- HACK Load `project_nvim` if it hasn't already, so all the projects appear
                     if not package.loaded['project_nvim'] then
                         -- Wait until the cache is hot
                         vim.fn.wait(1000, function()
@@ -30,7 +30,7 @@ return {
             scope_chdir = 'win',
             -- Only use patterns to detect projects
             detection_methods = { 'pattern' },
-            -- Use VSC and other custom patterns for detection
+            -- Use the version control system and other custom patterns for detection
             patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn', '.project' },
             -- Show hidden files
             show_hidden = false,

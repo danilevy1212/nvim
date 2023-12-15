@@ -65,7 +65,7 @@ local M = {
             -- If a parser is missing, force me to add it to the ensure_installed list, for documentation sake
             auto_install = false,
             highlight = {
-                -- Higlight by default
+                -- Highlight by default
                 enable = true,
                 ---Disable criteria. None for now
                 ---@param lang string -- Filetype

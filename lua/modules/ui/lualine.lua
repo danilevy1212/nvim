@@ -1,4 +1,4 @@
---- A blazing fast and easy to configure Neovim statusline written in Lua.
+--- A blazing fast and easy to configure neovim `statusline` written in Lua.
 
 return {
     'nvim-lualine/lualine.nvim',

@@ -19,12 +19,14 @@ local setups = {
         opts = {
             ---@param client lsp.Client
             on_attach = function(client)
-                -- Use eslint as documentFormattingProvider
+                -- NOTE  In 0.10.0 there is initial support for dynamic capabilities
+                --       Revisit this code on upgrade.
+                -- Use as `documentFormattingProvider`
                 client.server_capabilities.documentFormattingProvider = true
             end,
             capabilities = capabilities,
             settings = {
-                -- Make it easier to work with monorepos
+                -- Make it easier to work with mono-repos
                 workingDirectory = {
                     mode = 'location',
                 },

@@ -17,7 +17,7 @@ return {
             'nil',
             -- For JSON
             'json-lsp',
-            -- For JS / TS
+            -- For Javascript / Typescript
             'typescript-language-server',
             'eslint-lsp',
             'js-debug-adapter',
