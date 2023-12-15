@@ -37,33 +37,12 @@ local M = {
 
         require('nvim-treesitter.configs').setup {
             -- A list of parser names, or "all"
-            ensure_installed = {
-                'bash',
-                'commonlisp',
-                'dockerfile',
-                'go',
-                'gomod',
-                'javascript',
-                'json',
-                'jsonc',
-                'lua',
-                'markdown',
-                'markdown_inline',
-                'nix',
-                'org',
-                'rust',
-                'ssh_config',
-                'sql',
-                'toml',
-                'typescript',
-                'vim',
-                'vimdoc',
-            },
+            ensure_installed = 'all',
             ignore_install = {},
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
-            -- If a parser is missing, force me to add it to the ensure_installed list, for documentation sake
-            auto_install = false,
+            -- Install all parsers so we can assume we always have treesitter available
+            auto_install = true,
             highlight = {
                 -- Highlight by default
                 enable = true,
