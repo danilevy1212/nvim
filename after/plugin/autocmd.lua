@@ -3,7 +3,8 @@ local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'misc', {
 })
 
 vim.api.nvim_create_autocmd('BufReadPost', {
-    desc = 'Set cursor to last place it was on before exiting. Taken from `https://this-week-in-neovim.org/2023/Jan/2#tips`',
+    desc =
+    'Set cursor to last place it was on before exiting. Taken from `https://this-week-in-neovim.org/2023/Jan/2#tips`',
     group = group,
     callback = function()
         local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -15,7 +16,8 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 })
 
 vim.api.nvim_create_autocmd('BufReadPre', {
-    desc = 'Add source and code information to the vim.diagnostics virtual text and quickfix list. Format: message :: source :: code',
+    desc =
+    'Add source and code information to the vim.diagnostics virtual text and quickfix list. Format: message :: source :: code',
     group = group,
     callback = function()
         --- @param diagnostic Diagnostic
@@ -28,8 +30,13 @@ vim.api.nvim_create_autocmd('BufReadPre', {
             return table.concat(extra_info, ' :: ')
         end
 
-        --- Format virtual text
+        --- Diagnostics configuration
         vim.diagnostic.config {
+            float = {
+                border = 'rounded',
+                source = true,
+                severity_sort = true,
+            },
             virtual_text = {
                 format = format_diagnostic,
             },
