@@ -1,13 +1,15 @@
-return {
+-- A plugin to improve your rust experience in neovim.
+
+---@type LazyPluginSpec
+local M = {
     'simrat39/rust-tools.nvim',
     ft = { 'rust' },
     config = function()
-        -- TODO Move to `config.filetype`
         local rt = require 'rust-tools'
 
         --- TODO When I have installed `dap`, remove the `pcall` guard
         local dap_is_available, _ = pcall(require, 'dap')
-        local server_setup = {
+        local rust_tools_setup = {
             server = {
                 on_attach = require('config.utils').on_attach,
                 capabilities = require('config.utils').get_default_capabilities(),
@@ -49,7 +51,7 @@ return {
                 extension_path = lldb:get_install_path() .. '/extension'
                 codelldb_path = extension_path .. '/adapter/codelldb'
                 liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
-                server_setup.dap = {
+                rust_tools_setup.dap = {
                     adapter = vim.tbl_extend(
                         'force',
                         require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
@@ -62,10 +64,10 @@ return {
             else
                 vim.notify(
                     'Debugger package '
-                        .. codelldb_package_name
-                        .. ' could not be found in path '
-                        .. codelldb_path
-                        .. '. Debugging will not work',
+                    .. codelldb_package_name
+                    .. ' could not be found in path '
+                    .. codelldb_path
+                    .. '. Debugging will not work',
                     vim.log.levels.ERROR {
                         title = 'Unknown package ' .. codelldb_package_name,
                     }
@@ -73,6 +75,8 @@ return {
             end
         end
 
-        rt.setup(server_setup)
+        rt.setup(rust_tools_setup)
     end,
 }
+
+return M
