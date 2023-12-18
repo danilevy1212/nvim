@@ -62,7 +62,7 @@ M.on_attach = function(_, bufnr)
             R = { vim.lsp.buf.references, 'Find references' },
         },
         K = { vim.lsp.buf.hover, 'Hover' },
-        --- NOTE Technically, diagnostics are seperate from LSP, but so far I am always using them together.
+        --- NOTE Technically, diagnostics are separate from LSP, but so far I am always using them together.
         ['<C-k>'] = { vim.diagnostic.open_float, 'Show line diagnostic\'s information' },
         ['<leader>'] = {
             c = {
@@ -113,9 +113,9 @@ function M.setup_lsp_server(server_name, setup_opts, start, bufnr)
     lspconfig[server_name].setup(setup_opts)
 
     if start and #vim.lsp.get_active_clients {
-        name = server_name,
-        bufnr = bufnr,
-    } == 0 then
+            name = server_name,
+            bufnr = bufnr,
+        } == 0 then
         lspconfig[server_name].launch()
     end
 end
