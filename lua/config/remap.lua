@@ -2,6 +2,7 @@ local setk = vim.keymap.set
 
 -- Space as leader key
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' m'
 
 setk('n', '<leader>o-', vim.cmd.Ex, { desc = 'Open file directory' })
 setk('n', '<leader>bd', vim.cmd.bdelete, { desc = 'Close current buffer' })
