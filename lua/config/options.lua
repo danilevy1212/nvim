@@ -69,10 +69,8 @@ opt.laststatus = 2
 -- Default diffing options
 opt.diffopt = { 'internal', 'filler', 'closeoff', 'linematch:60' }
 
--- We disallow .nlua files to be loaded if in a directory, if added to ':trust' list.
 -- Trusted files are in "$XDG_STATE_HOME/nvim/trust"
--- We do this manually in `after/plugin/autocmd.lua`
-opt.exrc = false
+opt.exrc = true
 
 -- Open vertical splits to the right
 opt.splitright = true

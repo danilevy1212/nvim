@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd('BufReadPre', {
     once = true,
 })
 
---- Create autocmd to keep location list and quickfix list sync with diagnostics
+--- Keep location list and quickfix list sync with diagnostics
 vim.api.nvim_create_autocmd('DiagnosticChanged', {
     group = group,
     desc = 'Keep location list in sync with LSP diagnostics',
@@ -141,12 +141,17 @@ vim.api.nvim_create_autocmd('BufReadPre', {
     once = true,
 })
 
---- Try to read.nvimrc, .nvim.lua or .exrc whenever CWD changes, like in emacs.
+---@type table<string, string | nil>
+local loaded_exrcs = {}
+local log_levels = vim.log.levels
+local notify = vim.notify
+
+--- Try to read `.nvimrc`, `.nvim.lua` or `.exrc` whenever current working directory changes.
 vim.api.nvim_create_autocmd('DirChanged', {
     pattern = 'window',
     group = group,
     callback = function()
-        -- Using the current window cwd because of `project.nvim` settings.
+        -- Using the current window current working directory because of `project.nvim` settings.
         local cwd = vim.fn.getcwd(0)
         local nvimrc_file_names = {
             '.nvim.lua',
@@ -156,13 +161,32 @@ vim.api.nvim_create_autocmd('DirChanged', {
 
         for _, file_name in ipairs(nvimrc_file_names) do
             local full_file_path = cwd .. '/' .. file_name
-            if vim.fn.filereadable(full_file_path) == 1 then
-                local is_valid = vim.secure.read(full_file_path)
-                if is_valid then
-                    vim.cmd.source(full_file_path)
-                end
-                break
+            if vim.fn.filereadable(full_file_path) ~= 1 then
+                goto continue
             end
+
+            local notify_opts = { title = 'exrc' }
+            local contents = vim.secure.read(full_file_path)
+            if not contents then
+                notify(
+                    '\'exrc\' file ' .. full_file_path .. 'is not trusted, ignoring.',
+                    log_levels.INFO,
+                    notify_opts
+                )
+                goto continue
+            end
+
+            local hash = vim.fn.sha256(contents)
+            if loaded_exrcs[hash] then
+                notify('\'exrc\' file is already loaded, ignoring', log_levels.DEBUG, notify_opts)
+                goto continue
+            end
+
+            notify('Loading \'exrc\' file: ' .. full_file_path, log_levels.INFO, notify_opts)
+            vim.cmd.source(full_file_path)
+            loaded_exrcs[hash] = full_file_path
+
+            ::continue::
         end
     end,
 })
