@@ -1,7 +1,7 @@
 -- This plugin is the pure lua replacement for github/copilot.vim.
 
 local function is_nixos()
-    local os_release = vim.trim(vim.fn.system('grep "^ID=" /etc/os-release | cut -d= -f2'))
+    local os_release = vim.trim(vim.fn.system 'grep "^ID=" /etc/os-release | cut -d= -f2')
 
     return os_release == 'nixos'
 end
@@ -10,7 +10,7 @@ local function get_node_command()
     if is_nixos() then
         return '/etc/profiles/per-user/dlevym/bin/node'
     else
-        --- NOTE  Use whatever node version is available in the system. 
+        --- NOTE  Use whatever node version is available in the system.
         ---       This is OK since I am unlikely to use old / deprecated node versions in non NixOS systems.
         return 'node'
     end
@@ -49,8 +49,10 @@ local M = {
                 },
             },
             filetypes = {
+                --- Enable copilot for all filetypes by default
+                ['*'] = true,
+                -- Disable copilot for .env files but not for `.envrc` files from direnv
                 sh = function()
-                    -- Disable copilot for .env files but not for `.envrc` files from direnv
                     return not string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env(?!rc).*')
                 end,
             },
