@@ -37,9 +37,6 @@ local M = {
         require('copilot').setup {
             suggestion = {
                 auto_trigger = true,
-                keymap = {
-                    accept = '<Right>',
-                },
             },
             panel = {
                 auto_refresh = true,
