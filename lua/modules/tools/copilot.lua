@@ -55,7 +55,8 @@ local M = {
                 ['*'] = true,
                 -- Disable copilot for `.env` files but not for `.envrc` files from direnv
                 sh = function()
-                    return not string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env(?!rc).*')
+                    local file_basename = vim.fs.basename(vim.api.nvim_buf_get_name(0))
+                    return file_basename == '.envrc' or not string.match(file_basename, '^%.env.*')
                 end,
                 --- Disable copilot for `csv` files
                 csv = false,
