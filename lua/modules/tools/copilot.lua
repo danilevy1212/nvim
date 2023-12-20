@@ -60,6 +60,8 @@ local M = {
                 end,
                 --- Disable copilot for `csv` files
                 csv = false,
+                --- Disable copilot for any configuration files
+                conf = false,
                 json = json_enabled,
                 jsonc = json_enabled,
             },
