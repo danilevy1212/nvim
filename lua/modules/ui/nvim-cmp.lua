@@ -1,8 +1,10 @@
+-- Auto completion framework.
+
 --- The types are wrong, properties are optional in reality
 ---@diagnostic disable: missing-fields
 
--- Auto completion framework
-return {
+--- @type LazyPluginSpec
+local M = {
     'hrsh7th/nvim-cmp',
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
@@ -102,7 +104,23 @@ return {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
             }, {
-                { name = 'buffer' },
+                {
+                    name = 'buffer',
+                    --- Disabled when copilot is attached as it gets in the way
+                    enabled = function()
+                        local ok, c = pcall(require, 'copilot.client')
+
+                        --- If I ever uninstall copilot, I don't want to be stuck with a broken configuration.
+                        if not ok then
+                            vim.notify('Copilot is not installed', vim.log.levels.ERROR, {
+                                title = 'Configuration error',
+                            })
+                            return true
+                        end
+
+                        return not c.buf_is_attached(0)
+                    end,
+                },
             }),
             --- Use virtual text to "preview" completion
             experimental = {
@@ -115,13 +133,6 @@ return {
                 },
             },
         }
-
-        -- Set configuration for specific filetype. Just an example for now
-        cmp.setup.filetype('gitcommit', {
-            sources = cmp.config.sources {
-                { name = 'buffer' },
-            },
-        })
 
         -- Use buffer source for `/` and `?`
         cmp.setup.cmdline({ '/', '?' }, {
@@ -142,3 +153,5 @@ return {
         })
     end,
 }
+
+return M
