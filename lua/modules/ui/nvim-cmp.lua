@@ -22,6 +22,9 @@ local M = {
 
         -- Path completion
         { 'hrsh7th/cmp-path' },
+
+        -- LSP Completion
+        { 'hrsh7th/cmp-nvim-lsp' },
     },
     config = function()
         local cmp = require 'cmp'
@@ -54,6 +57,28 @@ local M = {
             },
             -- Mappings
             mapping = cmp.mapping.preset.insert {
+                --- Toggle the completion menu when pressing <C-l>
+                ['<C-l>'] = cmp.mapping(function()
+                    if cmp.visible() then
+                        cmp.close()
+                    else
+                        cmp.complete {}
+                    end
+                end, { 'i', 'c' }),
+                --- If copilot is visible and the user presses <M-l>, then insert the copilot snippet.
+                ['<M-l>'] = cmp.mapping(function(fallback)
+                    local ok, c = pcall(require, 'copilot.suggestion')
+
+                    if not ok then
+                        vim.notify('Copilot is not installed', vim.log.levels.ERROR, {
+                            title = 'Configuration ERROR',
+                        })
+                        fallback()
+                    elseif ok and c.is_visible() then
+                        c.accept()
+                    end
+                end),
+                --- Toggle the documentation window when pressing <C-k>
                 ['<C-k>'] = cmp.mapping(function()
                     if cmp.visible_docs() then
                         cmp.close_docs()
@@ -96,7 +121,6 @@ local M = {
                     end
                 end),
                 ['<C-Space>'] = cmp.mapping.complete {},
-                ['<C-e>'] = cmp.mapping.abort(),
                 ['<CR>'] = cmp.mapping.confirm { select = true },
             },
             --- Default sources
@@ -104,33 +128,12 @@ local M = {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
             }, {
-                {
-                    name = 'buffer',
-                    --- Disabled when copilot is attached as it gets in the way.
-                    option = {
-                        get_bufnrs = function()
-                            --- Show current buffer completion only when copilot is not attached.
-                            local current_buf = vim.api.nvim_get_current_buf()
-                            local buffers = { current_buf }
-
-                            --- If I ever uninstall copilot, I don't want to be stuck with a broken configuration.
-                            local ok, c = pcall(require, 'copilot.client')
-                            if not ok then
-                                vim.notify('Copilot is not installed', vim.log.levels.ERROR, {
-                                    title = 'Configuration ERROR',
-                                })
-                                return buffers
-                            end
-
-                            return not c.buf_is_attached(current_buf) and buffers or {}
-                        end,
-                    },
-                },
+                { name = 'buffer' },
             }),
 
-            --- Use virtual text to "preview" completion
+            --- Disable ghost test as it conflicts with copilot
             experimental = {
-                ghost_text = true,
+                ghost_text = false,
             },
             --- Don't open docs by default, the occupy way too much space by default
             view = {

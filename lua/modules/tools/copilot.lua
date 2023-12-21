@@ -27,18 +27,6 @@ local M = {
             return string.match(name, 'package%.json$') or string.match(name, '%.config%.') or string.match(name, '^%.')
         end
 
-        local cmp = require 'cmp'
-
-        cmp.event:on('menu_opened', function()
-            ---@diagnostic disable-next-line: inject-field
-            vim.b.copilot_suggestion_hidden = true
-        end)
-
-        cmp.event:on('menu_closed', function()
-            ---@diagnostic disable-next-line: inject-field
-            vim.b.copilot_suggestion_hidden = false
-        end)
-
         require('copilot').setup {
             suggestion = {
                 auto_trigger = true,
