@@ -106,22 +106,28 @@ local M = {
             }, {
                 {
                     name = 'buffer',
-                    --- Disabled when copilot is attached as it gets in the way
-                    enabled = function()
-                        local ok, c = pcall(require, 'copilot.client')
+                    --- Disabled when copilot is attached as it gets in the way.
+                    option = {
+                        get_bufnrs = function()
+                            --- Show current buffer completion only when copilot is not attached.
+                            local current_buf = vim.api.nvim_get_current_buf()
+                            local buffers = { current_buf }
 
-                        --- If I ever uninstall copilot, I don't want to be stuck with a broken configuration.
-                        if not ok then
-                            vim.notify('Copilot is not installed', vim.log.levels.ERROR, {
-                                title = 'Configuration error',
-                            })
-                            return true
-                        end
+                            --- If I ever uninstall copilot, I don't want to be stuck with a broken configuration.
+                            local ok, c = pcall(require, 'copilot.client')
+                            if not ok then
+                                vim.notify('Copilot is not installed', vim.log.levels.ERROR, {
+                                    title = 'Configuration ERROR',
+                                })
+                                return buffers
+                            end
 
-                        return not c.buf_is_attached(0)
-                    end,
+                            return not c.buf_is_attached(current_buf) and buffers or {}
+                        end,
+                    },
                 },
             }),
+
             --- Use virtual text to "preview" completion
             experimental = {
                 ghost_text = true,
