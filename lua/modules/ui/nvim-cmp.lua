@@ -74,8 +74,12 @@ local M = {
                             title = 'Configuration ERROR',
                         })
                         fallback()
-                    elseif ok and c.is_visible() then
-                        c.accept()
+                    else
+                        if c.is_visible() then
+                            c.accept()
+                        else
+                            fallback()
+                        end
                     end
                 end),
                 --- Toggle the documentation window when pressing <C-k>
