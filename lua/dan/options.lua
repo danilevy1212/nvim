@@ -70,8 +70,8 @@ opt.laststatus = 2
 -- Default diffing options
 opt.diffopt = { 'internal', 'filler', 'closeoff', 'linematch:60' }
 
--- Trusted files are in "$XDG_STATE_HOME/nvim/trust"
-opt.exrc = true
+-- We handle this manually in `after/plugin/autocmd.lua`
+opt.exrc = false
 
 -- Open vertical splits to the right
 opt.splitright = true
