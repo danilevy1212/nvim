@@ -142,18 +142,15 @@ autocmd('BufReadPre', {
     once = true,
 })
 
----@type table<string, string | nil>
-local loaded_exrcs = {}
-local log_levels = vim.log.levels
-local notify = vim.notify
-
 --- Try to read `.nvimrc`, `.nvim.lua` or `.exrc` whenever current working directory changes.
-autocmd('DirChanged', {
+autocmd({ 'VimEnter', 'DirChanged' }, {
     pattern = 'window',
     group = group,
     callback = function()
-        -- Using the current window current working directory because of `project.nvim` settings.
+        --- Using the current window current working directory because of `project.nvim` settings.
         local cwd = vim.fn.getcwd(0)
+
+        --- see `:h exrc`
         local nvimrc_file_names = {
             '.nvim.lua',
             '.nvimrc',
@@ -162,40 +159,19 @@ autocmd('DirChanged', {
 
         for _, file_name in ipairs(nvimrc_file_names) do
             local full_file_path = cwd .. '/' .. file_name
-            if vim.fn.filereadable(full_file_path) ~= 1 then
-                goto continue
+            if vim.fn.filereadable(full_file_path) == 1 then
+                require('dan.lib.exrc').load_exrc_file(full_file_path)
             end
-
-            local notify_opts = { title = 'exrc' }
-            local contents = vim.secure.read(full_file_path)
-            if not contents then
-                notify(
-                    '\'exrc\' file ' .. full_file_path .. 'is not trusted, ignoring.',
-                    log_levels.INFO,
-                    notify_opts
-                )
-                goto continue
-            end
-
-            local hash = vim.fn.sha256(contents)
-            if loaded_exrcs[hash] then
-                notify('\'exrc\' file is already loaded, ignoring', log_levels.DEBUG, notify_opts)
-                goto continue
-            end
-
-            notify('Loading \'exrc\' file: ' .. full_file_path, log_levels.INFO, notify_opts)
-            vim.cmd.source(full_file_path)
-            loaded_exrcs[hash] = full_file_path
-
-            ::continue::
         end
     end,
 })
 
 --- Highlight yanked text
-autocmd("TextYankPost", {
+autocmd('TextYankPost', {
     group = group,
     callback = function()
-        vim.highlight.on_yank()
+        vim.highlight.on_yank {
+            timeout = 100,
+        }
     end,
 })
