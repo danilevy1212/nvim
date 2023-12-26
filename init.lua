@@ -6,8 +6,5 @@ CONSTANTS = {
     AUGROUP_PREFIX = 'custom_daniel_commands:',
 }
 
--- Load all plugins
-require 'modules'
-
--- Load all options and customizations
-require 'config'
+-- Load the configuration
+require 'dan'

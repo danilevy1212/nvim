@@ -1,8 +1,9 @@
 local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'misc', {
     clear = false,
 })
+local autocmd = vim.api.nvim_create_autocmd
 
-vim.api.nvim_create_autocmd('BufReadPost', {
+autocmd('BufReadPost', {
     desc =
     'Set cursor to last place it was on before exiting. Taken from `https://this-week-in-neovim.org/2023/Jan/2#tips`',
     group = group,
@@ -15,7 +16,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end,
 })
 
-vim.api.nvim_create_autocmd('BufReadPre', {
+autocmd('BufReadPre', {
     desc =
     'Add source and code information to the vim.diagnostics virtual text and quickfix list. Format: message :: source :: code',
     group = group,
@@ -92,11 +93,11 @@ vim.api.nvim_create_autocmd('BufReadPre', {
 })
 
 --- Keep location list and quickfix list sync with diagnostics
-vim.api.nvim_create_autocmd('DiagnosticChanged', {
+autocmd('DiagnosticChanged', {
     group = group,
     desc = 'Keep location list in sync with LSP diagnostics',
     --- @param event { buf: number }
-    --- @see vim.api.nvim_create_autocmd
+    --- @see autocmd
     callback = function(event)
         local bufnr = event.buf
         -- Windows of the buffer whose diagnostics changed
@@ -130,7 +131,7 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
 })
 
 --- Register `.example` files as `sh` filetypes
-vim.api.nvim_create_autocmd('BufReadPre', {
+autocmd('BufReadPre', {
     callback = function()
         vim.filetype.add {
             pattern = {
@@ -147,7 +148,7 @@ local log_levels = vim.log.levels
 local notify = vim.notify
 
 --- Try to read `.nvimrc`, `.nvim.lua` or `.exrc` whenever current working directory changes.
-vim.api.nvim_create_autocmd('DirChanged', {
+autocmd('DirChanged', {
     pattern = 'window',
     group = group,
     callback = function()
@@ -188,5 +189,13 @@ vim.api.nvim_create_autocmd('DirChanged', {
 
             ::continue::
         end
+    end,
+})
+
+--- Highlight yanked text
+autocmd("TextYankPost", {
+    group = group,
+    callback = function()
+        vim.highlight.on_yank()
     end,
 })
