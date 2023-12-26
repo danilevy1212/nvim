@@ -16,6 +16,7 @@ autocmd('BufReadPost', {
     end,
 })
 
+--- TODO  Move this to it's own 'diagnostics' file
 autocmd('BufReadPre', {
     desc =
     'Add source and code information to the vim.diagnostics virtual text and quickfix list. Format: message :: source :: code',
@@ -38,6 +39,7 @@ autocmd('BufReadPre', {
                 source = true,
                 severity_sort = true,
             },
+            --- TODO I may remove this, as it is very distracting in comparison to a simple floating window
             virtual_text = {
                 format = format_diagnostic,
             },
@@ -92,6 +94,7 @@ autocmd('BufReadPre', {
     once = true,
 })
 
+--- TODO  Move this to it's own 'diagnostics' file
 --- Keep location list and quickfix list sync with diagnostics
 autocmd('DiagnosticChanged', {
     group = group,
@@ -130,6 +133,7 @@ autocmd('DiagnosticChanged', {
     end,
 })
 
+--- TODO I don't think this should be an autocmd. What do I get from this?
 --- Register `.example` files as `sh` filetypes
 autocmd('BufReadPre', {
     callback = function()
