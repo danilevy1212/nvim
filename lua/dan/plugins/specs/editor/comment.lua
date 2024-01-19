@@ -1,11 +1,11 @@
--- Category: editor
+-- Smart and Powerful commenting plugin for neovim
 
--- TODO Deprecate in favour of https://github.com/numToStr/Comment.nvim
--- Comment operator
-return {
-    'terrortylor/nvim-comment',
+---@type LazyPluginSpec
+local M = {
+    'numToStr/Comment.nvim',
+    keys = { 'gc', 'gb' },
     event = { 'BufRead' },
-    config = function()
-        require('nvim_comment').setup()
-    end,
+    opts = {},
 }
+
+return M
