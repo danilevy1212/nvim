@@ -4,9 +4,7 @@
 local M = {
     'nvim-neotest/neotest',
     init = function()
-        local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'neotest', {
-            clear = false,
-        })
+        local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'neotest', {})
 
         -- Create the keybindings in files that support running tests.
         vim.api.nvim_create_autocmd('BufReadPost', {
