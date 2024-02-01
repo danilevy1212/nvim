@@ -42,6 +42,7 @@
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "35530b4ad48f01bdaa852da34e4de9930fb54c89" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "6c921ca12321edaa773e324ef64ea301a1d0da62" },
   "telescope.nvim": { "branch": "master", "commit": "1bfbb1fb5c56d2dbe33216fcb2ebe82e499aa06c" },
+  "tfm.nvim": { "branch": "main", "commit": "1cce32ec385922747580c9b7fbf5e372dc69c2cb" },
   "todo-comments.nvim": { "branch": "main", "commit": "833d8dd8b07eeda37a09e99460f72a02616935cb" },
   "toggleterm.nvim": { "branch": "main", "commit": "cbd041d91b90cd3c02df03fe6133208888f8e008" },
   "undotree": { "branch": "master", "commit": "d9c8b4ef872e078e8c4080812e5a3ed56d151c00" },
