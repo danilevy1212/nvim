@@ -3,12 +3,15 @@
 --- @type LazyPluginSpec
 local M = {
     'nvim-treesitter/nvim-treesitter',
+    version = '*',
     event = { 'BufRead' },
     build = ':TSUpdate',
     dependencies = {
         {
             --- This Neovim plugin provides alternating syntax highlighting (“rainbow parentheses”) for Neovim, powered by Tree-sitter.
             'HiPhish/rainbow-delimiters.nvim',
+            --- Submodules for this plugin are dev dependencies and should not be installed
+            submodules = false,
             init = function()
                 vim.g.rainbow_delimiters = {
                     highlight = {
