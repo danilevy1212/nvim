@@ -27,12 +27,6 @@ M.on_attach = function(_, bufnr)
             c = {
                 name = 'Code',
                 d = { vim.lsp.buf.definition, 'Go to definition' },
-                f = {
-                    function()
-                        vim.lsp.buf.format { async = true }
-                    end,
-                    'Format',
-                },
                 t = { vim.lsp.buf.type_definition, 'Go to type definition' },
                 r = { vim.lsp.buf.rename, 'Rename at point' },
                 R = { vim.lsp.buf.references, 'Find references' },
