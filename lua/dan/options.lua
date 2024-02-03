@@ -101,3 +101,6 @@ g.netrw_banner = false
 
 -- Keep the current directory separate from the browsing directory
 g.netrw_keepdir = 1
+
+-- Highlight the current line
+opt.cursorline = true
