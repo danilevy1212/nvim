@@ -82,8 +82,8 @@ local M = {
                         end
                     end
                 end),
-                --- Toggle the documentation window when pressing <C-k>
-                ['<C-k>'] = cmp.mapping(function()
+                --- Toggle the documentation window when pressing <C-h>
+                ['<C-h>'] = cmp.mapping(function()
                     if cmp.visible_docs() then
                         cmp.close_docs()
                     else
@@ -95,8 +95,6 @@ local M = {
                 ['<Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
-                    elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
                     else
                         fallback()
                     end
@@ -104,8 +102,6 @@ local M = {
                 ['<S-Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
-                    elseif luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
                     else
                         fallback()
                     end
