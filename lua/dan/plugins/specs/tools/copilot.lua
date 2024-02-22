@@ -1,7 +1,7 @@
 -- This plugin is the pure lua replacement for github/copilot.vim.
 
 ---@type LazyPluginSpec
-local M = {
+local COPILOT = {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     event = 'InsertEnter',
@@ -58,4 +58,101 @@ local M = {
     end,
 }
 
-return M
+---@type LazyPluginSpec
+local COPILOT_CHAT = {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    init = function()
+        require('which-key').register({}, {
+            mode = 'n',
+            prefix = '<leader>oc',
+            desc = 'CopilotChat',
+        })
+    end,
+    config = function()
+        require('CopilotChat').setup {
+            show_help = 'yes',
+            -- Log in ~/.local/state/nvim/CopilotChat.nvim.log
+            debug = true,
+            disable_extra_info = 'no',
+            language = 'English',
+        }
+    end,
+    keys = {
+        {
+            '<leader>oce',
+            '<cmd>CopilotChatExplain<cr>',
+            desc = 'Explain code',
+        },
+        {
+            '<leader>oct',
+            '<cmd>CopilotChatTests<cr>',
+            desc = 'Generate tests',
+        },
+        {
+            '<leader>ocT',
+            '<cmd>CopilotChatVsplitToggle<cr>',
+            desc = 'Toggle Vsplit',
+        },
+        {
+            '<leader>ocv',
+            ':CopilotChatVisual',
+            mode = 'x',
+            desc = 'Open in vertical split',
+        },
+        {
+            '<leader>ocx',
+            ':CopilotChatInPlace<cr>',
+            mode = 'x',
+            desc = 'Run in-place code',
+        },
+        {
+            '<leader>ocf',
+            '<cmd>CopilotChatFixDiagnostic<cr>',
+            desc = 'Fix diagnostic under cursor',
+        },
+        {
+            '<leader>ocr',
+            '<cmd>CopilotChatReset<cr>',
+            desc = 'Reset chat history and clear buffer',
+        },
+        {
+            '<leader>och',
+            function()
+                require('CopilotChat.code_actions').show_help_actions()
+            end,
+            desc = 'Help actions telescope',
+        },
+        {
+            '<leader>ocp',
+            function()
+                require('CopilotChat.code_actions').show_prompt_actions()
+            end,
+            desc = 'Help actions telescope',
+        },
+        {
+            '<leader>ocp',
+            ':lua require(\'CopilotChat.code_actions\').show_prompt_actions(true)<CR>',
+            mode = 'x',
+            desc = 'Prompt actions telescope',
+        },
+        {
+            '<leader>oci',
+            function()
+                local input = vim.fn.input 'Ask Copilot: '
+                if input ~= '' then
+                    vim.cmd('CopilotChat ' .. input)
+                end
+            end,
+            desc = 'Ask copilot',
+        },
+    },
+    build = function()
+        vim.cmd 'UpdateRemotePlugins'
+        vim.cmd 'source $XDG_DATA_HOME/nvim/rplugin.vim'
+    end,
+}
+
+return {
+    COPILOT,
+    COPILOT_CHAT,
+}
