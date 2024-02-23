@@ -22,7 +22,7 @@ M.on_attach = function(_, bufnr)
         },
         K = { vim.lsp.buf.hover, 'Hover' },
         --- NOTE Technically, diagnostics are separate from LSP, but so far I am always using them together.
-        ['<C-k>'] = { vim.diagnostic.open_float, 'Show line diagnostic\'s information' },
+        ['<M-k>'] = { vim.diagnostic.open_float, 'Show line diagnostic\'s information' },
         ['<leader>'] = {
             c = {
                 name = 'Code',
