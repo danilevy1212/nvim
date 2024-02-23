@@ -1,7 +1,10 @@
 --- A code outline window for skimming and quick navigation
 
-return {
+---@type LazyPluginSpec
+local M = {
     'stevearc/aerial.nvim',
+    -- FIX  I'm pinned to this version because I use the stable nvim-treesitter branch
+    commit = '9523ebc7f0805a4d69a76ef35960a7788a4127af',
     cmd = {
         'AerialToggle',
     },
@@ -30,3 +33,5 @@ return {
         require('telescope').load_extension 'aerial'
     end,
 }
+
+return M
