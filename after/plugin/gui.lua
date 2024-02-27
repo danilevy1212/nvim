@@ -1,4 +1,7 @@
 local g = vim.g
+local setk = vim.keymap.set
+local cmd = vim.cmd
+
 --- NOTE  For now, we only consider neovide as a GUI
 if not g.neovide then
     return
@@ -33,3 +36,15 @@ g.neovide_cursor_vfx_mode = 'pixiedust'
 
 -- More sparkles!
 g.neovide_cursor_vfx_particle_density = 21
+
+-- Increase scale factor
+setk('n', '<C-=>', function()
+    g.neovide_scale_factor = g.neovide_scale_factor * 1.125
+    cmd('redraw!')
+end)
+
+-- Decrease scale factor
+setk('n', '<C-->', function()
+    g.neovide_scale_factor = g.neovide_scale_factor / 1.125
+    cmd('redraw!')
+end)
