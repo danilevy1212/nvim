@@ -48,6 +48,7 @@
   "tfm.nvim": { "branch": "main", "commit": "0fd23be8d4adebcc65a30b3870c2090b97dc1bc2" },
   "todo-comments.nvim": { "branch": "main", "commit": "833d8dd8b07eeda37a09e99460f72a02616935cb" },
   "toggleterm.nvim": { "branch": "main", "commit": "193786e0371e3286d3bc9aa0079da1cd41beaa62" },
+  "ts-error-translator.nvim": { "branch": "main", "commit": "1d24a38427fd2030c5f4e82156c87ab7d6d44814" },
   "undotree": { "branch": "master", "commit": "9dbbf3b7d19dda0d22ceca461818e4739ad8154d" },
   "vim-caddyfile": { "branch": "master", "commit": "24fe0720551883e407cb70ae1d7c03f162d1d5a0" },
   "vim-fugitive": { "branch": "master", "commit": "011cf4fcb93a9649ffc6dcdff56ef948f5d0f7cc" },
