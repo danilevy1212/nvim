@@ -35,10 +35,7 @@ autocmd('BufReadPre', {
                 source = true,
                 severity_sort = true,
             },
-            --- TODO I may remove this, as it is very distracting in comparison to a simple floating window
-            virtual_text = {
-                format = format_diagnostic,
-            },
+            virtual_text = false
         }
 
         --- Override `vim.diagnostic.toqflist` to display `source` and `code` information
