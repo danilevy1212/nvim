@@ -2,7 +2,7 @@
 
 return {
     's1n7ax/nvim-window-picker',
-    version = 'v1.*',
+    version = '2.*',
     init = function()
         local wk = require 'which-key'
 
@@ -20,15 +20,15 @@ return {
         local editor = require('nord.theme').loadEditor()
 
         require('window-picker').setup {
-            use_winbar = 'always',
+            hint = 'floating-big-letter',
+            selection_chars = '123456789QWERTYUIOPASDFGHJKLZXCVBNM',
             filter_rules = {
                 bo = {
+
+                    filetype = { 'notify' },
                     buftype = {},
                 },
             },
-            selection_display = function(char)
-                return char .. ': %f'
-            end,
             fg_color = editor.Search.fg,
             other_win_hl_color = editor.Search.bg,
         }
