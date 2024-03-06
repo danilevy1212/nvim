@@ -45,10 +45,10 @@ local M = {
     },
     opts = {
         columns = {
-            'icon',
-            'permissions',
-            'size',
             'mtime',
+            'size',
+            'permissions',
+            'icon',
         },
         experimental_watch_for_changes = true,
         adapter_aliases = {
