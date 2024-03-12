@@ -3,7 +3,16 @@
 ---@type LazyPluginSpec
 local M = {
     'numToStr/Comment.nvim',
-    keys = { 'gc', 'gb' },
+    keys = {
+        {
+            'gc',
+            mode = { 'n', 'x' },
+        },
+        {
+            'gb',
+            mode = { 'n', 'x' },
+        },
+    },
     event = { 'BufRead' },
     opts = {},
 }
