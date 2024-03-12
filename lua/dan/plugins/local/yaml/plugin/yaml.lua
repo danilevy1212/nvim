@@ -1,5 +1,5 @@
 require('dan.lib.mason').ensure_installed({
-    'yaml-lsp',
+    'yaml-language-server',
 }, function()
     local setup_lsp_server = require('dan.lib.lsp').setup_lsp_server
 
