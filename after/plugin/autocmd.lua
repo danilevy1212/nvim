@@ -2,7 +2,7 @@ local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'misc', {}
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd('BufReadPost', {
-    desc = 'Set cursor to last place it was on before exiting. Taken from `https://this-week-in-neovim.org/2023/Jan/2#tips`',
+    desc = 'Set cursor to last place it was on before exiting.',
     group = group,
     callback = function()
         local mark = vim.api.nvim_buf_get_mark(0, '"')
