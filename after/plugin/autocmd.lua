@@ -35,7 +35,7 @@ autocmd('BufReadPre', {
                 source = true,
                 severity_sort = true,
             },
-            virtual_text = false
+            virtual_text = false,
         }
 
         --- Override `vim.diagnostic.toqflist` to display `source` and `code` information

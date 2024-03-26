@@ -42,7 +42,7 @@ local M = {
             'vimopts',
             'filetype',
             rainbow_delimiters,
-            spell
+            spell,
         }
 
         require('bigfile').setup {

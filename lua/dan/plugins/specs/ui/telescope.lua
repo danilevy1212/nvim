@@ -13,7 +13,7 @@ return {
         -- Set the keymaps to setup lazy loading
         init = function()
             local get_buffer_dir = function()
-                return vim.fn.expand('%:p:h'):gsub("^[^:]+://", "")
+                return vim.fn.expand('%:p:h'):gsub('^[^:]+://', '')
             end
 
             require('which-key').register({

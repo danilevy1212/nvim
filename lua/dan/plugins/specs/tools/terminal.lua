@@ -5,43 +5,32 @@ local M = {
     'akinsho/toggleterm.nvim',
     version = '*',
     cmd = { 'ToggleTerm', 'TermExec', 'ToggleTermToggleAll' },
-    init = function()
-        --- TODO  Move this to `keys` property
-        require('which-key').register({
-            t = {
-                function()
-                    vim.cmd 'ToggleTerm'
-                end,
-                'Toggle most recently used terminal',
-            },
-            a = {
-                function()
-                    vim.cmd 'ToggleTermToggleAll'
-                end,
-                'Toggle all terminals',
-            },
-            v = {
-                function()
-                    vim.cmd 'ToggleTerm direction=vertical'
-                end,
-                'Toggle vertical terminal',
-            },
-            h = {
-                function()
-                    vim.cmd 'ToggleTerm direction=horizontal'
-                end,
-                'Toggle horizontal terminal',
-            },
-            T = {
-                function()
-                    vim.cmd 'ToggleTerm direction=tab'
-                end,
-                'Toggle new-tab terminal',
-            },
-        }, {
-            prefix = '<leader>ot',
-        })
-    end,
+    keys = {
+        {
+            '<leader>ott',
+            '<cmd>ToggleTerm<CR>',
+        },
+        {
+            '<leader>ota',
+            '<cmd>ToggleTermToggleAll<CR>',
+        },
+        {
+            '<leader>otv',
+            '<cmd>ToggleTerm direction=vertical<CR>',
+        },
+        {
+            '<leader>oth',
+            '<cmd>ToggleTerm direction=horizontal<CR>',
+        },
+        {
+            '<leader>otT',
+            '<cmd>ToggleTerm direction=tab<CR>',
+        },
+        {
+            '<leader>ot',
+            desc = 'Terminal',
+        },
+    },
     config = function()
         require('toggleterm').setup {
             size = function(term)
@@ -50,6 +39,9 @@ local M = {
                 elseif term.direction == 'vertical' then
                     return vim.o.columns * 0.33
                 end
+            end,
+            shell = function()
+                return 'sh -c \'NVIM_TOGGLETERM=1 ' .. vim.o.shell .. '\''
             end,
             auto_scroll = false,
             persist_size = false,

@@ -10,7 +10,7 @@ local M = {
         {
             '<C-j>',
             function()
-                local ls = require('luasnip')
+                local ls = require 'luasnip'
 
                 if ls.locally_jumpable() then
                     ls.jump(1)
@@ -22,7 +22,7 @@ local M = {
         {
             '<C-k>',
             function()
-                local ls = require('luasnip')
+                local ls = require 'luasnip'
 
                 if ls.locally_jumpable() then
                     ls.jump(-1)

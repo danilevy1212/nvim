@@ -64,10 +64,10 @@ local M = {
             else
                 vim.notify(
                     'Debugger package '
-                    .. codelldb_package_name
-                    .. ' could not be found in path '
-                    .. codelldb_path
-                    .. '. Debugging will not work',
+                        .. codelldb_package_name
+                        .. ' could not be found in path '
+                        .. codelldb_path
+                        .. '. Debugging will not work',
                     vim.log.levels.ERROR {
                         title = 'Unknown package ' .. codelldb_package_name,
                     }

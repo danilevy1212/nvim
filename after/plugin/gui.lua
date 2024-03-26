@@ -40,11 +40,11 @@ g.neovide_cursor_vfx_particle_density = 21
 -- Increase scale factor
 setk('n', '<C-=>', function()
     g.neovide_scale_factor = g.neovide_scale_factor * 1.125
-    cmd('redraw!')
+    cmd 'redraw!'
 end)
 
 -- Decrease scale factor
 setk('n', '<C-->', function()
     g.neovide_scale_factor = g.neovide_scale_factor / 1.125
-    cmd('redraw!')
+    cmd 'redraw!'
 end)

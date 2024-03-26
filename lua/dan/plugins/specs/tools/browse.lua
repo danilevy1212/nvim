@@ -6,7 +6,7 @@ local M = {
     keys = { { 'gx', '<cmd>Browse<cr>', mode = { 'n', 'x' } } },
     cmd = { 'Browse' },
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {}
+    opts = {},
 }
 
 return M
