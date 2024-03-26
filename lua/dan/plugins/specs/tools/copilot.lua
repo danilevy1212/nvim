@@ -3,6 +3,7 @@
 ---@type LazyPluginSpec
 local COPILOT_CHAT = {
     'CopilotC-Nvim/CopilotChat.nvim',
+    version = '*',
     init = function()
         require('which-key').register({}, {
             mode = 'n',
@@ -10,13 +11,14 @@ local COPILOT_CHAT = {
             desc = 'CopilotChat',
         })
     end,
+    dependencies = {
+        { 'nvim-lua/plenary.nvim' },
+    },
     config = function()
         require('CopilotChat').setup {
-            show_help = 'yes',
+            show_help = true,
             -- Log in ~/.local/state/nvim/CopilotChat.nvim.log
             debug = true,
-            disable_extra_info = 'no',
-            language = 'English',
         }
     end,
     keys = {
@@ -53,6 +55,16 @@ local COPILOT_CHAT = {
             desc = 'Fix diagnostic under cursor',
         },
         {
+            '<leader>ocF',
+            '<cmd>CopilotChatFix<cr>',
+            desc = 'Fix general issue with this file',
+        },
+        {
+            '<leader>oco',
+            '<cmd>CopilotChatOptimize<cr>',
+            desc = 'Optimize the selected code to improve performance and readablilty.',
+        },
+        {
             '<leader>ocr',
             '<cmd>CopilotChatReset<cr>',
             desc = 'Reset chat history and clear buffer',
@@ -67,13 +79,20 @@ local COPILOT_CHAT = {
         {
             '<leader>ocp',
             function()
-                require('CopilotChat.code_actions').show_prompt_actions()
+                local actions = require 'CopilotChat.actions'
+                actions.pick(actions.help_actions())
             end,
+            mode = 'n',
             desc = 'Help actions telescope',
         },
         {
             '<leader>ocp',
-            ':lua require(\'CopilotChat.code_actions\').show_prompt_actions(true)<CR>',
+            function()
+                local actions = require 'CopilotChat.actions'
+                actions.pick(actions.prompt_actions {
+                    selection = require('CopilotChat.select').visual,
+                })
+            end,
             mode = 'x',
             desc = 'Prompt actions telescope',
         },
@@ -90,18 +109,24 @@ local COPILOT_CHAT = {
         {
             '<leader>ocb',
             function()
-                local input = vim.fn.input 'Ask Copilot about this file: '
+                local input = vim.fn.input 'Quick Chat: '
                 if input ~= '' then
-                    vim.cmd('CopilotChatBuffer ' .. input)
+                    require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
                 end
             end,
             desc = 'Ask copilot about current buffer',
         },
+        {
+            '<leader>occ',
+            '<cmd>CopilotChatCommit<cr>',
+            desc = 'Write commit message for the change with commitizen convention.',
+        },
+        {
+            '<leader>ocC',
+            '<cmd>CopilotChatCommitStaged<cr>',
+            desc = 'Write commit message for the change with commitizen convention, only staged changes.',
+        },
     },
-    build = function()
-        vim.cmd 'UpdateRemotePlugins'
-        vim.cmd 'source $XDG_DATA_HOME/nvim/rplugin.vim'
-    end,
 }
 
 ---@type LazyPluginSpec
