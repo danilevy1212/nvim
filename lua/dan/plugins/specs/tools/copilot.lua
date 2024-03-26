@@ -118,11 +118,6 @@ local COPILOT_CHAT = {
         },
         {
             '<leader>occ',
-            '<cmd>CopilotChatCommit<cr>',
-            desc = 'Write commit message for the change with commitizen convention.',
-        },
-        {
-            '<leader>ocC',
             '<cmd>CopilotChatCommitStaged<cr>',
             desc = 'Write commit message for the change with commitizen convention, only staged changes.',
         },
