@@ -5,7 +5,12 @@ local M = {
     'mfussenegger/nvim-dap',
     dependencies = {
         -- Creates a beautiful debugger UI
-        'rcarriga/nvim-dap-ui',
+        {
+            'rcarriga/nvim-dap-ui',
+            dependencies = {
+                'nvim-neotest/nvim-nio',
+            },
+        },
         -- Virtual text for the debugger
         {
             'theHamsta/nvim-dap-virtual-text',

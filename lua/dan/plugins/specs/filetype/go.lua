@@ -4,6 +4,9 @@
 local M = {
     'ray-x/go.nvim',
     ft = { 'go', 'gomod' },
+    cond = function()
+        return vim.fn.executable 'go' == 1
+    end,
     dependencies = {
         'ray-x/guihua.lua',
         'neovim/nvim-lspconfig',
