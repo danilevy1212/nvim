@@ -54,4 +54,39 @@ require('dan.lib.mason').ensure_installed({
     for _, server_configuration in ipairs(setups) do
         require('dan.lib.lsp').setup_lsp_server(server_configuration.server_name, server_configuration.opts)
     end
+
+    -- Setup DAP for debugging
+    local dap = require 'dap'
+    dap.adapters['pwa-node'] = function(callback)
+        callback {
+            type = 'server',
+            host = 'localhost',
+            port = '${port}',
+            executable = {
+                command = os.getenv 'NODE_PATH' or 'node',
+                args = {
+                    require('mason.settings').current.install_root_dir
+                        .. '/packages/js-debug-adapter/js-debug/src/dapDebugServer.js',
+                    '${port}',
+                },
+            },
+        }
+    end
+    for _, language in ipairs {
+        'javascript',
+        'javascriptreact',
+        'typescript',
+        'typescriptreact',
+    } do
+        dap.configurations[language] = {
+            -- NOTE  I could only make "Auto Attach" work with "pwa-node"
+            {
+                type = 'pwa-node',
+                request = 'attach',
+                name = 'Auto Attach to any process running `--inspect`',
+                cwd = vim.fn.getcwd(),
+                protocol = 'inspector',
+            },
+        }
+    end
 end)

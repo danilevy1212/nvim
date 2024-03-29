@@ -23,8 +23,8 @@ return {
                 component_separators = { left = '', right = '' },
                 section_separators = { left = '', right = '' },
                 disabled_filetypes = {
-                    statusline = {},
-                    winbar = {},
+                    statusline = { 'dap-repl', 'dapui_scopes', 'dapui_stacks', 'dapui_watches' },
+                    winbar = { 'dap-repl', 'dapui_scopes', 'dapui_stacks', 'dapui_watches' },
                 },
                 ignore_focus = {},
                 always_divide_middle = true,
