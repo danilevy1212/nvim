@@ -40,9 +40,6 @@ local M = {
                     return vim.o.columns * 0.33
                 end
             end,
-            shell = function()
-                return 'sh -c \'NVIM_TOGGLETERM=1 ' .. vim.o.shell .. '\''
-            end,
             auto_scroll = false,
             persist_size = false,
             persist_mode = false,
