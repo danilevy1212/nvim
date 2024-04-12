@@ -19,15 +19,54 @@ return {
             require('which-key').register({
                 ['<leader>'] = {
                     function()
-                        if vim.fn.isdirectory(vim.fn.getcwd() .. '/.git') == 1 then
-                            require('telescope.builtin').git_files {
-                                show_untracked = true,
-                            }
-                        else
-                            require('telescope.builtin').find_files {
-                                hidden = true,
-                            }
+                        local function find_command()
+                            if 1 == vim.fn.executable 'fd' then
+                                return {
+                                    'fd',
+                                    '--type',
+                                    'f',
+                                    '--color',
+                                    'never',
+                                    '--exclude',
+                                    '.git',
+                                    '--exclude',
+                                    '.yarn/cache',
+                                }
+                            elseif 1 == vim.fn.executable 'rg' then
+                                return {
+                                    'rg',
+                                    '--files',
+                                    '--color',
+                                    'never',
+                                    '--glob',
+                                    '!*/.git/*',
+                                    '--glob',
+                                    '!*/.yarn/cache/*',
+                                }
+                            elseif 1 == vim.fn.executable 'find' then
+                                return {
+                                    'find',
+                                    '.',
+                                    '-type',
+                                    'f',
+                                    '-not',
+                                    '-path',
+                                    '*/.git/*',
+                                    '-not',
+                                    '-path',
+                                    '*/.yarn/cache/*',
+                                }
+                            end
+
+                            vim.notify('Could not find a valid file searcher', vim.log.levels.ERROR, {
+                                title = 'telescope.builtin.find_files',
+                            })
                         end
+
+                        require('telescope.builtin').find_files {
+                            hidden = true,
+                            find_command = find_command,
+                        }
                     end,
                     'Find a file in CWD',
                 },
