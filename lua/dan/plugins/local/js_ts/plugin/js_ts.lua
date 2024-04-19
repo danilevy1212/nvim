@@ -19,6 +19,20 @@ require('dan.lib.mason').ensure_installed({
             opts = {
                 on_attach = on_attach,
                 capabilities = capabilities,
+                settings = {
+                    javascript = {
+                        preferGoToSourceDefinition = true,
+                        preferences = {
+                            importModuleSpecifierPreference = 'non-relative',
+                        },
+                    },
+                    typescript = {
+                        preferGoToSourceDefinition = true,
+                        preferences = {
+                            importModuleSpecifierPreference = 'non-relative',
+                        },
+                    },
+                },
             },
         },
         {
