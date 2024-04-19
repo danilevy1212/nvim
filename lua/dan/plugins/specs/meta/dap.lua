@@ -29,6 +29,7 @@ local M = {
                 ensure_installed = { 'dap_repl' },
             },
         },
+        'stevearc/overseer.nvim',
     },
     keys = {
         -- Inspired by the chrome devtools bindings
@@ -114,6 +115,9 @@ local M = {
         local sd = vim.fn.sign_define
         sd('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
         sd('DapBreakpointRejected', { text = '🛑', texthl = 'Error', linehl = '', numhl = '' })
+
+        require('dap.ext.vscode').json_decode = require('overseer.json').decode
+        require('overseer').patch_dap(true)
     end,
 }
 

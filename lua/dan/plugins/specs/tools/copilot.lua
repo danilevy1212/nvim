@@ -131,13 +131,9 @@ local COPILOT = {
     event = 'InsertEnter',
     dependencies = { COPILOT_CHAT },
     config = function()
-        local function is_nixos()
-            local os_release = vim.trim(vim.fn.system 'grep "^ID=" /etc/os-release | cut -d= -f2')
-            return os_release == 'nixos'
-        end
 
         local function get_node_command()
-            if is_nixos() then
+            if require('dan.lib.os').is_nixos() then
                 return '/etc/profiles/per-user/dlevym/bin/node'
             else
                 --- NOTE  Use whatever node version is available in the system.

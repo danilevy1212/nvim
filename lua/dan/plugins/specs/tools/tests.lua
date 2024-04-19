@@ -58,9 +58,16 @@ local M = {
         'nvim-treesitter/nvim-treesitter',
         'antoinemadec/FixCursorHold.nvim',
         'haydenmeade/neotest-jest',
+        'stevearc/overseer.nvim',
     },
     config = function()
-        require('neotest').setup {}
+        ---@diagnostic disable-next-line: missing-fields
+        require('neotest').setup {
+            consumers = {
+                ---@diagnostic disable-next-line: assign-type-mismatch
+                overseer = require 'neotest.consumers.overseer',
+            },
+        }
     end,
 }
 

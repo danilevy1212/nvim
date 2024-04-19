@@ -23,8 +23,8 @@ return {
                 component_separators = { left = '', right = '' },
                 section_separators = { left = '', right = '' },
                 disabled_filetypes = {
-                    statusline = { 'dap-repl', 'dapui_scopes', 'dapui_stacks', 'dapui_watches' },
-                    winbar = { 'dap-repl', 'dapui_scopes', 'dapui_stacks', 'dapui_watches' },
+                    statusline = { 'dap-repl', 'dapui_scopes', 'dapui_stacks', 'dapui_watches', 'OverseerList' },
+                    winbar = { 'dap-repl', 'dapui_scopes', 'dapui_stacks', 'dapui_watches', 'OverseerList' },
                 },
                 ignore_focus = {},
                 always_divide_middle = true,
@@ -96,6 +96,10 @@ return {
                 'toggleterm',
                 'fugitive',
                 'aerial',
+                'oil',
+                'overseer',
+                'mason',
+                'lazy',
             },
         }
 
