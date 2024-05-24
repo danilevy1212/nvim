@@ -3,14 +3,10 @@ require('dan.lib.mason').ensure_installed({
     'stylua',
 }, function()
     -- Load 'neodev' before the setting the config
-    require('neodev').setup {
-        -- Disable neodev setting up `lua_ls`, we do that manually later.
-        lspconfig = false,
-    }
+    require('neodev').setup()
 
     -- Setup lua language server
     require('dan.lib.lsp').setup_lsp_server('lua_ls', {
-        before_init = require('neodev.lsp').before_init,
         on_attach = require('dan.lib.lsp').on_attach,
         capabilities = require('dan.lib.lsp').get_default_capabilities(),
         settings = {
@@ -22,6 +18,10 @@ require('dan.lib.mason').ensure_installed({
                 completion = {
                     --- Show only the function
                     callSnippet = 'Disable',
+                },
+                hint = {
+                    --- Enable inlay hints
+                    enable = true,
                 },
             },
         },

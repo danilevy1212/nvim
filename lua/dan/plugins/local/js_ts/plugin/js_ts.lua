@@ -19,6 +19,18 @@ require('dan.lib.mason').ensure_installed({
             opts = {
                 on_attach = on_attach,
                 capabilities = capabilities,
+                init_options = {
+                    preferences = {
+                        importModuleSpecifierPreference = 'non-relative',
+                        includeInlayParameterNameHints = 'all',
+                        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                        includeInlayFunctionParameterTypeHints = true,
+                        includeInlayVariableTypeHints = true,
+                        includeInlayPropertyDeclarationTypeHints = true,
+                        includeInlayFunctionLikeReturnTypeHints = true,
+                        includeInlayEnumMemberValueHints = true,
+                    },
+                },
                 settings = {
                     javascript = {
                         preferGoToSourceDefinition = true,
@@ -38,7 +50,7 @@ require('dan.lib.mason').ensure_installed({
         {
             server_name = 'eslint',
             opts = {
-                ---@param client lsp.Client
+                ---@param client { server_capabilities: lsp.ServerCapabilities }
                 on_attach = function(client)
                     -- NOTE  In 0.10.0 there is initial support for dynamic capabilities
                     --       Revisit this code on upgrade.

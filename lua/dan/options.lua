@@ -76,6 +76,9 @@ opt.exrc = false
 -- Open vertical splits to the right
 opt.splitright = true
 
+-- Incremental search with a split window
+opt.inccommand = 'split'
+
 -- Small window before the popup apears
 vim.opt.timeoutlen = 200
 

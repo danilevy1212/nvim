@@ -88,7 +88,7 @@ autocmd('BufReadPre', {
 })
 
 --- TODO  Move this to it's own 'diagnostics' file
---- Keep location list and quickfix list sync with diagnostics
+--- Keep location list list sync with diagnostics
 autocmd('DiagnosticChanged', {
     group = group,
     desc = 'Keep location list in sync with LSP diagnostics',

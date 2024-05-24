@@ -131,7 +131,6 @@ local COPILOT = {
     event = 'InsertEnter',
     dependencies = { COPILOT_CHAT },
     config = function()
-
         local function get_node_command()
             if require('dan.lib.os').is_nixos() then
                 return '/etc/profiles/per-user/dlevym/bin/node'

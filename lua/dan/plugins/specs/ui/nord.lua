@@ -1,8 +1,11 @@
 -- Main colorscheme
 
-return {
-    'shaunsingh/nord.nvim',
+---@type LazyPluginSpec
+local M = {
+    'gbprod/nord.nvim',
     config = function()
-        require('nord').set()
+        vim.cmd.colorscheme 'nord'
     end,
 }
+
+return M

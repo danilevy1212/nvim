@@ -13,7 +13,7 @@ local Task = {
     },
     builder = function(params)
         return {
-            cmd = 'rm -f ~/.gtkrc-2.0 && echo \'' .. params.password .. '\' | sudo -S nixos-rebuild switch',
+            cmd = 'echo \'' .. params.password .. '\' | sudo -S nixos-rebuild switch',
             cwd = '/etc/nixos',
         }
     end,

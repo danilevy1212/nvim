@@ -8,11 +8,20 @@ function M.get_default_capabilities()
 end
 
 --- Default attach function for most servers See `:h lsp_config`, on_attach
----@param _ lsp.Client
+---@param client { server_capabilities: lsp.ServerCapabilities }
 ---@param bufnr number
-M.on_attach = function(_, bufnr)
+M.on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {
+        buf = bufnr,
+    })
+
+    --- Enable inlay hints if available
+    if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true, {
+            bufnr = bufnr,
+        })
+    end
 
     -- Mappings.
     require('which-key').register({
@@ -21,8 +30,8 @@ M.on_attach = function(_, bufnr)
             R = { vim.lsp.buf.references, 'Find references' },
         },
         K = { vim.lsp.buf.hover, 'Hover' },
-        --- NOTE Technically, diagnostics are separate from LSP, but so far I am always using them together.
-        ['<M-k>'] = { vim.diagnostic.open_float, 'Show line diagnostic\'s information' },
+        ['<C-w>d'] = { vim.diagnostic.open_float, 'Show line diagnostic\'s information' },
+        ['<C-w><C-d>'] = { vim.diagnostic.open_float, 'Show line diagnostic\'s information' },
         ['<leader>'] = {
             c = {
                 name = 'Code',
@@ -65,7 +74,7 @@ function M.setup_lsp_server(server_name, setup_opts, start, bufnr)
 
     lspconfig[server_name].setup(setup_opts)
 
-    if start and #vim.lsp.get_active_clients {
+    if start and #vim.lsp.get_clients {
         name = server_name,
         bufnr = bufnr,
     } == 0 then

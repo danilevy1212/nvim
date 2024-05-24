@@ -53,6 +53,11 @@ local opts = {
             lazy = '💤 ',
         },
     },
+    install = {
+        colorscheme = {
+            'nord',
+        },
+    },
 }
 
 -- Setup lazy
