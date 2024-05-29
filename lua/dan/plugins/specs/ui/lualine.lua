@@ -4,7 +4,7 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
         'nvim-tree/nvim-web-devicons',
-        'shaunsingh/nord.nvim',
+        'gbprod/nord.nvim',
     },
     event = { 'UIEnter' },
     config = function()
