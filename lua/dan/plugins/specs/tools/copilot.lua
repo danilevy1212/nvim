@@ -13,8 +13,11 @@ local COPILOT_CHAT = {
     end,
     dependencies = {
         { 'nvim-lua/plenary.nvim' },
+        { 'hrsh7th/nvim-cmp' },
     },
     config = function()
+        require('CopilotChat.integrations.cmp').setup()
+
         require('CopilotChat').setup {
             show_help = true,
             -- Log in ~/.local/state/nvim/CopilotChat.nvim.log
