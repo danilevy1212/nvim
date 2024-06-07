@@ -2,9 +2,6 @@ require('dan.lib.mason').ensure_installed({
     'lua-language-server',
     'stylua',
 }, function()
-    -- Load 'neodev' before the setting the config
-    require('neodev').setup()
-
     -- Setup lua language server
     require('dan.lib.lsp').setup_lsp_server('lua_ls', {
         on_attach = require('dan.lib.lsp').on_attach,
