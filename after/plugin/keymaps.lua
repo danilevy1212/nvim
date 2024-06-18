@@ -15,11 +15,11 @@ end, { desc = 'Clear current highlight' })
 
 --- Clipboard mappings
 setk('n', '<leader>fy', function()
-    local file_path = vim.fn.expand '%:po'
+    local file_path = vim.fn.expand('%:po'):gsub('^oil://', '')
     require('dan.lib.clipboard').set_clipboard(file_path)
 end, { desc = 'Copy filepath to clipboard' })
 setk('n', '<leader>fY', function()
-    local project_file_path = vim.fn.expand '%:p:.'
+    local project_file_path = vim.fn.expand('%:p:.'):gsub('^oil://', '')
     require('dan.lib.clipboard').set_clipboard(project_file_path)
 end, { desc = 'Copy project filepath to clipboard' })
 
