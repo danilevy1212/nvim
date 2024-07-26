@@ -7,6 +7,9 @@ local M = {
         --- Load this before which-key.nvim to prevent collisions
         'gbprod/cutlass.nvim',
     },
+    opts = {
+        delay = 200,
+    },
     config = function()
         local wk = require 'which-key'
 
@@ -44,7 +47,9 @@ local M = {
                                 command = 'c',
                             }
 
-                            wk.show_command('', choice_to_mode[choice])
+                            wk.show {
+                                mode = choice_to_mode[choice],
+                            }
                         end)
                     end,
                     'Buffer keymaps',

@@ -9,7 +9,7 @@ local M = {
             'folke/lazydev.nvim',
             opts = {
                 library = {
-                    "folke/lazy.nvim",
+                    'lazy',
                 },
                 integrations = {
                     lspconfig = true,

@@ -1,8 +1,8 @@
 --- Pick a window and returns the window id of the picked window
 
-return {
+--- @type LazyPluginSpec
+local M = {
     's1n7ax/nvim-window-picker',
-    version = '2.*',
     init = function()
         local wk = require 'which-key'
 
@@ -16,21 +16,33 @@ return {
             },
         }, { prefix = '<C-w>' })
     end,
-    config = function()
-        local editor = require('nord.theme').loadEditor()
-
-        require('window-picker').setup {
-            hint = 'floating-big-letter',
-            selection_chars = '123456789QWERTYUIOPASDFGHJKLZXCVBNM',
-            filter_rules = {
-                bo = {
-
-                    filetype = { 'notify' },
-                    buftype = {},
-                },
+    name = 'window-picker',
+    version = '2.*',
+    opts = {
+        hint = 'floating-big-letter',
+        selection_chars = '123456789QWERTYUIOPASDFGHJKLZXCVBNM',
+        picker_config = {
+            floating_big_letter = {
+                font = 'ansi-shadow',
             },
-            fg_color = editor.Search.fg,
-            other_win_hl_color = editor.Search.bg,
-        }
-    end,
+        },
+        filter_rules = {
+            bo = {
+                filetype = { 'notify' },
+                buftype = {},
+            },
+        },
+    },
+    keys = {
+        {
+            '<C-w><C-w>',
+            function()
+                require('window-picker').pick_window {
+                    hint = 'floating-big-letter',
+                }
+            end,
+        },
+    },
 }
+
+return M
