@@ -117,7 +117,7 @@ local M = {
         sd('DapBreakpointRejected', { text = '🛑', texthl = 'Error', linehl = '', numhl = '' })
 
         require('dap.ext.vscode').json_decode = require('overseer.json').decode
-        require('overseer').patch_dap(true)
+        require('overseer').enable_dap(true)
     end,
 }
 
