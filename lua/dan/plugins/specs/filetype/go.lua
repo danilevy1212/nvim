@@ -24,6 +24,9 @@ local M = {
             lsp_cfg = {
                 capabilities = capabilities,
             },
+            lsp_inlay_hints = {
+                enable = true,
+            },
             lsp_on_attach = on_attach,
             luasnip = true,
         }
