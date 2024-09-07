@@ -15,7 +15,7 @@ require('dan.lib.mason').ensure_installed({
     ---@type ServerSetup[]
     local setups = {
         {
-            server_name = 'tsserver',
+            server_name = 'ts_ls',
             opts = {
                 on_attach = on_attach,
                 capabilities = capabilities,
