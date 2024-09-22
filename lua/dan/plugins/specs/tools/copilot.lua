@@ -152,7 +152,7 @@ local COPILOT = {
 
         require('copilot').setup {
             suggestion = {
-                auto_trigger = true,
+                auto_trigger = false,
             },
             panel = {
                 auto_refresh = true,
@@ -175,8 +175,6 @@ local COPILOT = {
                 conf = false,
                 json = json_enabled,
                 jsonc = json_enabled,
-                --- Learning go, so disable copilot for `go` files
-                go = false
             },
             copilot_node_command = get_node_command(),
         }
