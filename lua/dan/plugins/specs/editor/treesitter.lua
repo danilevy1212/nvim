@@ -3,7 +3,6 @@
 --- @type LazyPluginSpec
 local M = {
     'nvim-treesitter/nvim-treesitter',
-    version = '*',
     event = { 'BufRead' },
     build = ':TSUpdate',
     dependencies = {
@@ -12,6 +11,7 @@ local M = {
             'HiPhish/rainbow-delimiters.nvim',
             --- Submodules for this plugin are dev dependencies and should not be installed
             submodules = false,
+            enabled = true,
             init = function()
                 vim.g.rainbow_delimiters = {
                     highlight = {

@@ -2,9 +2,10 @@
 local M = {}
 
 --- Default lsp capabilities
+--- @param override? table
 --- @return table
-function M.get_default_capabilities()
-    return require('cmp_nvim_lsp').default_capabilities()
+function M.get_default_capabilities(override)
+    return require('cmp_nvim_lsp').default_capabilities(override or {})
 end
 
 --- Default attach function for most servers See `:h lsp_config`, on_attach
