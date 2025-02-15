@@ -16,12 +16,12 @@ local COPILOT_CHAT = {
         { 'hrsh7th/nvim-cmp' },
     },
     config = function()
-        require('CopilotChat.integrations.cmp').setup()
-
         require('CopilotChat').setup {
             show_help = true,
             -- Log in ~/.local/state/nvim/CopilotChat.nvim.log
             debug = true,
+            -- cmp integration
+            chat_autocomplete = true,
         }
     end,
     keys = {
