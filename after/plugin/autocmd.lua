@@ -49,13 +49,7 @@ autocmd('BufReadPre', {
                 [vim.diagnostic.severity.HINT] = 'N',
             }
 
-            vim.validate {
-                diagnostics = {
-                    diagnostics,
-                    vim.tbl_islist,
-                    'a list of diagnostics',
-                },
-            }
+            vim.validate('diagnostics list', diagnostics, vim.islist)
 
             local list = {}
             for _, v in ipairs(diagnostics) do

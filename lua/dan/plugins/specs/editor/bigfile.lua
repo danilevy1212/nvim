@@ -59,7 +59,7 @@ local M = {
                 --- HACK This is a hack to disable lsp for big files
                 if raw_feature == 'lsp' then
                     vim.schedule(function()
-                        for _, client in ipairs(vim.lsp.get_active_clients { bufnr = bufnr }) do
+                        for _, client in ipairs(vim.lsp.get_clients { bufnr = bufnr }) do
                             vim.lsp.buf_detach_client(bufnr, client.id)
                         end
                     end)
