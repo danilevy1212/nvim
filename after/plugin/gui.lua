@@ -10,7 +10,7 @@ end
 local opt = vim.opt
 
 -- Make neovide backgroud transparent
-g.neovide_transparency = 0.8
+g.neovide_opacity = 0.8
 
 -- Default font
 opt.guifont = 'Sarasa Mono J:h10'
