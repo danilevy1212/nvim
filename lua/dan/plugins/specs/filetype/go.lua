@@ -17,6 +17,10 @@ local M = {
         require('go.install').update_all()
     end,
     config = function()
+        require('dan.lib.mason').ensure_installed({ 'golangci-lint-langserver' }, function()
+            vim.lsp.enable 'golangci_lint_ls'
+        end)
+
         local capabilities = require('dan.lib.lsp').get_default_capabilities()
         local on_attach = require('dan.lib.lsp').on_attach
 
