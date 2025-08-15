@@ -144,12 +144,6 @@ local COPILOT = {
             end
         end
 
-        --- Disable copilot for `json` files, except for `package.json`, `*.config.*`, or dot files
-        local function json_enabled()
-            local name = vim.api.nvim_buf_get_name(0)
-            return string.match(name, 'package%.json$') or string.match(name, '%.config%.') or string.match(name, '^%.')
-        end
-
         require('copilot').setup {
             suggestion = {
                 auto_trigger = false,
@@ -173,8 +167,6 @@ local COPILOT = {
                 csv = false,
                 --- Disable copilot for any configuration files
                 conf = false,
-                json = json_enabled,
-                jsonc = json_enabled,
             },
             copilot_node_command = get_node_command(),
         }

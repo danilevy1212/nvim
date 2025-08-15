@@ -48,6 +48,13 @@ local M = {
         require('dap').configurations.go = {
             {
                 type = 'delve',
+                name = 'Attach (local PID) (needs compilation with debug symbols)',
+                mode = 'local',
+                request = 'attach',
+                processId = require('dap.utils').pick_process,
+            },
+            {
+                type = 'delve',
                 name = 'Debug',
                 request = 'launch',
                 program = '${file}',
