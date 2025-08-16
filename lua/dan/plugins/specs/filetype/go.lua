@@ -57,15 +57,58 @@ local M = {
                 type = 'delve',
                 request = 'launch',
                 program = function()
-                    return vim.fn.input('Path to package or main.go: ', vim.fn.getcwd() .. '/', 'file')
+                    return coroutine.create(function(dap_run_co)
+                        local results = {}
+                        local seen = {}
+                        vim.fn.jobstart({
+                            'rg',
+                            '--type',
+                            'go',
+                            '--no-messages',
+                            '-l',
+                            '^package main',
+                            '.',
+                        }, {
+                            stdout_buffered = false,
+                            on_stdout = function(_, data)
+                                if data then
+                                    for _, file in ipairs(data) do
+                                        if file ~= '' then
+                                            local dir = vim.fn.fnamemodify(file, ':h')
+                                            if not seen[dir] then
+                                                seen[dir] = true
+                                                table.insert(results, dir)
+                                            end
+                                        end
+                                    end
+                                end
+                            end,
+                            on_exit = function()
+                                table.sort(results)
+                                if #results == 0 then
+                                    vim.notify('No Go main packages found', vim.log.levels.ERROR)
+                                    coroutine.resume(dap_run_co, nil)
+                                    return
+                                end
+                                vim.ui.select(results, {
+                                    prompt = 'Select Go main package directory:',
+                                }, function(choice)
+                                    coroutine.resume(dap_run_co, choice)
+                                end)
+                            end,
+                        })
+                    end)
                 end,
                 args = function()
-                    local a = vim.fn.input 'Args (space-separated, empty for none): '
-                    if a == '' then
-                        return {}
-                    end
-
-                    return vim.split(a, '%s+')
+                    return coroutine.create(function(dap_run_co)
+                        vim.ui.input({ prompt = 'Args (space-separated, empty for none): ' }, function(a)
+                            if a == '' or not a then
+                                coroutine.resume(dap_run_co, {})
+                            else
+                                coroutine.resume(dap_run_co, vim.split(a, '%s+'))
+                            end
+                        end)
+                    end)
                 end,
                 env = {
                     -- Prevent FORTIFY_SOURCE errors
@@ -77,14 +120,17 @@ local M = {
                 type = 'delve',
                 request = 'launch',
                 mode = 'test',
-                program = './${relativeFileDirname}',
+                program = '${fileDirname}',
                 args = function()
-                    local run = vim.fn.input '-test.run (regex, empty for all): '
-                    if run == '' then
-                        return {}
-                    end
-
-                    return { '-test.run', run }
+                    return coroutine.create(function(dap_run_co)
+                        vim.ui.input({ prompt = '-test.run (regex, empty for all): ' }, function(run)
+                            if run == '' or not run then
+                                coroutine.resume(dap_run_co, {})
+                            else
+                                coroutine.resume(dap_run_co, { '-test.run', run })
+                            end
+                        end)
+                    end)
                 end,
                 env = {
                     -- Prevent FORTIFY_SOURCE errors

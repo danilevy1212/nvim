@@ -4,6 +4,7 @@
 local COPILOT_CHAT = {
     'CopilotC-Nvim/CopilotChat.nvim',
     version = '*',
+    enabled = false,
     init = function()
         require('which-key').register({}, {
             mode = 'n',
@@ -102,20 +103,30 @@ local COPILOT_CHAT = {
         {
             '<leader>oci',
             function()
-                local input = vim.fn.input 'Ask Copilot: '
-                if input ~= '' then
-                    vim.cmd('CopilotChat ' .. input)
-                end
+                vim.ui.input(
+                    { prompt = 'Ask Copilot: ' },
+                    ---@param input string
+                    function(input)
+                        if input and input ~= '' then
+                            vim.cmd('CopilotChat ' .. input)
+                        end
+                    end
+                )
             end,
             desc = 'Ask copilot',
         },
         {
             '<leader>ocb',
             function()
-                local input = vim.fn.input 'Quick Chat: '
-                if input ~= '' then
-                    require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
-                end
+                vim.ui.input(
+                    { prompt = 'Quick Chat: ' },
+                    ---@param input string
+                    function(input)
+                        if input and input ~= '' then
+                            require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
+                        end
+                    end
+                )
             end,
             desc = 'Ask copilot about current buffer',
         },

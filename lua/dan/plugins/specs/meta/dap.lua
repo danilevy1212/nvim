@@ -52,7 +52,13 @@ local M = {
         },
         {
             '<S-F9>',
-            '<cmd>lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>',
+            function()
+                vim.ui.input({ prompt = 'Breakpoint condition: ' }, function(condition)
+                    if condition then
+                        require('dap').set_breakpoint(condition)
+                    end
+                end)
+            end,
             mode = 'n',
         },
         {
