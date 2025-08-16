@@ -44,35 +44,66 @@ local M = {
                 args = { 'dap', '-l', '127.0.0.1:${port}' },
             },
         }
+
+        require('dap').adapters.delve_remote = {
+            type = 'server',
+            port = 40000,
+        }
+
         -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
         require('dap').configurations.go = {
             {
+                name = 'Launch (ask for package or main.go)',
                 type = 'delve',
-                name = 'Attach (local PID) (needs compilation with debug symbols)',
-                mode = 'local',
-                request = 'attach',
-                processId = require('dap.utils').pick_process,
-            },
-            {
-                type = 'delve',
-                name = 'Debug',
                 request = 'launch',
-                program = '${file}',
+                program = function()
+                    return vim.fn.input('Path to package or main.go: ', vim.fn.getcwd() .. '/', 'file')
+                end,
+                args = function()
+                    local a = vim.fn.input 'Args (space-separated, empty for none): '
+                    if a == '' then
+                        return {}
+                    end
+
+                    return vim.split(a, '%s+')
+                end,
+                env = {
+                    -- Prevent FORTIFY_SOURCE errors
+                    CGO_CFLAGS = '-O2 -g',
+                },
             },
             {
+                name = 'Test current package',
                 type = 'delve',
-                name = 'Debug test', -- configuration for debugging test files
-                request = 'launch',
-                mode = 'test',
-                program = '${file}',
-            },
-            -- works with go.mod packages and sub packages
-            {
-                type = 'delve',
-                name = 'Debug test (go.mod)',
                 request = 'launch',
                 mode = 'test',
                 program = './${relativeFileDirname}',
+                args = function()
+                    local run = vim.fn.input '-test.run (regex, empty for all): '
+                    if run == '' then
+                        return {}
+                    end
+
+                    return { '-test.run', run }
+                end,
+                env = {
+                    -- Prevent FORTIFY_SOURCE errors
+                    CGO_CFLAGS = '-O2 -g',
+                },
+            },
+            -- Attach to an already running headless dlv (generic)
+            {
+                name = 'Attach to running dlv (host/port prompt)',
+                type = 'delve_remote',
+                request = 'attach',
+                mode = 'remote',
+            },
+            {
+                type = 'delve',
+                name = 'Attach (local PID) (requires compilation with `go build -gcflags="all=-N -l"`)',
+                mode = 'local',
+                request = 'attach',
+                processId = require('dap.utils').pick_process,
             },
         }
     end,

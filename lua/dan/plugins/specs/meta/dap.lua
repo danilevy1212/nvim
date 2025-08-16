@@ -40,18 +40,7 @@ local M = {
         },
         {
             '<F8>',
-            -- NOTE  See https://github.com/mfussenegger/nvim-dap/issues/20#issuecomment-1356791734
             function()
-                if vim.fn.filereadable '.vscode/launch.json' == 1 then
-                    require('dap.ext.vscode').load_launchjs(nil, {
-                        ['pwa-node'] = {
-                            'javascript',
-                            'javascriptreact',
-                            'typescript',
-                            'typescriptreact',
-                        },
-                    })
-                end
                 require('dap').continue()
             end,
             mode = 'n',
