@@ -26,7 +26,8 @@ local M = {
             end,
             auto_scroll = false,
             persist_size = false,
-            persist_mode = false,
+            persist_mode = true,
+            start_in_insert = true,
             shade_terminals = false,
         }
     end,
