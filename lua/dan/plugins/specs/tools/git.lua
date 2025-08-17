@@ -17,33 +17,33 @@ local M = {
             },
         },
         init = function()
-            --- TODO Move this to `keys` property
-            require('which-key').register({
-                g = {
-                    name = 'git',
-                    g = {
+            require('which-key').add {
+                {
+                    mode = { 'n', 'v' },
+                    { '<leader>g', group = 'git' },
+                    {
+                        '<leader>gg',
                         function()
                             vim.cmd [[G]]
                         end,
-                        'status',
+                        desc = 'status',
                     },
-                    b = {
+                    {
+                        '<leader>gb',
                         function()
                             vim.cmd [[GBrowse]]
                         end,
-                        'open remote in browser',
+                        desc = 'open remote in browser',
                     },
-                    B = {
+                    {
+                        '<leader>gB',
                         function()
                             vim.cmd [[GBrowse!]]
                         end,
-                        'copy browser link to clipboard',
+                        desc = 'copy browser link to clipboard',
                     },
                 },
-            }, {
-                prefix = '<leader>',
-                mode = { 'n', 'v' },
-            })
+            }
         end,
     },
     --- Make buffers `git` aware
@@ -57,62 +57,51 @@ local M = {
                     local wk = require 'which-key'
 
                     -- Leader keymaps
-                    wk.register({
-                        p = { gs.preview_hunk, 'Preview hunk' },
-                    }, {
-                        prefix = '<leader>g',
-                        buffer = bufnr,
-                    })
-                    vim.keymap.set(
-                        { 'n', 'v' },
-                        '<leader>gr',
-                        '<Cmd>Gitsigns reset_hunk<CR>',
-                        { desc = 'Reset hunk', buffer = bufnr }
-                    )
+                    wk.add {
+                        { '<leader>gp', gs.preview_hunk, desc = 'Preview hunk', buffer = bufnr },
+                        {
+                            '<leader>gr',
+                            '<Cmd>Gitsigns reset_hunk<CR>',
+                            desc = 'Reset hunk',
+                            buffer = bufnr,
+                            mode = { 'n', 'v' },
+                        },
+                    }
 
                     -- Navigation
-                    wk.register({
-                        [']'] = {
-                            name = 'Next',
-                            c = {
-                                function()
-                                    if vim.wo.diff then
-                                        return ']c'
-                                    end
-                                    vim.schedule(function()
-                                        gs.next_hunk()
-                                    end)
-                                    return '<Ignore>'
-                                end,
-                                'Next hunk',
-                            },
+                    wk.add {
+                        {
+                            ']c',
+                            function()
+                                vim.schedule(function()
+                                    gs.nav_hunk { wrap = true }
+                                end)
+                            end,
+                            desc = 'Next hunk',
+                            buffer = bufnr,
                         },
-                        ['['] = {
-                            name = 'Previous',
-                            c = {
-                                function()
-                                    if vim.wo.diff then
-                                        return '[c'
-                                    end
-                                    vim.schedule(function()
-                                        gs.prev_hunk()
-                                    end)
-                                    return '<Ignore>'
-                                end,
-                                'Previous hunk',
-                            },
+                        {
+                            '[c',
+                            function()
+                                vim.schedule(function()
+                                    gs.nav_hunk { wrap = true, reverse = true }
+                                end)
+                            end,
+                            desc = 'Previous hunk',
+                            buffer = bufnr,
                         },
-                    }, {
-                        buffer = bufnr,
-                    })
+                    }
 
                     -- Text object
-                    vim.keymap.set(
-                        { 'o', 'x' },
-                        'ih',
-                        '<Cmd><C-U>Gitsigns select_hunk<CR>',
-                        { desc = 'Inner hunk', buffer = bufnr }
-                    )
+                    wk.add {
+                        {
+                            'ih',
+                            '<Cmd><C-U>Gitsigns select_hunk<CR>',
+                            desc = 'Inner hunk',
+                            buffer = bufnr,
+                            mode = { 'o', 'x' },
+                        },
+                    }
                 end,
             }
         end,

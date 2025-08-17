@@ -5,8 +5,9 @@ local M = {
     'ahmedkhalf/project.nvim',
     event = 'DirChangedPre',
     init = function()
-        require('which-key').register({
-            p = {
+        require('which-key').add {
+            {
+                '<leader>pp',
                 function()
                     --- HACK Load `project_nvim` if it hasn't already, so all the projects appear
                     if not package.loaded['project_nvim'] then
@@ -15,12 +16,11 @@ local M = {
                             return require('project_nvim.utils.history').recent_projects ~= nil
                         end)
                     end
-
                     require('telescope').extensions.projects.projects()
                 end,
-                'Switch project',
+                desc = 'Switch project',
             },
-        }, { prefix = '<leader>p' })
+        }
     end,
     config = function()
         -- See https://github.com/ahmedkhalf/project.nvim#%EF%B8%8F-configuration

@@ -3,30 +3,14 @@
 ---@type LazyPluginSpec
 local M = {
     'stevearc/overseer.nvim',
-    keys = {
-        {
-            '<Leader>oot',
-            '<cmd>OverseerToggle<CR>',
-            desc = 'Overseer Toggle',
-            mode = 'n',
-        },
-        {
-            '<Leader>oor',
-            '<cmd>OverseerRun<CR>',
-            desc = 'Overseer Run',
-            mode = 'n',
-        },
-        {
-            '<Leader>ooc',
-            '<cmd>OverseerRunCmd<CR>',
-            desc = 'Overseer Run a command',
-            mode = 'n',
-        },
-        {
-            '<Leader>oo',
-            desc = 'Overseer (task runner)',
-        },
-    },
+    init = function()
+        require('which-key').add {
+            { '<Leader>oo', group = 'Overseer' },
+            { '<Leader>oot', '<cmd>OverseerToggle<CR>', desc = 'Overseer Toggle', mode = 'n' },
+            { '<Leader>oor', '<cmd>OverseerRun<CR>', desc = 'Overseer Run', mode = 'n' },
+            { '<Leader>ooc', '<cmd>OverseerRunCmd<CR>', desc = 'Overseer Run a command', mode = 'n' },
+        }
+    end,
     cmd = {
         'OverseerOpen',
         'OverseerClose',

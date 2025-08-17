@@ -14,60 +14,53 @@ local M = {
         local wk = require 'which-key'
 
         -- Setup basic labels
-        wk.register({
-            b = { 'Buffer' },
-            c = { name = 'Code', T = { 'Test' } },
-            f = { 'File' },
-            h = {
-                name = 'Help',
-                K = {
-                    function()
-                        vim.ui.select({
-                            'insert',
-                            'normal',
-                            'visual',
-                            'select',
-                            'select_x',
-                            'operator',
-                            'replace',
-                            'command',
-                            'terminal',
-                        }, {
-                            prompt = 'Show keymap for which mode?',
-                        }, function(choice)
-                            -- From `which-key.nvim/lua/which-key/util.lua::check_mode`
-                            local choice_to_mode = {
-                                insert = 'i',
-                                visual = 'v',
-                                terminal = 't',
-                                operator = 'o',
-                                select = 's',
-                                select_x = 'x',
-                                replace = 'R',
-                                command = 'c',
-                            }
-
-                            wk.show {
-                                mode = choice_to_mode[choice],
-                            }
-                        end)
-                    end,
-                    'Buffer keymaps',
-                },
+        wk.add {
+            { '<leader>b', desc = 'Buffer' },
+            { '<leader>c', group = 'Code' },
+            { '<leader>cT', desc = 'Test' },
+            { '<leader>f', desc = 'File' },
+            { '<leader>h', group = 'Help' },
+            {
+                '<leader>hK',
+                function()
+                    vim.ui.select({
+                        'insert',
+                        'normal',
+                        'visual',
+                        'select',
+                        'select_x',
+                        'operator',
+                        'replace',
+                        'command',
+                        'terminal',
+                    }, {
+                        prompt = 'Show keymap for which mode?',
+                    }, function(choice)
+                        local choice_to_mode = {
+                            insert = 'i',
+                            visual = 'v',
+                            terminal = 't',
+                            operator = 'o',
+                            select = 's',
+                            select_x = 'x',
+                            replace = 'R',
+                            command = 'c',
+                        }
+                        wk.show { mode = choice_to_mode[choice] }
+                    end)
+                end,
+                desc = 'Buffer keymaps',
             },
-            o = { 'Open' },
-            p = { 'Project' },
-            s = { 'Search' },
-        }, { prefix = '<leader>' })
+            { '<leader>o', desc = 'Open' },
+            { '<leader>p', desc = 'Project' },
+            { '<leader>s', desc = 'Search' },
+        }
 
         -- Register the default terminal maps
-        wk.register({
-            ['<C-N>'] = { 'Return to normal mode' },
-            ['<C-O>'] = { 'Execute one normal mode command' },
-        }, {
-            prefix = [[<C-\>]],
-            mode = 't',
-        })
+        wk.add {
+            { '<C-\\><C-N>', desc = 'Return to normal mode', mode = 't' },
+            { '<C-\\><C-O>', desc = 'Execute one normal mode command', mode = 't' },
+        }
     end,
 }
 

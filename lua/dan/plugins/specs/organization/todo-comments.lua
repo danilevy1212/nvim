@@ -7,22 +7,22 @@ local M = {
     event = { 'BufRead' },
     init = function()
         -- Setup keybindings
-        require('which-key').register({
-            t = {
+        require('which-key').add {
+            {
+                '<leader>pt',
                 function()
                     vim.cmd.TodoQuickFix()
                 end,
-                'Show all project TODOs (Quickfix)',
+                desc = 'Show all project TODOs (Quickfix)',
             },
-            T = {
+            {
+                '<leader>pT',
                 function()
                     vim.cmd.TodoTelescope()
                 end,
-                'Search all project TODOs (Telescope)',
+                desc = 'Search all project TODOs (Telescope)',
             },
-        }, {
-            prefix = '<leader>p',
-        })
+        }
     end,
     config = function()
         require('todo-comments').setup {

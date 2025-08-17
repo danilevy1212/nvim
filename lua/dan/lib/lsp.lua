@@ -25,36 +25,60 @@ M.on_attach = function(client, bufnr)
     end
 
     -- Mappings.
-    require('which-key').register({
-        g = {
-            i = { vim.lsp.buf.implementation, 'Go to implementation' },
-            R = { vim.lsp.buf.references, 'Find references' },
+    require('which-key').add {
+        { 'gi', vim.lsp.buf.implementation, desc = 'Go to implementation', buffer = bufnr, mode = { 'n', 'v' } },
+        { 'gR', vim.lsp.buf.references, desc = 'Find references', buffer = bufnr, mode = { 'n', 'v' } },
+        { 'K', vim.lsp.buf.hover, desc = 'Hover', buffer = bufnr, mode = { 'n', 'v' } },
+        {
+            '<C-w>d',
+            vim.diagnostic.open_float,
+            desc = 'Show line diagnostic\'s information',
+            buffer = bufnr,
+            mode = { 'n', 'v' },
         },
-        K = { vim.lsp.buf.hover, 'Hover' },
-        ['<C-w>d'] = { vim.diagnostic.open_float, 'Show line diagnostic\'s information' },
-        ['<C-w><C-d>'] = { vim.diagnostic.open_float, 'Show line diagnostic\'s information' },
-        ['<leader>'] = {
-            c = {
-                name = 'Code',
-                d = { vim.lsp.buf.definition, 'Go to definition' },
-                t = { vim.lsp.buf.type_definition, 'Go to type definition' },
-                r = { vim.lsp.buf.rename, 'Rename at point' },
-                R = { vim.lsp.buf.references, 'Find references' },
-                a = { vim.lsp.buf.code_action, 'Code action' },
-                w = {
-                    name = 'Workspace',
-                    a = { vim.lsp.buf.add_workspace_folder, 'Add workspace' },
-                    r = { vim.lsp.buf.remove_workspace_folder, 'Remove workspace' },
-                    l = {
-                        function()
-                            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                        end,
-                        'List workspaces',
-                    },
-                },
-            },
+        {
+            '<C-w><C-d>',
+            vim.diagnostic.open_float,
+            desc = 'Show line diagnostic\'s information',
+            buffer = bufnr,
+            mode = { 'n', 'v' },
         },
-    }, { buffer = bufnr, mode = { 'n', 'v' } })
+        { '<leader>cd', vim.lsp.buf.definition, desc = 'Go to definition', buffer = bufnr, mode = { 'n', 'v' } },
+        {
+            '<leader>ct',
+            vim.lsp.buf.type_definition,
+            desc = 'Go to type definition',
+            buffer = bufnr,
+            mode = { 'n', 'v' },
+        },
+        { '<leader>cr', vim.lsp.buf.rename, desc = 'Rename at point', buffer = bufnr, mode = { 'n', 'v' } },
+        { '<leader>cR', vim.lsp.buf.references, desc = 'Find references', buffer = bufnr, mode = { 'n', 'v' } },
+        { '<leader>ca', vim.lsp.buf.code_action, desc = 'Code action', buffer = bufnr, mode = { 'n', 'v' } },
+        { '<leader>cw', group = 'Workspace', buffer = bufnr, mode = { 'n', 'v' } },
+        {
+            '<leader>cwa',
+            vim.lsp.buf.add_workspace_folder,
+            desc = 'Add workspace',
+            buffer = bufnr,
+            mode = { 'n', 'v' },
+        },
+        {
+            '<leader>cwr',
+            vim.lsp.buf.remove_workspace_folder,
+            desc = 'Remove workspace',
+            buffer = bufnr,
+            mode = { 'n', 'v' },
+        },
+        {
+            '<leader>cwl',
+            function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+            end,
+            desc = 'List workspaces',
+            buffer = bufnr,
+            mode = { 'n', 'v' },
+        },
+    }
 end
 
 --- Sets up a specified Language Server Protocol (LSP) server using `nvim-lspconfig`, optionally starting it for a given buffer.

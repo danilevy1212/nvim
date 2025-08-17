@@ -16,8 +16,9 @@ return {
                 return vim.fn.expand('%:p:h'):gsub('^[^:]+://', '')
             end
 
-            require('which-key').register({
-                ['<leader>'] = {
+            require('which-key').add {
+                {
+                    '<leader><leader>',
                     function()
                         local function find_command()
                             if 1 == vim.fn.executable 'fd' then
@@ -57,90 +58,85 @@ return {
                                     '*/.yarn/cache/*',
                                 }
                             end
-
                             vim.notify('Could not find a valid file searcher', vim.log.levels.ERROR, {
                                 title = 'telescope.builtin.find_files',
                             })
                         end
-
                         require('telescope.builtin').find_files {
                             hidden = true,
                             find_command = find_command,
                         }
                     end,
-                    'Find a file in CWD',
+                    desc = 'Find a file in CWD',
                 },
-                ['/'] = {
+                {
+                    '<leader>/',
                     function()
                         require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())
                     end,
-                    'Find a string in CWD',
+                    desc = 'Find a string in CWD',
                 },
-                s = {
-                    s = {
-                        function()
-                            require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_ivy {
-                                previewer = false,
-                            })
-                        end,
-                        'Find string in buffer',
-                    },
-                    ['/'] = {
-                        function()
-                            require('telescope.builtin').live_grep(
-                                require('telescope.themes').get_ivy { cwd = get_buffer_dir() }
-                            )
-                        end,
-                        'Find a string in directory',
-                    },
-                    d = {
-                        function()
-                            require('telescope.builtin').find_files {
-                                cwd = get_buffer_dir(),
-                            }
-                        end,
-                        'Find file in buffer directory',
-                    },
+                {
+                    '<leader>bb',
+                    function()
+                        require('telescope.builtin').buffers()
+                    end,
+                    desc = 'Find live buffers',
                 },
-                b = {
-                    b = {
-                        function()
-                            require('telescope.builtin').buffers()
-                        end,
-                        'Find live buffers',
-                    },
+                {
+                    '<leader>fr',
+                    function()
+                        require('telescope.builtin').oldfiles()
+                    end,
+                    desc = 'Find in previously open files',
                 },
-                f = {
-                    r = {
-                        function()
-                            require('telescope.builtin').oldfiles()
-                        end,
-                        'Find in previously open files',
-                    },
+                {
+                    '<leader>hk',
+                    function()
+                        require('telescope.builtin').keymaps()
+                    end,
+                    desc = 'Find Keybinding',
                 },
-                h = {
-                    t = {
-                        function()
-                            require('telescope.builtin').help_tags()
-                        end,
-                        'Help Tags',
-                    },
-                    o = {
-                        function()
-                            require('telescope.builtin').vim_options()
-                        end,
-                        'Options (vim.opt)',
-                    },
-                    k = {
-                        function()
-                            require('telescope.builtin').keymaps()
-                        end,
-                        'Find Keybinding',
-                    },
+                {
+                    '<leader>ho',
+                    function()
+                        require('telescope.builtin').vim_options()
+                    end,
+                    desc = 'Options (vim.opt)',
                 },
-            }, {
-                prefix = '<leader>',
-            })
+                {
+                    '<leader>ht',
+                    function()
+                        require('telescope.builtin').help_tags()
+                    end,
+                    desc = 'Help Tags',
+                },
+                {
+                    '<leader>s/',
+                    function()
+                        require('telescope.builtin').live_grep(
+                            require('telescope.themes').get_ivy { cwd = get_buffer_dir() }
+                        )
+                    end,
+                    desc = 'Find a string in directory',
+                },
+                {
+                    '<leader>sd',
+                    function()
+                        require('telescope.builtin').find_files { cwd = get_buffer_dir() }
+                    end,
+                    desc = 'Find file in buffer directory',
+                },
+                {
+                    '<leader>ss',
+                    function()
+                        require('telescope.builtin').current_buffer_fuzzy_find(
+                            require('telescope.themes').get_ivy { previewer = false }
+                        )
+                    end,
+                    desc = 'Find string in buffer',
+                },
+            }
         end,
         config = function()
             -- Setup is required

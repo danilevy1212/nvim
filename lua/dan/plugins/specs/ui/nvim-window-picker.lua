@@ -4,17 +4,16 @@
 local M = {
     's1n7ax/nvim-window-picker',
     init = function()
-        local wk = require 'which-key'
-
-        wk.register({
-            ['<C-w>'] = {
+        require('which-key').add {
+            {
+                '<C-w><C-w>',
                 function()
                     local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
                     vim.api.nvim_set_current_win(picked_window_id)
                 end,
-                'Jump to other window',
+                desc = 'Jump to other window',
             },
-        }, { prefix = '<C-w>' })
+        }
     end,
     name = 'window-picker',
     version = '2.*',

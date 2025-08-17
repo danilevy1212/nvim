@@ -12,35 +12,40 @@ local M = {
             pattern = { '*.spec.js', '*.spec.ts' },
             --- @param ev { buf: number }
             callback = function(ev)
-                require('which-key').register({
-                    r = {
+                require('which-key').add {
+                    {
+                        '<leader>cTr',
                         function()
                             require('neotest').run.run()
                         end,
-                        'Run closest test',
+                        desc = 'Run closest test',
+                        buffer = ev.buf,
                     },
-                    f = {
+                    {
+                        '<leader>cTf',
                         function()
                             require('neotest').run.run(vim.fn.expand '%')
                         end,
-                        'Run file',
+                        desc = 'Run file',
+                        buffer = ev.buf,
                     },
-                    o = {
+                    {
+                        '<leader>cTo',
                         function()
                             require('neotest').output_panel.toggle()
                         end,
-                        'Output panel',
+                        desc = 'Output panel',
+                        buffer = ev.buf,
                     },
-                    s = {
+                    {
+                        '<leader>cTs',
                         function()
                             require('neotest').summary.toggle()
                         end,
-                        'Summary',
+                        desc = 'Summary',
+                        buffer = ev.buf,
                     },
-                }, {
-                    prefix = '<leader>cT',
-                    buffer = ev.buf,
-                })
+                }
             end,
         })
     end,
