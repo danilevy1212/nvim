@@ -48,7 +48,7 @@ local M = {
         {
             '<A-S-w><A-S-w>',
             switch_window,
-            mode = { 'i', 't' },
+            mode = { 'i', 't', 'n' },
             desc = 'Pick a window in terminal mode',
         },
     },
