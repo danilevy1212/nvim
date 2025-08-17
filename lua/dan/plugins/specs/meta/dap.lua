@@ -108,7 +108,10 @@ local M = {
         dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
         local sd = vim.fn.sign_define
-        sd('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+        sd('DapBreakpoint', { text = '🛑', texthl = 'DiagnosticSignError', linehl = '', numhl = '' })
+        sd('DapStopped', { text = '▶', texthl = 'DiagnosticSignWarn', linehl = '', numhl = '' })
+        sd('DapLogPoint', { text = '🔍', texthl = 'DiagnosticSignInfo', linehl = '', numhl = '' })
+        sd('DapBreakpointCondition', { text = '🔵', texthl = 'DiagnosticSignHint', linehl = '', numhl = '' })
         sd('DapBreakpointRejected', { text = '🛑', texthl = 'Error', linehl = '', numhl = '' })
 
         require('dap.ext.vscode').json_decode = require('overseer.json').decode
