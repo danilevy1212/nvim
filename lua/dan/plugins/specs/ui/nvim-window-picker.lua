@@ -1,20 +1,26 @@
 --- Pick a window and returns the window id of the picked window
+local function pick_current_window()
+    vim.api.nvim_set_current_win(require('window-picker').pick_window() or vim.api.nvim_get_current_win())
+end
+
+local function switch_window()
+    -- Need to exit terminal mode to pick a window
+    if vim.api.nvim_get_mode().mode == 't' then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-\\><C-n>', true, false, true), 'n', true)
+        -- Wait for the mode to change before picking a window
+        vim.api.nvim_create_autocmd('ModeChanged', {
+            buffer = vim.api.nvim_get_current_buf(),
+            once = true,
+            callback = pick_current_window,
+        })
+    else
+        pick_current_window()
+    end
+end
 
 --- @type LazyPluginSpec
 local M = {
     's1n7ax/nvim-window-picker',
-    init = function()
-        require('which-key').add {
-            {
-                '<C-w><C-w>',
-                function()
-                    local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
-                    vim.api.nvim_set_current_win(picked_window_id)
-                end,
-                desc = 'Jump to other window',
-            },
-        }
-    end,
     name = 'window-picker',
     version = '2.*',
     opts = {
@@ -35,11 +41,15 @@ local M = {
     keys = {
         {
             '<C-w><C-w>',
-            function()
-                require('window-picker').pick_window {
-                    hint = 'floating-big-letter',
-                }
-            end,
+            switch_window,
+            mode = { 'n' },
+            desc = 'Pick a window',
+        },
+        {
+            '<A-S-w><A-S-w>',
+            switch_window,
+            mode = { 'i', 't' },
+            desc = 'Pick a window in terminal mode',
         },
     },
 }
