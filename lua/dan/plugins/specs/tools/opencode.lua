@@ -2,13 +2,57 @@
 local M = {
     'NickvanDyke/opencode.nvim',
     dependencies = { 'folke/snacks.nvim' },
-    ---@type opencode.Config
-    opts = {},
+    init = function()
+        require('which-key').add {
+            ['<leader>oc'] = { name = 'Opencode' },
+        }
+    end,
+    config = function()
+        ---@param args string[]
+        local function make_git_diff_context(args)
+            return function()
+                local cmd = vim.list_extend({ 'git' }, args)
+                local result = vim.fn.system(vim.fn.join(cmd, ' '))
+                if result and result ~= '' then
+                    return result
+                end
+                return nil
+            end
+        end
+
+        local git_diff_staged = make_git_diff_context { '--no-pager', 'diff', '--cached' }
+        local git_diff_develop = make_git_diff_context {
+            '--no-pager',
+            'diff',
+            '--no-ext-diff',
+            'develop',
+        }
+
+        ---@type opencode.Config
+        local opts = {
+            terminal = {
+                win = {
+                    enter = true,
+                },
+            },
+            auto_fallback_to_embedded = true,
+            auto_reload = true,
+            contexts = {
+                ['@diff-staged'] = {
+                    value = git_diff_staged,
+                    description = 'Git diff staged',
+                },
+                ['@diff-develop'] = {
+                    value = git_diff_develop,
+                    description = 'Git diff with develop',
+                },
+            },
+        }
+
+        require('opencode').setup(opts)
+    end,
+
     keys = {
-        {
-            '<leader>oc',
-            desc = 'Opencode',
-        },
         {
             '<leader>oct',
             function()
@@ -54,8 +98,6 @@ local M = {
             end,
             desc = 'Copy last message',
         },
-        -- { '<S-C-u>',    function() require('opencode').command('messages_half_page_up') end, desc = 'Scroll messages up', },
-        -- { '<S-C-d>',    function() require('opencode').command('messages_half_page_down') end, desc = 'Scroll messages down', },
     },
 }
 
