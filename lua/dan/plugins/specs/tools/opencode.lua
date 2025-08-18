@@ -4,30 +4,10 @@ local M = {
     dependencies = { 'folke/snacks.nvim' },
     init = function()
         require('which-key').add {
-            ['<leader>oc'] = { name = 'Opencode' },
+            { '<leader>oc', desc = 'Opencode' },
         }
     end,
     config = function()
-        ---@param args string[]
-        local function make_git_diff_context(args)
-            return function()
-                local cmd = vim.list_extend({ 'git' }, args)
-                local result = vim.fn.system(vim.fn.join(cmd, ' '))
-                if result and result ~= '' then
-                    return result
-                end
-                return nil
-            end
-        end
-
-        local git_diff_staged = make_git_diff_context { '--no-pager', 'diff', '--cached' }
-        local git_diff_develop = make_git_diff_context {
-            '--no-pager',
-            'diff',
-            '--no-ext-diff',
-            'develop',
-        }
-
         ---@type opencode.Config
         local opts = {
             terminal = {
@@ -37,16 +17,12 @@ local M = {
             },
             auto_fallback_to_embedded = true,
             auto_reload = true,
-            contexts = {
-                ['@diff-staged'] = {
-                    value = git_diff_staged,
-                    description = 'Git diff staged',
+            prompts = {
+                ['Commit Message'] = {
+                    prompt = 'Write a commit message for the changes staged. Based the formatting on the history of the repository. If it is one line, write a single line commit message. If it is multiple lines, write a multi-line commit message.',
+                    description = 'Commit message for git diff --staged',
                 },
-                ['@diff-develop'] = {
-                    value = git_diff_develop,
-                    description = 'Git diff with develop',
-                },
-            },
+            }
         }
 
         require('opencode').setup(opts)
