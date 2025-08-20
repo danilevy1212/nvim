@@ -28,22 +28,29 @@ create_autocmd('TermOpen', {
 create_autocmd('TermOpen', {
     group = group,
     callback = function()
-        vim.keymap.set('n', 'gf', function()
-            local file = vim.fn.expand '<cfile>'
-            local word = vim.fn.expand '<cWORD>'
-            local f = vim.fn.findfile(file)
-            local num = string.match(word, ':(%d*)')
-            if vim.fn.filereadable(f) == 1 then
-                vim.cmd 'wincmd p'
-                vim.cmd('e ' .. f)
-                if num ~= nil then
-                    vim.cmd(num)
-                    local col = string.match(word, ':%d*:(%d*)')
-                    if col ~= nil then
-                        vim.cmd('normal! ' .. col .. '|')
+        require('which-key').add({
+            {
+                'gf',
+                function()
+                    local file = vim.fn.expand '<cfile>'
+                    local word = vim.fn.expand '<cWORD>'
+                    local f = vim.fn.findfile(file)
+                    local num = string.match(word, ':(%d*)')
+                    if vim.fn.filereadable(f) == 1 then
+                        vim.cmd 'wincmd p'
+                        vim.cmd('e ' .. f)
+                        if num ~= nil then
+                            vim.cmd(num)
+                            local col = string.match(word, ':%d*:(%d*)')
+                            if col ~= nil then
+                                vim.cmd('normal! ' .. col .. '|')
+                            end
+                        end
                     end
-                end
-            end
-        end, { noremap = true, silent = true, buffer = true })
+                end,
+                desc = 'Open file under cursor in new window',
+                mode = 'n',
+            },
+        }, { buffer = true })
     end,
 })
