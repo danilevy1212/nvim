@@ -22,7 +22,7 @@ local M = {
                     prompt = 'Write a commit message for the changes staged. Based the formatting on the history of the repository. If it is one line, write a single line commit message. If it is multiple lines, write a multi-line commit message.',
                     description = 'Commit message for git diff --staged',
                 },
-            }
+            },
         }
 
         require('opencode').setup(opts)
