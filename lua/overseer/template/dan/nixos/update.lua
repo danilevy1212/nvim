@@ -5,8 +5,9 @@ local Task = {
     name = 'Update nixos flake',
     builder = function()
         return {
-            cmd = { 'nix', 'flake', 'update', '/etc/nixos' },
+            cmd = { 'nix', 'flake', 'update' },
             cwd = '/etc/nixos',
+            components = { { 'on_complete_notify' }, { 'open_output', focus = true, on_result = 'always' } },
         }
     end,
     condition = {

@@ -1,1 +1,0 @@
-return { 'dan.doom.upgrade' }

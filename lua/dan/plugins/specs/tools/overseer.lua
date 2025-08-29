@@ -33,8 +33,6 @@ local M = {
                 'builtin',
                 -- Nixos related tasks
                 'dan.nixos',
-                -- Doom emacs related tasks
-                'dan.doom',
                 -- Work related tasks
                 'dan.work',
             },

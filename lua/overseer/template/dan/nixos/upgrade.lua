@@ -3,18 +3,14 @@
 ---@type overseer.Task
 local Task = {
     name = 'Upgrade nixos',
-    params = {
-        password = {
-            type = 'string',
-            description = 'Root password for sudo',
-            optional = false,
-            name = 'Root password',
-        },
-    },
-    builder = function(params)
+    builder = function()
         return {
-            cmd = 'echo \'' .. params.password .. '\' | sudo -S nixos-rebuild switch',
+            cmd = 'sudo nixos-rebuild switch',
             cwd = '/etc/nixos',
+            components = {
+                { 'on_complete_notify' },
+                { 'open_output', direction = 'tab', focus = true, on_result = 'always' },
+            },
         }
     end,
     condition = {
