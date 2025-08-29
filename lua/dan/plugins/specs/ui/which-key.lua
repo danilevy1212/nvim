@@ -7,7 +7,7 @@ local M = {
         --- Load this before which-key.nvim to prevent collisions
         'gbprod/cutlass.nvim',
         'nvim-tree/nvim-web-devicons',
-        'echasnovski/mini.icons',
+        'nvim-mini/mini.icons',
     },
     opts = {
         delay = 200,
