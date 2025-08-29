@@ -7,7 +7,11 @@ local Task = {
         return {
             cmd = { 'nix', 'flake', 'update' },
             cwd = '/etc/nixos',
-            components = { { 'on_complete_notify' }, { 'open_output', focus = true, on_result = 'always' } },
+            components = {
+                'default',
+                'on_complete_notify',
+                { 'open_output', focus = true, on_result = 'always' },
+            },
         }
     end,
     condition = {

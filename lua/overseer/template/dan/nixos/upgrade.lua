@@ -5,10 +5,11 @@ local Task = {
     name = 'Upgrade nixos',
     builder = function()
         return {
-            cmd = 'sudo nixos-rebuild switch',
+            cmd = 'rm -f ~/.gtkrc-2.0.backup ~/.gtkrc-2.0 && sudo nixos-rebuild switch',
             cwd = '/etc/nixos',
             components = {
-                { 'on_complete_notify' },
+                'default',
+                'on_complete_notify',
                 { 'open_output', direction = 'tab', focus = true, on_result = 'always' },
             },
         }
