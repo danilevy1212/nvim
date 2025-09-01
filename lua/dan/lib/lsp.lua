@@ -87,7 +87,10 @@ end
 ---@param start boolean? Whether to start the LSP server if it's not already active; defaults to true.
 ---@param bufnr number? Buffer number to associate with the LSP server; defaults to current buffer.
 function M.setup_lsp_server(server_name, setup_opts, start, bufnr)
-    local lspconfig = require 'lspconfig'
+    --- NOTE  Force load lspconfig if we haven't already
+    if package.loaded['lspconfig'] == nil then
+        require 'lspconfig'
+    end
 
     if bufnr == nil then
         bufnr = vim.api.nvim_get_current_buf()
@@ -97,14 +100,8 @@ function M.setup_lsp_server(server_name, setup_opts, start, bufnr)
         start = true
     end
 
-    lspconfig[server_name].setup(setup_opts)
-
-    if start and #vim.lsp.get_clients {
-        name = server_name,
-        bufnr = bufnr,
-    } == 0 then
-        lspconfig[server_name].launch()
-    end
+    vim.lsp.config(server_name, setup_opts)
+    vim.lsp.enable(server_name, start)
 end
 
 return M
