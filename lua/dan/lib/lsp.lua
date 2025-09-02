@@ -14,6 +14,7 @@ end
 M.on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {
+        scope = "local",
         buf = bufnr,
     })
 
@@ -26,23 +27,6 @@ M.on_attach = function(client, bufnr)
 
     -- Mappings.
     require('which-key').add {
-        { 'gi', vim.lsp.buf.implementation, desc = 'Go to implementation', buffer = bufnr, mode = { 'n', 'v' } },
-        { 'gR', vim.lsp.buf.references, desc = 'Find references', buffer = bufnr, mode = { 'n', 'v' } },
-        { 'K', vim.lsp.buf.hover, desc = 'Hover', buffer = bufnr, mode = { 'n', 'v' } },
-        {
-            '<C-w>d',
-            vim.diagnostic.open_float,
-            desc = 'Show line diagnostic\'s information',
-            buffer = bufnr,
-            mode = { 'n', 'v' },
-        },
-        {
-            '<C-w><C-d>',
-            vim.diagnostic.open_float,
-            desc = 'Show line diagnostic\'s information',
-            buffer = bufnr,
-            mode = { 'n', 'v' },
-        },
         { '<leader>cd', vim.lsp.buf.definition, desc = 'Go to definition', buffer = bufnr, mode = { 'n', 'v' } },
         {
             '<leader>ct',
