@@ -14,7 +14,7 @@ end
 M.on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {
-        scope = "local",
+        scope = 'local',
         buf = bufnr,
     })
 
