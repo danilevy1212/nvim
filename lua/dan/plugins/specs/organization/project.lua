@@ -2,40 +2,41 @@
 
 ---@type LazyPluginSpec
 local M = {
-    'ahmedkhalf/project.nvim',
+    'DrKJeff16/project.nvim',
     event = 'DirChangedPre',
-    init = function()
-        require('which-key').add {
-            {
-                '<leader>pp',
-                function()
-                    --- HACK Load `project_nvim` if it hasn't already, so all the projects appear
-                    if not package.loaded['project_nvim'] then
-                        -- Wait until the cache is hot
-                        vim.fn.wait(1000, function()
-                            return require('project_nvim.utils.history').recent_projects ~= nil
-                        end)
-                    end
-                    require('telescope').extensions.projects.projects()
-                end,
-                desc = 'Switch project',
-            },
-        }
-    end,
+    keys = {
+        {
+            '<leader>pp',
+            function()
+                --- HACK Load `project_nvim` if it hasn't already, so all the projects appear
+                -- Wait until the cache is hot
+                vim.fn.wait(1000, function()
+                    return require('project.utils.history').recent_projects ~= nil
+                end)
+
+                vim.cmd.ProjectTelescope()
+            end,
+            desc = 'Switch project',
+        },
+    },
     config = function()
-        -- See https://github.com/ahmedkhalf/project.nvim#%EF%B8%8F-configuration
-        require('project_nvim').setup {
+        ---@type Project.Config.Options
+        local opts = {
             -- Don't announce change in directory
             silent_chdir = true,
-            -- Change directory for window only
-            scope_chdir = 'win',
+            -- Change directory for tab only
+            scope_chdir = 'tab',
             -- Only use patterns to detect projects
             detection_methods = { 'pattern' },
             -- Use the version control system and other custom patterns for detection
             patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn', '.project' },
             -- Show hidden files
             show_hidden = false,
+            -- Auto detection is pretty busted, use manual adding
+            manual_mode = true,
         }
+
+        require('project').setup(opts)
 
         -- Telescope integration
         require('telescope').load_extension 'projects'

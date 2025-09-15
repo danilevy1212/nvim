@@ -8,7 +8,7 @@ local M = {
         }
     end,
     config = function()
-        ---@type opencode.Config
+        ---@type opencode.Opts
         local opts = {
             terminal = {
                 win = {
@@ -25,7 +25,7 @@ local M = {
             },
         }
 
-        require('opencode').setup(opts)
+        vim.g.opencode_opts = opts
     end,
 
     keys = {
@@ -55,7 +55,7 @@ local M = {
         {
             '<leader>ocp',
             function()
-                require('opencode').select_prompt()
+                require('opencode').select()
             end,
             desc = 'Select prompt',
             mode = { 'n', 'v' },
