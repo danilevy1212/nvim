@@ -17,6 +17,25 @@ local M = {
             },
             auto_fallback_to_embedded = true,
             auto_reload = true,
+            -- Auto-save all modified buffers within current working directory before sending to opencode
+            on_send = function()
+                for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+                    if vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].modified then
+                        local bufname = vim.api.nvim_buf_get_name(bufnr)
+                        if bufname ~= '' then
+                            local abs_bufname = vim.fn.fnamemodify(bufname, ':p')
+                            local abs_cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ':p')
+                            if vim.startswith(abs_bufname, abs_cwd) then
+                                vim.api.nvim_buf_call(bufnr, function()
+                                    vim.cmd 'silent write'
+                                end)
+                            end
+                        end
+                    end
+                end
+                -- Call the original on_send
+                pcall(require('opencode.terminal').show_if_exists)
+            end,
             prompts = {
                 ['Commit Message'] = {
                     prompt = 'Write a commit message for the changes staged. Based the formatting on the history of the repository. If it is one line, write a single line commit message. If it is multiple lines, write a multi-line commit message.',
