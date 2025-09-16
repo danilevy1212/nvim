@@ -46,7 +46,7 @@
   "opencode.nvim": { "branch": "main", "commit": "a535683aaf20da3d8fa36d4d1efc988a660e6f9f" },
   "overseer.nvim": { "branch": "master", "commit": "fe7b2f9ba263e150ab36474dfc810217b8cf7400" },
   "plenary.nvim": { "branch": "master", "commit": "b9fd5226c2f76c951fc8ed5923d85e4de065e509" },
-  "project.nvim": { "branch": "main", "commit": "26d501e6c833cf20e87050f027f062f311b52fbb" },
+  "project.nvim": { "branch": "main", "commit": "847ea57a40099771eafc96fc1a86eeb5a747b643" },
   "qf.nvim": { "branch": "main", "commit": "c16efebc2a4967251d34630c7f5beee25ca8a9ba" },
   "quickfix-reflector.vim": { "branch": "master", "commit": "6a6a9e28e1713b9e9db99eec1e6672e5666c01b9" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "687ef75fdbd497eabc9eea92b52e7b4d403b3319" },

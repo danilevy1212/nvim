@@ -8,12 +8,6 @@ local M = {
         {
             '<leader>pp',
             function()
-                --- HACK Load `project_nvim` if it hasn't already, so all the projects appear
-                -- Wait until the cache is hot
-                vim.fn.wait(1000, function()
-                    return require('project.utils.history').recent_projects ~= nil
-                end)
-
                 vim.cmd.ProjectTelescope()
             end,
             desc = 'Switch project',
