@@ -20,7 +20,13 @@ local M = {
             -- Auto-save all modified buffers within current working directory before sending to opencode
             on_send = function()
                 for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-                    if vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].modified then
+                    local buf_data = vim.bo[bufnr]
+                    if
+                        vim.api.nvim_buf_is_loaded(bufnr)
+                        and buf_data.modified
+                        and buf_data.buftype == ''
+                        and buf_data.buflisted
+                    then
                         local bufname = vim.api.nvim_buf_get_name(bufnr)
                         if bufname ~= '' then
                             local abs_bufname = vim.fn.fnamemodify(bufname, ':p')
