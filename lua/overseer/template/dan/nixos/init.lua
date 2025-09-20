@@ -1,1 +1,1 @@
-return { 'dan.nixos.update', 'dan.nixos.upgrade' }
+return { 'dan.nixos.update', 'dan.nixos.rebuild' }

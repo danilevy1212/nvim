@@ -10,7 +10,6 @@ local Task = {
             components = {
                 'default',
                 'on_complete_notify',
-                { 'open_output', focus = true, on_result = 'always' },
             },
         }
     end,
