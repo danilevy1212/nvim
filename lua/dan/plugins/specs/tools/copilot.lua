@@ -1,3 +1,4 @@
+-- TODO  Replace with https://github.com/milanglacier/minuet-ai.nvim
 -- This plugin is the pure lua replacement for github/copilot.vim.
 
 ---@type LazyPluginSpec
@@ -5,7 +6,6 @@ local COPILOT = {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     event = 'InsertEnter',
-    dependencies = { COPILOT_CHAT },
     config = function()
         local function get_node_command()
             if require('dan.lib.os').is_nixos() then

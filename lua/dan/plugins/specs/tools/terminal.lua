@@ -1,5 +1,6 @@
 -- A friendlier terminal
 
+--- TODO  Replace by https://github.com/waiting-for-dev/ergoterm.nvim
 ---@type LazyPluginSpec
 local M = {
     'akinsho/toggleterm.nvim',

@@ -10,6 +10,7 @@ local M = {
     config = function()
         ---@type opencode.Opts
         local opts = {
+            ---@type snacks.terminal.Opts
             terminal = {
                 win = {
                     enter = true,
@@ -39,6 +40,7 @@ local M = {
                         end
                     end
                 end
+
                 -- Call the original on_send
                 pcall(require('opencode.terminal').show_if_exists)
             end,
