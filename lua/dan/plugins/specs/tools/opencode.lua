@@ -66,7 +66,7 @@ local M = {
         {
             '<leader>oca',
             function()
-                require('opencode').ask()
+                require('opencode').append_prompt('@cursor', require('opencode.terminal').open)
             end,
             desc = 'Ask opencode',
             mode = 'n',
@@ -74,7 +74,7 @@ local M = {
         {
             '<leader>oca',
             function()
-                require('opencode').ask '@selection: '
+                require('opencode').append_prompt('@selection', require('opencode.terminal').open)
             end,
             desc = 'Ask opencode about selection',
             mode = 'v',
