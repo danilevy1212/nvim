@@ -35,6 +35,8 @@ local M = {
                 'dan.nixos',
                 -- Work related tasks
                 'dan.work',
+                -- Homelab maintanence
+                'dan.homelab',
             },
             dap = false,
         }
