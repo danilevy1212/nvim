@@ -12,6 +12,7 @@ return {
             components = {
                 'default',
                 'on_complete_notify',
+                { 'open_output', direction = 'tab' },
             },
         }
     end,
