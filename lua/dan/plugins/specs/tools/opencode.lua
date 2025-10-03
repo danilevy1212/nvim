@@ -19,7 +19,7 @@ local M = {
             auto_fallback_to_embedded = true,
             auto_reload = true,
             -- Auto-save all modified buffers within current working directory before sending to opencode
-            on_send = function()
+            on_submit = function()
                 for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
                     local buf_data = vim.bo[bufnr]
                     if
