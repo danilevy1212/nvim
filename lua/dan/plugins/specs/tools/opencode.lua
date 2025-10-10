@@ -45,9 +45,22 @@ local M = {
                 pcall(require('opencode.terminal').show_if_exists)
             end,
             prompts = {
-                ['Commit Message'] = {
-                    prompt = 'Write a commit message for the changes staged. Based the formatting on the history of the repository. If it is one line, write a single line commit message. If it is multiple lines, write a multi-line commit message.',
-                    description = 'Commit message for git diff --staged',
+                ['commit_message'] = {
+                    prompt = [[Analyze the staged (cached) changes and create an appropriate commit message. Follow this process:
+
+1. First, examine the staged changes using `git diff --staged` to understand what will be committed
+2. Review recent commit history to understand the repository's commit message style and scoping conventions
+3. Analyze the nature of the staged changes (new feature, bug fix, refactor, docs, etc.)
+4. Draft a commit message that follows the established patterns
+
+After writing the commit message, automatically execute the commit using the message you created.
+
+Use the repository's existing commit message format. Pay attention to:
+- Scoping (if used in this repo)
+- Line length limits
+- Multi-line format when appropriate
+- Conventional commit patterns (if used)]],
+                    description = 'Analyze staged changes and commit with generated message',
                 },
             },
         }
@@ -66,7 +79,9 @@ local M = {
         {
             '<leader>oca',
             function()
-                require('opencode').append_prompt('@cursor', require('opencode.terminal').open)
+                require('opencode').prompt('@this', {
+                    append = true,
+                })
             end,
             desc = 'Ask opencode',
             mode = 'n',
@@ -74,7 +89,9 @@ local M = {
         {
             '<leader>oca',
             function()
-                require('opencode').append_prompt('@selection', require('opencode.terminal').open)
+                require('opencode').prompt('@this', {
+                    append = true,
+                })
             end,
             desc = 'Ask opencode about selection',
             mode = 'v',
