@@ -65,6 +65,23 @@ Use the repository's existing commit message format. Pay attention to:
             },
         }
 
+        -- BUG  See https://github.com/NickvanDyke/opencode.nvim/issues/54
+        -- SSE auto-reload: OpencodeEvent triggers :checktime on relevant events
+        ---       See https://github.com/NickvanDyke/opencode.nvim?tab=readme-ov-file#-events
+        ---       See https://www.npmjs.com/package/@opencode-ai/sdk?activeTab=code , 'EventFileEdited' and 'EventPermissionReplied' and 'EventSessionIdle'
+        -- vim.api.nvim_create_autocmd('User', {
+        --     pattern = 'OpencodeEvent',
+        --     callback = function(args)
+        --         local eventType = args.data.type
+        --
+        --         if eventType == 'session.idle' or eventType == 'file.edited' or eventType == 'permission.replied' then
+        --             vim.schedule(function()
+        --                 vim.cmd.checktime()
+        --             end)
+        --         end
+        --     end,
+        -- })
+
         vim.g.opencode_opts = opts
     end,
 
