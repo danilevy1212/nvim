@@ -61,6 +61,7 @@ Use the repository's existing commit message format. Pay attention to:
 - Multi-line format when appropriate
 - Conventional commit patterns (if used)]],
                     description = 'Analyze staged changes and commit with generated message',
+                    submit = true,
                 },
             },
         }
