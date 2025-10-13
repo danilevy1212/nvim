@@ -17,33 +17,6 @@ local M = {
                 },
             },
             auto_fallback_to_embedded = true,
-            auto_reload = true,
-            -- BUG  This is also NOT working, see https://github.com/NickvanDyke/opencode.nvim/issues/54
-            -- Auto-save all modified buffers within current working directory before sending to opencode
-            -- on_submit = function()
-            --     for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-            --         local buf_data = vim.bo[bufnr]
-            --         if
-            --             vim.api.nvim_buf_is_loaded(bufnr)
-            --             and buf_data.modified
-            --             and buf_data.buftype == ''
-            --             and buf_data.buflisted
-            --         then
-            --             local bufname = vim.api.nvim_buf_get_name(bufnr)
-            --             if bufname ~= '' then
-            --                 local abs_bufname = vim.fn.fnamemodify(bufname, ':p')
-            --                 local abs_cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ':p')
-            --                 if vim.startswith(abs_bufname, abs_cwd) then
-            --                     vim.api.nvim_buf_call(bufnr, function()
-            --                         vim.cmd 'silent write'
-            --                     end)
-            --                 end
-            --             end
-            --         end
-            --     end
-            --     -- Call the original on_send
-            --     pcall(require('opencode.terminal').show_if_exists)
-            -- end,
             prompts = {
                 ['commit_message'] = {
                     prompt = [[Analyze the staged (cached) changes and create an appropriate commit message. Follow this process:
@@ -65,23 +38,6 @@ Use the repository's existing commit message format. Pay attention to:
                 },
             },
         }
-
-        -- BUG  See https://github.com/NickvanDyke/opencode.nvim/issues/54
-        -- SSE auto-reload: OpencodeEvent triggers :checktime on relevant events
-        ---       See https://github.com/NickvanDyke/opencode.nvim?tab=readme-ov-file#-events
-        ---       See https://www.npmjs.com/package/@opencode-ai/sdk?activeTab=code , 'EventFileEdited' and 'EventPermissionReplied' and 'EventSessionIdle'
-        -- vim.api.nvim_create_autocmd('User', {
-        --     pattern = 'OpencodeEvent',
-        --     callback = function(args)
-        --         local eventType = args.data.type
-        --
-        --         if eventType == 'session.idle' or eventType == 'file.edited' or eventType == 'permission.replied' then
-        --             vim.schedule(function()
-        --                 vim.cmd.checktime()
-        --             end)
-        --         end
-        --     end,
-        -- })
 
         vim.g.opencode_opts = opts
     end,
