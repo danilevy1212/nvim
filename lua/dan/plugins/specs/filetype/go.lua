@@ -1,3 +1,4 @@
+-- TODO  Move away from go.nvim, use a basic dap + lsp + conform setup by making a fake 'local' plugin
 -- A modern go neovim plugin based on treesitter, nvim-lsp and dap debugger.
 
 --- @type LazyPluginSpec

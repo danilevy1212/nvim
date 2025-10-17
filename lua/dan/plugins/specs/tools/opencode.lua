@@ -17,6 +17,16 @@ local M = {
                 },
             },
             auto_fallback_to_embedded = true,
+            on_opencode_not_found = function()
+                --- NOTE  Do not run opencode again if there is already a terminal running with it
+                for _, buf_n in ipairs(vim.api.nvim_list_bufs()) do
+                    if vim.bo[buf_n].filetype == 'opencode_terminal' then
+                        return
+                    end
+                end
+
+                pcall(require('opencode.terminal').open)
+            end,
             prompts = {
                 ['commit_message'] = {
                     prompt = [[Analyze the staged (cached) changes and create an appropriate commit message. Follow this process:
@@ -33,7 +43,6 @@ Use the repository's existing commit message format. Pay attention to:
 - Line length limits
 - Multi-line format when appropriate
 - Conventional commit patterns (if used)]],
-                    description = 'Analyze staged changes and commit with generated message',
                     submit = true,
                 },
             },
