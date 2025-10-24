@@ -10,6 +10,9 @@ local M = {
     config = function()
         ---@type opencode.Opts
         local opts = {
+            permissions = {
+                enabled = false
+            },
             ---@type snacks.terminal.Opts
             terminal = {
                 win = {
