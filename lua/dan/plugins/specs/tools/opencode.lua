@@ -16,6 +16,7 @@ local M = {
                     enter = true,
                 },
             },
+            auto_reload = true,
             auto_fallback_to_embedded = true,
             on_opencode_not_found = function()
                 --- NOTE  Do not run opencode again if there is already a terminal running with it
@@ -48,9 +49,24 @@ Use the repository's existing commit message format. Pay attention to:
             },
         }
 
+        --- HACK
+        --- Auto-reload buffers when opencode makes changes
+        vim.api.nvim_create_autocmd('User', {
+            group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'OpencodeAutoReload', { clear = true }),
+            pattern = 'OpencodeEvent',
+            callback = function(args)
+                local event = args.data.event
+                if event.type == 'permission.replied' and require('opencode.config').opts.auto_reload then
+                    vim.schedule(function()
+                        vim.cmd 'checktime'
+                    end)
+                end
+            end,
+            desc = 'Reload buffers edited by `opencode`',
+        })
+
         vim.g.opencode_opts = opts
     end,
-
     keys = {
         {
             '<leader>oct',

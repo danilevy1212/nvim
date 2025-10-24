@@ -1,4 +1,5 @@
 -- Preview Markdown in your modern browser with synchronised scrolling and flexible configuration.
+--- TODO  Try out https://github.com/yousefhadder/markdown-plus.nvim
 
 ---@type LazyPluginSpec
 local M = {
