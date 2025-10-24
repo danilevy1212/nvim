@@ -3,6 +3,7 @@
 ---@type LazyPluginSpec
 local M = {
     'stevearc/overseer.nvim',
+    version = '1.6.x',
     init = function()
         require('which-key').add {
             { '<Leader>oo', group = 'Overseer' },
