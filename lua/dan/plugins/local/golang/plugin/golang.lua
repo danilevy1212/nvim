@@ -1,41 +1,70 @@
--- TODO  Move away from go.nvim, use a basic dap + lsp + conform setup by making a fake 'local' plugin
--- A modern go neovim plugin based on treesitter, nvim-lsp and dap debugger.
-
---- @type LazyPluginSpec
-local M = {
-    'ray-x/go.nvim',
-    ft = { 'go', 'gomod' },
-    cond = function()
-        return vim.fn.executable 'go' == 1
-    end,
-    dependencies = {
-        'ray-x/guihua.lua',
-        'neovim/nvim-lspconfig',
-        'nvim-treesitter/nvim-treesitter',
-        'L3MON4D3/LuaSnip',
-    },
-    build = function()
-        require('go.install').update_all()
-    end,
-    config = function()
-        require('dan.lib.mason').ensure_installed({ 'golangci-lint-langserver' }, function()
-            vim.lsp.enable 'golangci_lint_ls'
-        end)
-
-        local capabilities = require('dan.lib.lsp').get_default_capabilities()
+require('dan.lib.mason').ensure_installed(
+    { 'golangci-lint-langserver', 'golangci-lint', 'gopls', 'delve', 'gofumpt', 'goimports' },
+    function()
         local on_attach = require('dan.lib.lsp').on_attach
+        local capabilities = require('dan.lib.lsp').get_default_capabilities()
 
-        require('go').setup {
-            lsp_cfg = {
-                capabilities = capabilities,
+        ---@class ServerSetup
+        ---@field server_name string
+        ---@field opts table
+
+        ---@type ServerSetup[]
+        local setups = {
+            {
+                server_name = 'gopls',
+                opts = {
+                    on_attach = on_attach,
+                    capabilities = capabilities,
+                    settings = {
+                        gopls = {
+                            gofumpt = true,
+                            hints = {
+                                assignVariableTypes = true,
+                                compositeLiteralFields = true,
+                                compositeLiteralTypes = true,
+                                constantValues = true,
+                                functionTypeParameters = true,
+                                parameterNames = true,
+                                rangeVariableTypes = true,
+                                ignoredError = true,
+                            },
+                            usePlaceholders = true,
+                            completeUnimported = true,
+                            staticcheck = true,
+                            directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
+                            semanticTokens = true,
+                        },
+                    },
+                },
             },
-            lsp_inlay_hints = {
-                enable = true,
+            {
+                server_name = 'golangci_lint_ls',
+                opts = {
+                    on_attach = on_attach,
+                    capabilities = capabilities,
+                    settings = {
+                        golangci_lint_ls = {
+                            settings = {
+                                golangci_lint = {
+                                    --Use Defaults
+                                },
+                            },
+                        },
+                    },
+                },
             },
-            lsp_on_attach = on_attach,
-            luasnip = true,
-            dap_debug = false,
         }
+
+        -- Conform settings for Go formatting
+        require('conform').formatters_by_ft = vim.tbl_extend('force', require('conform').formatters_by_ft, {
+            go = { 'goimports', 'gofmt' },
+            gomod = { 'gofmt' },
+        })
+
+        -- Setup LSP servers
+        for _, server_configuration in ipairs(setups) do
+            require('dan.lib.lsp').setup_lsp_server(server_configuration.server_name, server_configuration.opts)
+        end
 
         require('dap').adapters.delve = {
             type = 'server',
@@ -153,7 +182,5 @@ local M = {
                 processId = require('dap.utils').pick_process,
             },
         }
-    end,
-}
-
-return M
+    end
+)
