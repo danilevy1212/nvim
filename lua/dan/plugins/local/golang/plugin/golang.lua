@@ -1,5 +1,5 @@
 require('dan.lib.mason').ensure_installed(
-    { 'golangci-lint-langserver', 'golangci-lint', 'gopls', 'delve', 'gofumpt', 'goimports' },
+    { 'golangci-lint-langserver', 'golangci-lint', 'gopls', 'delve', 'gofumpt', 'goimports', 'staticcheck' },
     function()
         local on_attach = require('dan.lib.lsp').on_attach
         local capabilities = require('dan.lib.lsp').get_default_capabilities()
