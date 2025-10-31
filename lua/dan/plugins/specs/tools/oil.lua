@@ -12,7 +12,7 @@ local M = {
         vim.g.loaded_netrwFileHandlers = 1
         if vim.fn.argc() == 1 then
             local argv = tostring(vim.fn.argv(0))
-            local stat = vim.loop.fs_stat(argv)
+            local stat = vim.uv.fs_stat(argv)
 
             local remote_dir_args = vim.startswith(argv, 'ssh')
                 or vim.startswith(argv, 'sftp')

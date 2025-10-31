@@ -2,6 +2,9 @@
 local M = {
     'NickvanDyke/opencode.nvim',
     dependencies = { 'folke/snacks.nvim' },
+    cond = function()
+        return not require('dan.lib.os').is_workstation()
+    end,
     init = function()
         require('which-key').add {
             { '<leader>oc', desc = 'Opencode' },
@@ -11,7 +14,7 @@ local M = {
         ---@type opencode.Opts
         local opts = {
             permissions = {
-                enabled = false
+                enabled = false,
             },
             ---@type snacks.terminal.Opts
             terminal = {
