@@ -34,8 +34,6 @@ local M = {
                 'builtin',
                 -- Nixos related tasks
                 'dan.nixos',
-                -- Work related tasks
-                'dan.work',
                 -- Homelab maintanence
                 'dan.homelab',
             },
