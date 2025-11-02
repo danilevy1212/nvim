@@ -1,3 +1,5 @@
+--- @module 'opencode'
+
 require('opencode.cli.server').get_port(function(ok, port)
     if not ok then
         vim.notify('Could not establish connection to opencode', vim.log.levels.WARN, {

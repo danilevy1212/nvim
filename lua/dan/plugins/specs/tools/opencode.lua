@@ -1,3 +1,6 @@
+--- @module 'opencode'
+--- @module 'snacks'
+
 --- @type LazyPluginSpec
 local M = {
     'NickvanDyke/opencode.nvim',
@@ -16,24 +19,21 @@ local M = {
             permissions = {
                 enabled = false,
             },
-            ---@type snacks.terminal.Opts
-            terminal = {
-                win = {
-                    enter = true,
+            provider = {
+                enabled = 'snacks',
+                snacks = {
+                    start = function(self)
+                        for _, buf_n in ipairs(vim.api.nvim_list_bufs()) do
+                            if vim.bo[buf_n].filetype == 'opencode_terminal' then
+                                return
+                            end
+                        end
+
+                        pcall(require('snacks.terminal').open(self.cmd, self))
+                    end,
                 },
             },
             auto_reload = true,
-            auto_fallback_to_embedded = true,
-            on_opencode_not_found = function()
-                --- NOTE  Do not run opencode again if there is already a terminal running with it
-                for _, buf_n in ipairs(vim.api.nvim_list_bufs()) do
-                    if vim.bo[buf_n].filetype == 'opencode_terminal' then
-                        return
-                    end
-                end
-
-                pcall(require('opencode.terminal').open)
-            end,
             prompts = {
                 ['commit_message'] = {
                     prompt = [[Analyze the staged (cached) changes and create an appropriate commit message. Follow this process:
