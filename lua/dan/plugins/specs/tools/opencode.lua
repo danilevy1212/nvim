@@ -21,17 +21,7 @@ local M = {
             },
             provider = {
                 enabled = 'snacks',
-                snacks = {
-                    start = function(self)
-                        for _, buf_n in ipairs(vim.api.nvim_list_bufs()) do
-                            if vim.bo[buf_n].filetype == 'opencode_terminal' then
-                                return
-                            end
-                        end
-
-                        pcall(require('snacks.terminal').open(self.cmd, self))
-                    end,
-                },
+                snacks = {},
             },
             auto_reload = true,
             prompts = {

@@ -2,7 +2,14 @@
 
 ---@type LazyPluginSpec
 local M = {
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope.nvim',
+    },
     'DrKJeff16/project.nvim',
+    cmd = {
+        'ProjectTelescope'
+    },
     event = 'DirChangedPre',
     keys = {
         {
@@ -20,10 +27,6 @@ local M = {
             silent_chdir = true,
             -- Change directory for tab only
             scope_chdir = 'tab',
-            -- Only use patterns to detect projects
-            detection_methods = { 'pattern' },
-            -- Use the version control system and other custom patterns for detection
-            patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn', '.project' },
             -- Show hidden files
             show_hidden = false,
             -- Auto detection is pretty busted, use manual adding
