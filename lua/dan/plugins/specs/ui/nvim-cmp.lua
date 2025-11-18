@@ -44,7 +44,7 @@ local M = {
             --- relaxes the original enabled conditions to prevent frustration.
             ---@see https://github.com/hrsh7th/nvim-cmp/issues/1692#issuecomment-1757918598l
             enabled = function()
-                local buffer_is_not_prompt = vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt'
+                local buffer_is_not_prompt = vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt'
                 local macro_is_not_executing = vim.fn.reg_executing() == ''
 
                 return cmp_enabled and buffer_is_not_prompt and macro_is_not_executing
@@ -65,23 +65,6 @@ local M = {
                         cmp.complete {}
                     end
                 end, { 'i', 'c' }),
-                --- If copilot is visible and the user presses <M-l>, then insert the copilot snippet.
-                ['<M-l>'] = cmp.mapping(function(fallback)
-                    local ok, c = pcall(require, 'copilot.suggestion')
-
-                    if not ok then
-                        vim.notify('Copilot is not installed', vim.log.levels.ERROR, {
-                            title = 'Configuration ERROR',
-                        })
-                        fallback()
-                    else
-                        if c.is_visible() then
-                            c.accept()
-                        else
-                            fallback()
-                        end
-                    end
-                end),
                 --- Toggle the documentation window when pressing <C-h>
                 ['<C-h>'] = cmp.mapping(function()
                     if cmp.visible_docs() then
