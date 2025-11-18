@@ -61,26 +61,36 @@ return {
                 lualine_z = {},
             },
             tabline = {
-                --- TODO Check this out https://github.com/nvim-lualine/lualine.nvim#disabling-lualine, maybe I can hide and unhide the `tabline` depending on if there is more than one tab or not
                 lualine_a = {
                     {
+                        --- See `:h lualine-tabs-component-options`
                         'tabs',
                         --- Only render if there is more than one tab
                         ---@return boolean
                         cond = function()
                             return #vim.api.nvim_list_tabpages() > 1
                         end,
-                        --- TODO Render the name of the current project. This can be:
-                        --- Custom tab name
-                        --- Name of the base directory of the project
-                        ---@param _ any
-                        ---@param context { tabnr: number }
+                        --- Show tab_nr + tab_name
+                        mode = 3,
+                        use_mode_colors = true,
+                        ---@param name string
+                        ---@param context any -- see `require('lualine.components.tabs')`
                         ---@return string
-                        -- fmt = function(_, context)
-                        --     local current_project = vim.fn.getcwd(0, context.tabnr)
-                        --     -- print(vim.inspect(context))
-                        --     return vim.fn.fnamemodify(current_project, ':t')
-                        -- end,
+                        fmt = function(name, context)
+                            local tab_cwd = vim.fn.getcwd(-1, context.tabnr)
+                            local folder = vim.fn.fnamemodify(tab_cwd, ':t')
+                            local parent = vim.fn.fnamemodify(tab_cwd, ':h')
+                            local parent_folder = vim.fn.fnamemodify(parent, ':t')
+
+                            -- Return "parent/current" or fallback
+                            if parent_folder ~= '' and parent_folder ~= '.' then
+                                return parent_folder .. '/' .. folder
+                            elseif folder ~= '' then
+                                return folder
+                            else
+                                return name
+                            end
+                        end,
                     },
                 },
             },
