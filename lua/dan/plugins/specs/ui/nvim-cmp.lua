@@ -3,7 +3,6 @@
 --- The types are wrong, properties are optional in reality
 ---@diagnostic disable: missing-fields
 
---- TODO  Replace by blink.cmp https://github.com/Saghen/blink.cmp?tab=readme-ov-file
 --- @type LazyPluginSpec
 local M = {
     'hrsh7th/nvim-cmp',
