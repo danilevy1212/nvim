@@ -120,19 +120,6 @@ autocmd('DiagnosticChanged', {
     end,
 })
 
---- TODO I don't think this should be an autocmd. What do I get from this?
---- Register `.example` files as `sh` filetypes
-autocmd('BufReadPre', {
-    callback = function()
-        vim.filetype.add {
-            pattern = {
-                ['.env.example'] = 'sh',
-            },
-        }
-    end,
-    once = true,
-})
-
 --- Try to read `.nvimrc`, `.nvim.lua` or `.exrc` whenever current working directory changes.
 autocmd({ 'VimEnter', 'DirChanged' }, {
     pattern = 'window',
