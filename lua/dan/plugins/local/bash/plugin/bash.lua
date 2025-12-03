@@ -3,7 +3,16 @@ local BASHDB_DIR = MASON_PKGS_DIR .. 'bash-debug-adapter/extension/bashdb_dir'
 
 require('dan.lib.mason').ensure_installed({
     'bash-debug-adapter',
+    'bash-language-server',
 }, function()
+    local on_attach = require('dan.lib.lsp').on_attach
+    local capabilities = require('dan.lib.lsp').get_default_capabilities()
+
+    require('dan.lib.lsp').setup_lsp_server('bashls', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+
     require('dap').adapters.bashdb = {
         type = 'executable',
         command = MASON_PKGS_DIR .. 'bash-debug-adapter/bash-debug-adapter',
