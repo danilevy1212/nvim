@@ -5,9 +5,6 @@
 local M = {
     'NickvanDyke/opencode.nvim',
     dependencies = { 'folke/snacks.nvim' },
-    cond = function()
-        return not require('dan.lib.os').is_workstation()
-    end,
     init = function()
         require('which-key').add {
             { '<leader>oc', desc = 'Opencode' },
@@ -16,14 +13,17 @@ local M = {
     config = function()
         ---@type opencode.Opts
         local opts = {
-            permissions = {
-                enabled = false,
+            events = {
+                enabled = true,
+                reload = true,
+                permissions = {
+                    enabled = false,
+                },
             },
             provider = {
                 enabled = 'snacks',
                 snacks = {},
             },
-            auto_reload = true,
             prompts = {
                 ['commit_message'] = {
                     prompt = [[Analyze the staged (cached) changes and create an appropriate commit message. Follow this process:
@@ -45,18 +45,14 @@ Use the repository's existing commit message format. Pay attention to:
             },
         }
 
-        --- HACK
-        --- Auto-reload buffers when opencode makes changes
+        --- HACK  Auto-reload buffers when opencode makes changes after asking permission
         vim.api.nvim_create_autocmd('User', {
             group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'OpencodeAutoReload', { clear = true }),
-            pattern = 'OpencodeEvent',
+            pattern = 'OpencodeEvent:permission.replied',
             callback = function(args)
-                local event = args.data.event
-                if event.type == 'permission.replied' and require('opencode.config').opts.auto_reload then
-                    vim.schedule(function()
-                        vim.cmd 'checktime'
-                    end)
-                end
+                vim.schedule(function()
+                    vim.cmd 'checktime'
+                end)
             end,
             desc = 'Reload buffers edited by `opencode`',
         })
@@ -99,6 +95,7 @@ Use the repository's existing commit message format. Pay attention to:
             desc = 'Select prompt',
             mode = { 'n', 'v' },
         },
+        -- FIXME  These two don't work... I suspect the command names are different now OR my opencode version doesn't have them yet
         {
             '<leader>ocn',
             function()
