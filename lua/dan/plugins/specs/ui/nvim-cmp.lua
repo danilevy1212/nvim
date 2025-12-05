@@ -65,6 +65,25 @@ local M = {
                         cmp.complete {}
                     end
                 end, { 'i', 'c' }),
+                --- If copilot is visible and the user presses <M-l>, then insert the copilot snippet.
+                ['<M-l>'] = cmp.mapping(function(fallback)
+                    local ok, c = pcall(require, 'copilot.suggestion')
+
+                    if not ok then
+                        vim.notify('Copilot is not installed', vim.log.levels.ERROR, {
+
+                            title = 'Configuration ERROR',
+                        })
+
+                        fallback()
+                    else
+                        if c.is_visible() then
+                            c.accept()
+                        else
+                            fallback()
+                        end
+                    end
+                end),
                 --- Toggle the documentation window when pressing <C-h>
                 ['<C-h>'] = cmp.mapping(function()
                     if cmp.visible_docs() then
