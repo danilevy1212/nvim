@@ -4,6 +4,7 @@
 local COPILOT = {
     'zbirenbaum/copilot.lua',
     event = 'InsertEnter',
+    cmd = { 'Copilot' },
     config = function()
         local function get_node_command()
             if require('dan.lib.os').is_nixos() then
