@@ -71,7 +71,6 @@ local M = {
 
                     if not ok then
                         vim.notify('Copilot is not installed', vim.log.levels.ERROR, {
-
                             title = 'Configuration ERROR',
                         })
 
