@@ -1,10 +1,11 @@
+---@diagnostic disable: undefined-global
 --- @module 'opencode'
 --- @module 'snacks'
 
 --- @type LazyPluginSpec
 local M = {
     'NickvanDyke/opencode.nvim',
-    dependencies = { 'folke/snacks.nvim' },
+    dependencies = { 'folke/snacks.nvim', opts = { terminal = {} } },
     init = function()
         require('which-key').add {
             { '<leader>oc', desc = 'Opencode' },
@@ -24,32 +25,12 @@ local M = {
                 enabled = 'snacks',
                 snacks = {},
             },
-            prompts = {
-                ['commit_message'] = {
-                    prompt = [[Analyze the staged (cached) changes and create an appropriate commit message. Follow this process:
-
-1. First, examine the staged changes using `git diff --staged` to understand what will be committed
-2. Review recent commit history to understand the repository's commit message style and scoping conventions
-3. Analyze the nature of the staged changes (new feature, bug fix, refactor, docs, etc.)
-4. Draft a commit message that follows the established patterns
-
-After writing the commit message, automatically execute the commit using the message you created.
-
-Use the repository's existing commit message format. Pay attention to:
-- Scoping (if used in this repo)
-- Line length limits
-- Multi-line format when appropriate
-- Conventional commit patterns (if used)]],
-                    submit = true,
-                },
-            },
         }
 
-        --- HACK  Auto-reload buffers when opencode makes changes after asking permission
         vim.api.nvim_create_autocmd('User', {
             group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'OpencodeAutoReload', { clear = true }),
             pattern = 'OpencodeEvent:permission.replied',
-            callback = function(args)
+            callback = function(_)
                 vim.schedule(function()
                     vim.cmd 'checktime'
                 end)
@@ -68,11 +49,31 @@ Use the repository's existing commit message format. Pay attention to:
             desc = 'Toggle embedded opencode',
         },
         {
+            '<leader>ocA',
+            function()
+                require('opencode').ask('@this', {
+                    clear = true,
+                    submit = true,
+                })
+            end,
+            desc = 'Ask opencode in buffer',
+            mode = 'n',
+        },
+        {
+            '<leader>ocA',
+            function()
+                require('opencode').ask('@this', {
+                    clear = true,
+                    submit = true,
+                })
+            end,
+            desc = 'Ask opencode about selection in buffer',
+            mode = 'v',
+        },
+        {
             '<leader>oca',
             function()
-                require('opencode').prompt('@this', {
-                    append = true,
-                })
+                require('opencode').prompt('@this', {})
             end,
             desc = 'Ask opencode',
             mode = 'n',
@@ -80,9 +81,7 @@ Use the repository's existing commit message format. Pay attention to:
         {
             '<leader>oca',
             function()
-                require('opencode').prompt('@this', {
-                    append = true,
-                })
+                require('opencode').prompt('@this', {})
             end,
             desc = 'Ask opencode about selection',
             mode = 'v',
@@ -95,20 +94,42 @@ Use the repository's existing commit message format. Pay attention to:
             desc = 'Select prompt',
             mode = { 'n', 'v' },
         },
-        -- FIXME  These two don't work... I suspect the command names are different now OR my opencode version doesn't have them yet
         {
             '<leader>ocn',
             function()
-                require('opencode').command 'session_new'
+                require('opencode').command 'session.new'
             end,
             desc = 'New session',
         },
         {
             '<leader>ocy',
             function()
-                require('opencode').command 'messages_copy'
+                require('opencode').command 'messages.copy'
             end,
             desc = 'Copy last message',
+        },
+        {
+            '<leader>ocI',
+            function()
+                vim.schedule(function()
+                    local opencode = require 'opencode'
+                    opencode.command 'session.interrupt'
+                    -- Second interrupt required to actually stop
+                    vim.schedule(function()
+                        opencode.command 'session.interrupt'
+                    end)
+                end)
+            end,
+            desc = 'Interrupt the session',
+        },
+        {
+            '<leader>ocS',
+            function()
+                vim.schedule(function()
+                    require('opencode').select_session()
+                end)
+            end,
+            desc = 'Select a session',
         },
     },
 }
