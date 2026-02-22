@@ -7,17 +7,10 @@ local M = {
     dependencies = {
         {
             'folke/lazydev.nvim',
-            dependencies = {
-                { 'Bilal2453/luvit-meta' },
-            },
             opts = {
                 library = {
                     'lazy.nvim',
-                    { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-                },
-                integrations = {
-                    lspconfig = true,
-                    cmp = true,
+                    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
                 },
             },
         },
