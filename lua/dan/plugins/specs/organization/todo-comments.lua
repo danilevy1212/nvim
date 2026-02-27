@@ -26,7 +26,7 @@ local M = {
     end,
     config = function()
         require('todo-comments').setup {
-            highlight = { pattern = [[.*<(KEYWORDS)\s*:?]] },
+            highlight = { pattern = [[.*<(KEYWORDS)\s*:?\s]] },
             search = { pattern = [[\b(KEYWORDS):?\b]] },
         }
     end,
