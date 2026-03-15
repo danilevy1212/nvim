@@ -17,13 +17,12 @@ local M = {
             events = {
                 enabled = true,
                 reload = true,
+                -- NOTE  Gotta press those keybinds super quick, but it does work.
+                -- See https://github.com/nickjvandyke/opencode.nvim/issues/205
                 permissions = {
-                    enabled = false,
+                    enabled = true,
+                    idle_delay_ms = 200,
                 },
-            },
-            provider = {
-                enabled = 'snacks',
-                snacks = {},
             },
         }
 
