@@ -20,7 +20,7 @@ local M = {
                 -- NOTE  Gotta press those keybinds super quick, but it does work.
                 -- See https://github.com/nickjvandyke/opencode.nvim/issues/205
                 permissions = {
-                    enabled = true,
+                    enabled = false,
                     idle_delay_ms = 200,
                 },
             },
