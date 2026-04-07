@@ -3,6 +3,7 @@
 ---@type LazyPluginSpec
 local COPILOT = {
     'zbirenbaum/copilot.lua',
+    enabled = false,
     event = 'InsertEnter',
     cmd = { 'Copilot' },
     config = function()
