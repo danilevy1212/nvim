@@ -75,10 +75,13 @@ require('dan.lib.mason').ensure_installed(
             },
         }
 
-        require('dap').adapters.delve_remote = {
-            type = 'server',
-            port = 40000,
-        }
+        require('dap').adapters.delve_remote = function(callback, config)
+            callback({
+                type = 'server',
+                host = config.host or 'localhost',
+                port = config.port or 40000,
+            })
+        end
 
         -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
         require('dap').configurations.go = {
@@ -173,6 +176,28 @@ require('dan.lib.mason').ensure_installed(
                 type = 'delve_remote',
                 request = 'attach',
                 mode = 'remote',
+                host = function()
+                    return coroutine.create(function(dap_run_co)
+                        vim.ui.input({ prompt = 'Host: ', default = 'localhost' }, function(h)
+                            if not h or h == '' then
+                                coroutine.resume(dap_run_co, 'localhost')
+                            else
+                                coroutine.resume(dap_run_co, h)
+                            end
+                        end)
+                    end)
+                end,
+                port = function()
+                    return coroutine.create(function(dap_run_co)
+                        vim.ui.input({ prompt = 'Port: ', default = '40000' }, function(p)
+                            if not p or p == '' then
+                                coroutine.resume(dap_run_co, 40000)
+                            else
+                                coroutine.resume(dap_run_co, tonumber(p))
+                            end
+                        end)
+                    end)
+                end,
             },
             {
                 type = 'delve',
