@@ -15,6 +15,19 @@ require('dan.lib.mason').ensure_installed(
                 opts = {
                     on_attach = on_attach,
                     capabilities = capabilities,
+                    handlers = {
+                        -- Promote staticcheck warnings to errors
+                        ['textDocument/publishDiagnostics'] = function(err, result, ctx)
+                            if result and result.diagnostics then
+                                for _, diag in ipairs(result.diagnostics) do
+                                    if diag.source and type(diag.source) == 'string' and diag.source:match '^%u+%d' then
+                                        diag.severity = vim.lsp.protocol.DiagnosticSeverity.Error
+                                    end
+                                end
+                            end
+                            vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
+                        end,
+                    },
                     settings = {
                         gopls = {
                             gofumpt = true,
@@ -76,11 +89,11 @@ require('dan.lib.mason').ensure_installed(
         }
 
         require('dap').adapters.delve_remote = function(callback, config)
-            callback({
+            callback {
                 type = 'server',
                 host = config.host or 'localhost',
                 port = config.port or 40000,
-            })
+            }
         end
 
         -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
