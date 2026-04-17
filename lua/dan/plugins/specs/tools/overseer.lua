@@ -3,29 +3,22 @@
 ---@type LazyPluginSpec
 local M = {
     'stevearc/overseer.nvim',
-    version = '1.6.x',
+    version = '2.x.x',
     init = function()
         require('which-key').add {
             { '<Leader>oo', group = 'Overseer' },
             { '<Leader>oot', '<cmd>OverseerToggle<CR>', desc = 'Overseer Toggle', mode = 'n' },
             { '<Leader>oor', '<cmd>OverseerRun<CR>', desc = 'Overseer Run', mode = 'n' },
-            { '<Leader>ooc', '<cmd>OverseerRunCmd<CR>', desc = 'Overseer Run a command', mode = 'n' },
+            { '<Leader>ooc', '<cmd>OverseerRunShell<CR>', desc = 'Overseer Run a command', mode = 'n' },
         }
     end,
     cmd = {
         'OverseerOpen',
         'OverseerClose',
         'OverseerToggle',
-        'OverseerSaveBundle',
-        'OverseerLoadBundle',
-        'OverseerDeleteBundle',
-        'OverseerRunCmd',
         'OverseerRun',
-        'OverseerInfo',
-        'OverseerBuild',
-        'OverseerQuickAction',
+        'OverseerShell',
         'OverseerTaskAction',
-        'OverseerClearCache',
     },
     config = function()
         ---@diagnostic disable-next-line: missing-fields
