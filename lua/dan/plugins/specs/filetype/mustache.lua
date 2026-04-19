@@ -4,7 +4,7 @@
 local M = {
     'mustache/vim-mustache-handlebars',
     init = function()
-        local augroup = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'specs:mustache', {})
+        local augroup = vim.api.nvim_create_augroup(require('dan.lib.constants').AUGROUP_PREFIX .. 'specs:mustache', {})
         local autocmd = vim.api.nvim_create_autocmd
         local pattern = { '*.mustache', '*.handlebars', '*.hdbs', '*.hbs', '*.hb', '*.hogan', '*.hulk', '*.hjs' }
 

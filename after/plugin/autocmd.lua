@@ -1,4 +1,4 @@
-local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'misc', {})
+local group = vim.api.nvim_create_augroup(require('dan.lib.constants').AUGROUP_PREFIX .. 'misc', {})
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd('BufReadPost', {

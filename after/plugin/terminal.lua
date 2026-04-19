@@ -1,7 +1,7 @@
 local api = vim.api
 local create_autocmd = api.nvim_create_autocmd
 
-local group = api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'Terminal', {})
+local group = api.nvim_create_augroup(require('dan.lib.constants').AUGROUP_PREFIX .. 'Terminal', {})
 
 --- Remove line number column in terminal buffers
 create_autocmd('TermOpen', {

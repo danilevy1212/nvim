@@ -27,7 +27,7 @@ local M = {
         }
 
         vim.api.nvim_create_autocmd('User', {
-            group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'OpencodeAutoReload', { clear = true }),
+            group = vim.api.nvim_create_augroup(require('dan.lib.constants').AUGROUP_PREFIX .. 'OpencodeAutoReload', { clear = true }),
             pattern = 'OpencodeEvent:permission.replied',
             callback = function(_)
                 vim.schedule(function()

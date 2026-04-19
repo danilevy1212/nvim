@@ -35,7 +35,7 @@ local M = {
         treesitter.install 'all'
 
         -- Start treesitter if there is a parser for it.
-        local group = vim.api.nvim_create_augroup(CONSTANTS.AUGROUP_PREFIX .. 'treesitter', { clear = true })
+        local group = vim.api.nvim_create_augroup(require('dan.lib.constants').AUGROUP_PREFIX .. 'treesitter', { clear = true })
         vim.api.nvim_create_autocmd('FileType', {
             group = group,
             pattern = '*',
