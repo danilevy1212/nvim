@@ -25,8 +25,10 @@ local M = {
         require('overseer').setup {
             templates = {
                 'builtin',
-                -- Nixos related tasks
+                -- NixOS related tasks
                 'dan.nixos',
+                -- MacOS related tasks
+                'dan.macos',
                 -- Homelab maintanence
                 'dan.homelab',
             },

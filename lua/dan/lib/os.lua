@@ -18,10 +18,10 @@ function M.has_exe(cmd)
     return vim.fn.executable(cmd) == 1
 end
 
---- Check if the current machine is the workstation
----@return boolean true if hostname matches "thinkpadP14s", false otherwise
-function M.is_workstation()
-    return vim.uv.os_gethostname() == 'thinkpadP14s'
+--- Check if the current OS is MacOS
+---@return boolean
+function M.is_macos()
+    return vim.uv.os_uname().sysname == "Darwin"
 end
 
 return M
