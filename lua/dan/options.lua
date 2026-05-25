@@ -4,8 +4,8 @@ local g = vim.g
 -- Print the line number in the left fridge
 opt.number = true
 
--- Use relative line numbers
-opt.relativenumber = true
+-- Don't relative line numbers
+opt.relativenumber = false
 
 -- Tabs displays as four spaces
 opt.tabstop = 4

@@ -88,7 +88,7 @@ require('dan.lib.mason').ensure_installed(
             },
         }
 
-        require('dap').adapters.delve_remote = function(callback, config)
+        require('dap').adapters.go = function(callback, config)
             callback {
                 type = 'server',
                 host = config.host or 'localhost',
@@ -186,7 +186,7 @@ require('dan.lib.mason').ensure_installed(
             -- Attach to an already running headless dlv (generic)
             {
                 name = 'Attach to running dlv (host/port prompt)',
-                type = 'delve_remote',
+                type = 'go',
                 request = 'attach',
                 mode = 'remote',
                 host = function()
