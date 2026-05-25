@@ -120,30 +120,6 @@ autocmd('DiagnosticChanged', {
     end,
 })
 
---- Try to read `.nvimrc`, `.nvim.lua` or `.exrc` whenever current working directory changes.
-autocmd({ 'VimEnter', 'DirChanged' }, {
-    pattern = 'window',
-    group = group,
-    callback = function()
-        --- Using the current window current working directory because of `project.nvim` settings.
-        local cwd = vim.fn.getcwd(0)
-
-        --- see `:h exrc`
-        local nvimrc_file_names = {
-            '.nvim.lua',
-            '.nvimrc',
-            '.exrc',
-        }
-
-        for _, file_name in ipairs(nvimrc_file_names) do
-            local full_file_path = cwd .. '/' .. file_name
-            if vim.fn.filereadable(full_file_path) == 1 then
-                require('dan.lib.exrc').load_exrc_file(full_file_path)
-            end
-        end
-    end,
-})
-
 --- Highlight yanked text
 autocmd('TextYankPost', {
     group = group,

@@ -1,6 +1,6 @@
 ---@diagnostic disable: missing-fields
 
----@type overseer.Task
+---@type overseer.TemplateFileDefinition
 local Task = {
     name = 'Update nix-darwin flake',
     builder = function()
@@ -13,9 +13,7 @@ local Task = {
             },
         }
     end,
-    condition = {
-        callback = require('dan.lib.os').is_macos,
-    },
+    hide = not require('dan.lib.os').is_macos,
 }
 
 return Task
