@@ -13,7 +13,7 @@ local Task = {
             },
         }
     end,
-    hide = not require('dan.lib.os').is_macos,
+    hide = not require('dan.lib.os').is_macos(),
 }
 
 return Task
