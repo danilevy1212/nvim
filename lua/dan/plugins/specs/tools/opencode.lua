@@ -27,7 +27,10 @@ local M = {
         }
 
         vim.api.nvim_create_autocmd('User', {
-            group = vim.api.nvim_create_augroup(require('dan.lib.constants').AUGROUP_PREFIX .. 'OpencodeAutoReload', { clear = true }),
+            group = vim.api.nvim_create_augroup(
+                require('dan.lib.constants').AUGROUP_PREFIX .. 'OpencodeAutoReload',
+                { clear = true }
+            ),
             pattern = 'OpencodeEvent:permission.replied',
             callback = function(_)
                 vim.schedule(function()
@@ -41,38 +44,9 @@ local M = {
     end,
     keys = {
         {
-            '<leader>oct',
-            function()
-                require('opencode').toggle()
-            end,
-            desc = 'Toggle embedded opencode',
-        },
-        {
-            '<leader>ocA',
-            function()
-                require('opencode').ask('@this', {
-                    clear = true,
-                    submit = true,
-                })
-            end,
-            desc = 'Ask opencode in buffer',
-            mode = 'n',
-        },
-        {
-            '<leader>ocA',
-            function()
-                require('opencode').ask('@this', {
-                    clear = true,
-                    submit = true,
-                })
-            end,
-            desc = 'Ask opencode about selection in buffer',
-            mode = 'v',
-        },
-        {
             '<leader>oca',
             function()
-                require('opencode').prompt('@this', {})
+                require('opencode').prompt '@this'
             end,
             desc = 'Ask opencode',
             mode = 'n',
@@ -80,7 +54,7 @@ local M = {
         {
             '<leader>oca',
             function()
-                require('opencode').prompt('@this', {})
+                require('opencode').prompt '@this'
             end,
             desc = 'Ask opencode about selection',
             mode = 'v',

@@ -9,7 +9,7 @@ local M = {
             { '<Leader>oo', group = 'Overseer' },
             { '<Leader>oot', '<cmd>OverseerToggle<CR>', desc = 'Overseer Toggle', mode = 'n' },
             { '<Leader>oor', '<cmd>OverseerRun<CR>', desc = 'Overseer Run', mode = 'n' },
-            { '<Leader>ooc', '<cmd>OverseerRunShell<CR>', desc = 'Overseer Run a command', mode = 'n' },
+            { '<Leader>ooc', '<cmd>OverseerShell<CR>', desc = 'Overseer Run a command', mode = 'n' },
         }
     end,
     cmd = {
