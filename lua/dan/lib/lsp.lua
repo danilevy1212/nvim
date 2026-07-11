@@ -69,15 +69,10 @@ end
 ---@param server_name string The name of the LSP server to set up.
 ---@param setup_opts table Configuration options for the LSP server.
 ---@param start boolean? Whether to start the LSP server if it's not already active; defaults to true.
----@param bufnr number? Buffer number to associate with the LSP server; defaults to current buffer.
-function M.setup_lsp_server(server_name, setup_opts, start, bufnr)
-    --- NOTE  Force load lspconfig if we haven't already
+function M.setup_lsp_server(server_name, setup_opts, start)
+    --- Force load lspconfig if we haven't already
     if package.loaded['lspconfig'] == nil then
         require 'lspconfig'
-    end
-
-    if bufnr == nil then
-        bufnr = vim.api.nvim_get_current_buf()
     end
 
     if start == nil then

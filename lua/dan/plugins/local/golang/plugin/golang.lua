@@ -145,17 +145,7 @@ require('dan.lib.mason').ensure_installed(
                         })
                     end)
                 end,
-                args = function()
-                    return coroutine.create(function(dap_run_co)
-                        vim.ui.input({ prompt = 'Args (space-separated, empty for none): ' }, function(a)
-                            if a == '' or not a then
-                                coroutine.resume(dap_run_co, {})
-                            else
-                                coroutine.resume(dap_run_co, vim.split(a, '%s+'))
-                            end
-                        end)
-                    end)
-                end,
+                args = require('dan.lib.dap').get_args_coroutine,
                 env = {
                     -- Prevent FORTIFY_SOURCE errors
                     CGO_CFLAGS = '-O2 -g',
