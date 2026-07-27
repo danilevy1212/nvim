@@ -23,8 +23,34 @@ return {
                 component_separators = { left = '', right = '' },
                 section_separators = { left = '', right = '' },
                 disabled_filetypes = {
-                    statusline = { 'dap-repl', 'dapui_scopes', 'dapui_stacks', 'dapui_watches', 'OverseerList' },
-                    winbar = { 'dap-repl', 'dapui_scopes', 'dapui_stacks', 'dapui_watches', 'OverseerList' },
+                    statusline = {
+                        'dap-repl',
+                        'dapui_scopes',
+                        'dapui_stacks',
+                        'dapui_watches',
+
+                        'AgenticChat',
+                        'AgenticInput',
+                        'AgenticCode',
+                        'AgenticFiles',
+                        'AgenticDiagnostics',
+
+                        'OverseerList',
+                    },
+                    winbar = {
+                        'dap-repl',
+                        'dapui_scopes',
+                        'dapui_stacks',
+                        'dapui_watches',
+
+                        'AgenticChat',
+                        'AgenticInput',
+                        'AgenticCode',
+                        'AgenticFiles',
+                        'AgenticDiagnostics',
+
+                        'OverseerList',
+                    },
                 },
                 ignore_focus = {},
                 always_divide_middle = true,
