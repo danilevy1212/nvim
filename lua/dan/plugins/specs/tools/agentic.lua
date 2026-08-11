@@ -20,6 +20,12 @@ local M = {
             layout = 'inline', -- "split" or "inline"
             center_on_navigate_hunks = true,
         }
+        opts.folding = {
+            tool_calls = {
+                -- Always show tool call results
+                enabled = false
+            },
+        }
         --- Requires an ACP provider CLI on PATH (e.g. `claude-agent-acp`).
         --- This plugin does not install binaries for you.
         require('dan.lib.mason').ensure_installed { 'claude-agent-acp' }
