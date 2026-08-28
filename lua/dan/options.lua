@@ -80,7 +80,10 @@ opt.splitright = true
 opt.inccommand = 'split'
 
 -- Small window before the popup apears
-vim.opt.timeoutlen = 200
+opt.timeoutlen = 200
+
+-- Enable 'exrc'
+opt.exrc = true
 
 -- Set the language to American English
 vim.cmd [[language en_US.UTF-8]]
