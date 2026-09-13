@@ -23,7 +23,7 @@ local M = {
         opts.folding = {
             tool_calls = {
                 -- Always show tool call results
-                enabled = false
+                enabled = false,
             },
         }
         --- Requires an ACP provider CLI on PATH (e.g. `claude-agent-acp`).

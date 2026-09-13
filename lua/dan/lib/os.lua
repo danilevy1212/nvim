@@ -21,7 +21,7 @@ end
 --- Check if the current OS is MacOS
 ---@return boolean
 function M.is_macos()
-    return vim.uv.os_uname().sysname == "Darwin"
+    return vim.uv.os_uname().sysname == 'Darwin'
 end
 
 return M

@@ -3,15 +3,15 @@ local capabilities = require('dan.lib.lsp').get_default_capabilities()
 
 -- Find the wrapped clangd from clang-tools in nix store
 local function find_wrapped_clangd()
-    local handle = io.popen("nix-build --no-out-link '<nixpkgs>' -A clang-tools 2>/dev/null")
+    local handle = io.popen 'nix-build --no-out-link \'<nixpkgs>\' -A clang-tools 2>/dev/null'
     if handle then
-        local result = handle:read("*a")
+        local result = handle:read '*a'
         handle:close()
-        if result and result ~= "" then
-            return result:gsub("%s+", "") .. "/bin/clangd"
+        if result and result ~= '' then
+            return result:gsub('%s+', '') .. '/bin/clangd'
         end
     end
-    return "clangd"  -- fallback to PATH
+    return 'clangd' -- fallback to PATH
 end
 
 -- Setup clangd using wrapped version from clang-tools
@@ -31,7 +31,6 @@ require('dan.lib.lsp').setup_lsp_server('clangd', {
 
 -- Setup DAP for C (only codelldb needs Mason)
 require('dan.lib.mason').ensure_installed({ 'codelldb' }, function()
-
     -- Setup DAP for C
     require('dap').adapters.codelldb = {
         type = 'server',

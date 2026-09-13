@@ -5,7 +5,7 @@
 --- @type LazyPluginSpec
 local M = {
     'NickvanDyke/opencode.nvim',
-    enabled = false;
+    enabled = false,
     dependencies = { 'folke/snacks.nvim', opts = { terminal = {} } },
     init = function()
         require('which-key').add {
