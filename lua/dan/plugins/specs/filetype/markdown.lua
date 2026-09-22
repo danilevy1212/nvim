@@ -3,7 +3,7 @@
 
 ---@type LazyPluginSpec
 local M = {
-    'iamcco/markdown-preview.nvim',
+    'sammaji/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     keys = {
         {
@@ -26,15 +26,23 @@ local M = {
         },
     },
     ft = { 'markdown' },
-    build = function()
-        vim.fn['mkdp#util#install']()
-    end,
     config = function()
-        vim.cmd [[
+        local browser = (function()
+            if require('dan.lib.os').is_macos() then
+                return [[open -a Google\ Chrome -n --args]]
+            else
+                return 'brave'
+            end
+        end)()
+
+        vim.cmd(string.format(
+            [[
 function OpenMarkdownPreview (url)
-  execute "silent ! brave --new-window " . a:url
+  execute 'silent ! %s --new-window ' . a:url
 endfunction
-]]
+]],
+            browser
+        ))
         vim.g.mkdp_browserfunc = 'OpenMarkdownPreview'
     end,
 }
