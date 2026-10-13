@@ -10,11 +10,7 @@ local M = {
         }
     end,
     opts = function(_, opts)
-        if require('dan.lib.os').is_macos() then
-            opts.provider = 'claude-agent-acp'
-        else
-            opts.provider = 'opencode-acp'
-        end
+        opts.provider = 'opencode-acp'
         opts.diff_preview = {
             enabled = true,
             layout = 'inline', -- "split" or "inline"
